@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="de" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Community Map</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { darkMode: 'class' }
+    </script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <!-- icon Sytle refsheet -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <script></script>
+</head>
+<body class="h-screen w-screen flex flex-col bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 overflow-hidden">
+
+    <!-- Navbar -->
+    <nav class="bg-white dark:bg-gray-800 shadow-md p-2 md:p-4 flex justify-between items-center z-30 relative shrink-0 gap-2">
+        
+        <!-- Titel und Logo (Arbeitstitel, ggf. noch geändert) -->
+        <div class="flex items-center gap-2">
+            <img class="logo_corner" src="/static/logo_white.png" alt="">
+            <h1 class="text-lg font-bold sm:hidden">🎵</h1>
+        </div>
+        
+        <!-- Wechsler Karte Liste -->
+        <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <div class="bg-gray-200 dark:bg-gray-700 rounded-full p-1 flex text-xs font-bold shadow-inner">
+                <button onclick="switchView('map')" id="btnMap" class="px-4 py-1.5 rounded-full transition-all duration-200 bg-white dark:bg-gray-600 shadow text-blue-600 dark:text-blue-300">
+                    <i class="fa-solid fa-map mr-1"></i> Karte
+                </button>
+                <button onclick="switchView('list')" id="btnList" class="px-4 py-1.5 rounded-full transition-all duration-200 text-gray-600 dark:text-gray-400 hover:text-gray-900">
+                    <i class="fa-solid fa-list mr-1"></i> Liste
+                </button>
+            </div>
+        </div>
+
+        <!-- suche und filter steuerung-->
+        <div class="flex items-center gap-2">
+            <button onclick="toggleSearch()" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+                <i class="fa-solid fa-search"></i>
+            </button>
+
+            <button onclick="toggleFilters()" id="filterBtn" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 relative transition-opacity disabled:opacity-30 disabled:cursor-not-allowed">
+                <i class="fa-solid fa-sliders"></i>
+                <span id="activeFilterDot" class="hidden absolute top-1 right-1 w-2 h-2">
+                    <img src="/static/loc_pin.png" alt="">
+                </span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- suchleiste-->
+    <div id="searchBar" class="hidden bg-white dark:bg-gray-800 p-2 border-b border-gray-200 dark:border-gray-700 z-20 relative transition-all duration-300">
+        <div class="relative max-w-md mx-auto">
+            <input type="text" id="addrInput" placeholder="Adresse suchen..." class="w-full pl-8 pr-4 py-2 rounded-lg border dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-sm focus:ring-2 focus:ring-blue-500 outline-none dark:text-white">
+            <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
+            <div id="addrResults" class="hidden absolute top-full left-0 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 shadow-lg rounded-b mt-1 z-30 suggestions-list"></div>
+        </div>
+    </div>
+
+    <!-- filterpanel -->
+    <div id="filterPanel" class="hidden bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 z-20 shadow-lg">
+        <div class="p-4 max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+            
+            <!-- nach typ -->
+            <div>
+                <h3 class="font-bold mb-2 text-gray-500 uppercase text-xs">Kategorie</h3>
+                <div class="flex gap-2 flex-wrap">
+                    <button onclick="toggleFilterType('person')" id="filPerson" class="filter-chip px-3 py-1 rounded-full border border-green-500 bg-green-500 text-white text-xs">Person</button>
+                    <button onclick="toggleFilterType('institution')" id="filInst" class="filter-chip px-3 py-1 rounded-full border border-blue-500 bg-blue-500 text-white text-xs">Inst.</button>
+                    <button onclick="toggleFilterType('event')" id="filEvent" class="filter-chip px-3 py-1 rounded-full border border-red-500 bg-red-500 text-white text-xs">Event</button>
+                </div>
+            </div>
+
+            <!-- nach umkreis -->
+            <div>
+                <div class="flex justify-between mb-2">
+                    <h3 class="font-bold text-gray-500 uppercase text-xs">Umkreis (zu mir)</h3>
+                    <span id="radiusVal" class="text-xs font-mono text-blue-500 font-bold">Alle</span>
+                </div>
+                
+                <div class="relative w-full h-6 flex items-center">
+                    <input type="range" id="radiusRange" min="1" max="1201" value="1201" step="5" oninput="updateRadiusLabel()" onchange="applyFilters()">
+                </div>
+                
+                <p class="text-[10px] text-gray-400 mt-1" id="gpsStatus">GPS wird benötigt.</p>
+            </div>
+
+            <!-- nach zeitraum (geht nur für events) -->
+            <div>
+                <h3 class="font-bold mb-2 text-gray-500 uppercase text-xs">Zeitraum (Events)</h3>
+                <div class="flex gap-2 items-center">
+                    <input type="date" id="dateFrom" onchange="applyFilters()" class="w-1/2 p-1 rounded border dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-xs dark:text-white">
+                    <span class="text-gray-400">-</span>
+                    <input type="date" id="dateTo" onchange="applyFilters()" class="w-1/2 p-1 rounded border dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-xs dark:text-white">
+                </div>
+            </div>
+        </div>
+        
+        <div id="sortOptionsPanel" class="hidden p-2 bg-gray-50 dark:bg-gray-900 border-t border-gray-200 dark:border-gray-700 flex justify-center">
+            <label class="text-xs font-bold mr-2 self-center dark:text-gray-300">Sortierung:</label>
+            <select id="sortMode" onchange="renderList()" class="text-xs border border-gray-300 dark:border-gray-600 rounded px-2 py-1 bg-white dark:bg-gray-700 dark:text-white">
+                <option value="group">Nach Gruppe</option>
+                <option value="proximity">Nähe zu mir</option>
+                <option value="date_asc">Datum (Nächste zuerst)</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- platzierungsinfobanner -->
+    <div id="addModeBanner" class="hidden bg-blue-600 text-white p-2 text-center text-sm z-20 shadow-md animate-pulse cursor-pointer" onclick="toggleAddMode()">
+        Klicke auf die Karte zum Platzieren. <span class="underline font-bold ml-2">Abbrechen</span>
+    </div>
+
+    <!-- Main content -->
+    <div class="flex-grow relative w-full h-full overflow-hidden">
+        <div id="mapView" class="w-full h-full absolute top-0 left-0">
+            <div id="map" class="w-full h-full"></div>
+        </div>
+        <div id="listView" class="w-full h-full absolute top-0 left-0 bg-gray-100 dark:bg-gray-900 overflow-y-auto p-4 hidden z-10">
+            <div id="listContainer" class="max-w-4xl mx-auto space-y-6 pb-20"></div>
+        </div>
+        <!-- FAB -->
+        <button id="fabAdd" onclick="toggleAddMode()" 
+            class="absolute bottom-6 right-6 w-14 h-14 bg-blue-600 hover:bg-blue-500 text-white rounded-full shadow-2xl flex items-center justify-center z-40 transition-transform transform hover:scale-110 active:scale-90">
+            <i class="fa-solid fa-plus text-2xl"></i>
+        </button>
+    </div>
+
+    <!-- hinzufügen modal -->
+    <div id="addModal" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex justify-center items-end md:items-center p-0 md:p-4">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-t-2xl md:rounded-lg shadow-xl w-full max-w-lg max-h-[85vh] overflow-y-auto border-t md:border border-gray-200 dark:border-gray-700 animate-slide-up">
+            <div class="flex justify-between items-center mb-4">
+                <h2 class="text-xl font-bold dark:text-white">Neuer Eintrag</h2>
+                <button onclick="closeModal('addModal')" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-times text-xl"></i></button>
+            </div>
+            
+            <form id="pinForm" onsubmit="event.preventDefault(); submitPin();">
+                <input type="hidden" id="lat"><input type="hidden" id="lng">
+
+                <div class="mb-4 bg-gray-50 dark:bg-gray-700 p-2 rounded border dark:border-gray-600 flex items-center gap-2">
+                    <i class="fa-solid fa-location-dot text-blue-500"></i>
+                    <input type="text" id="addressDisplay" required class="w-full bg-transparent text-sm dark:text-white outline-none" readonly placeholder="Adresse wählen...">
+                </div>
+
+                <div class="mb-4">
+                    <label class="text-xs font-bold text-gray-500 uppercase">Kategorie</label>
+                    <div class="flex rounded-md shadow-sm mt-1" role="group">
+                        <!-- klasse nach typ fetstgelet durch js -->
+                        <button type="button" onclick="setFormCat('person')" id="btnCatPerson" class="cat-btn flex-1 px-4 py-2 text-sm font-medium rounded-l-lg border border-gray-200 dark:border-gray-600">Person</button>
+                        <button type="button" onclick="setFormCat('institution')" id="btnCatInst" class="cat-btn flex-1 px-4 py-2 text-sm font-medium border-t border-b border-gray-200 dark:border-gray-600">Inst.</button>
+                        <button type="button" onclick="setFormCat('event')" id="btnCatEvent" class="cat-btn flex-1 px-4 py-2 text-sm font-medium rounded-r-lg border border-gray-200 dark:border-gray-600">Event</button>
+                    </div>
+                    <input type="hidden" id="cat" value="person">
+                </div>
+
+                <div class="mb-4">
+                    <label class="text-xs font-bold text-gray-500 uppercase">Titel</label>
+                    <input type="text" id="title" required class="w-full border dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 dark:text-white mt-1">
+                </div>
+
+                <div id="eventFields" class="hidden bg-red-50 dark:bg-red-900/20 p-3 rounded mb-4 border border-red-100 dark:border-red-900">
+                    <div class="grid grid-cols-2 gap-2 mb-2">
+                        <div><label class="text-xs font-bold dark:text-gray-300">Datum</label><input type="date" id="date" class="w-full border rounded px-2 py-1 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600"></div>
+                        <div><label class="text-xs font-bold dark:text-gray-300">Zeit</label><input type="time" id="time" class="w-full border rounded px-2 py-1 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600"></div>
+                    </div>
+                    <label class="text-xs font-bold dark:text-gray-300">Wiederholung</label>
+                    <select id="regularity" class="w-full border rounded px-2 py-1 mb-2 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600" onchange="checkCustomReg()">
+                        <option value="once">Einmalig</option><option value="weekly">Wöchentlich</option><option value="biweekly">Alle 2 Wochen</option><option value="monthly">Monatlich</option><option value="custom">Andere...</option>
+                    </select>
+                    <input type="text" id="regCustom" placeholder="z.B. Alle 5 Wochen" class="hidden w-full border rounded px-2 py-1 text-sm mt-1 dark:bg-gray-700 dark:text-white">
+                </div>
+
+                <div class="mb-4">
+                    <label class="text-xs font-bold text-gray-500 uppercase">Beschreibung</label>
+                    <textarea id="desc" class="w-full border dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 dark:text-white mt-1" rows="3"></textarea>
+                </div>
+
+                <div class="mb-4">
+                    <label class="text-xs font-bold text-gray-500 uppercase">Interne Email</label>
+                    <input type="email" id="email" required class="w-full border dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 dark:text-white mt-1">
+                </div>
+
+                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 shadow-lg">Eintrag vorschlagen</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- kontakt modal (!!! Mailserver oder direktes Messagingsystem? Dafür müsste ein umfassenderes Accountsystem angelegt werden...) -->
+    <div id="contactModal" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex justify-center items-center p-4">
+        <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl w-full max-w-md border dark:border-gray-700">
+            <h3 class="text-xl font-bold mb-2 dark:text-white">Nachricht senden</h3>
+            <input type="hidden" id="contactPinId">
+            <input type="email" id="contactSender" placeholder="Deine E-Mail Adresse" class="w-full border dark:border-gray-600 rounded px-3 py-2 mb-3 bg-white dark:bg-gray-700 dark:text-white">
+            <textarea id="contactMsg" placeholder="Deine Nachricht..." class="w-full border dark:border-gray-600 rounded px-3 py-2 mb-3 bg-white dark:bg-gray-700 dark:text-white" rows="3"></textarea>
+            <div class="flex justify-end gap-2">
+                <button onclick="closeModal('contactModal')" class="bg-gray-200 dark:bg-gray-600 dark:text-white px-4 py-2 rounded">Abbrechen</button>
+                <button onclick="sendContact()" class="bg-blue-600 text-white px-4 py-2 rounded">Senden</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leaflet JS und eigenes Script -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/static/script.js"></script>
+</body>
+</html>

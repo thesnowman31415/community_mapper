@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="de" class="dark">
+    <style>
+        .überschrift {
+            text-align: center;
+            margin-bottom: 20px;
+            margin-top: 30px;
+        }
+
+        .rechts {
+            justify-content: right;
+            margin-bottom: 20px;
+        }
+
+        .logo_corner {
+            height: 100px;
+            width: auto;
+            margin-left: 45%;
+            margin-bottom: -40px;
+        }
+    </style>
+<head>
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>tailwind.config = { darkMode: 'class' }</script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
+    <div class="container mx-auto p-6">
+        <div class="">
+            <img class="logo_corner" src="/static/logo_white.png" alt="">
+            <h2 class="text-3xl font-bold überschrift">Admin Dashboard</h2>
+            <a href="/" class="rechts">Zurück zur App</a>
+        </div>
+        
+        {% if not logged_in %}
+        <div class="max-w-sm mx-auto bg-white dark:bg-gray-800 p-6 rounded shadow-md mt-10 border dark:border-gray-700">
+            <form action="/admin/login" method="POST">
+                <label class="block text-sm font-bold mb-2">Admin Username</label>
+                <input type="text" name="username" class="w-full border dark:border-gray-600 p-2 rounded mb-4 bg-gray-50 dark:bg-gray-700 dark:text-white">
+                <label class="block text-sm font-bold mb-2">Passwort</label>
+                <input type="password" name="password" class="w-full border dark:border-gray-600 p-2 rounded mb-6 bg-gray-50 dark:bg-gray-700 dark:text-white">
+                <button class="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700">Login</button>
+            </form>
+        </div>
+        {% else %}
+        
+        <!-- ausstehende pins -->
+        <div class="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden mb-10 border dark:border-gray-700">
+            <div class="bg-blue-500 px-4 py-2 text-white font-bold flex justify-between">
+                <span>⏳ Ausstehende Vorschläge</span>
+                <span class="bg-white text-yellow-600 px-2 rounded text-sm">{{ pending|length }}</span>
+            </div>
+            <table class="min-w-full leading-normal">
+                <thead>
+                    <tr class="bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-left text-xs uppercase font-semibold">
+                        <th class="px-5 py-3">Titel</th>
+                        <th class="px-5 py-3">Kat</th>
+                        <th class="px-5 py-3">Adresse</th>
+                        <th class="px-5 py-3">Aktion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in pending %}
+                    <tr class="border-b border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700">
+                        <td class="px-5 py-3 text-sm font-bold">{{ p.title }}</td>
+                        <td class="px-5 py-3 text-sm"><span class="bg-gray-200 dark:bg-gray-600 px-2 py-1 rounded-full text-xs">{{ p.category }}</span></td>
+                        <td class="px-5 py-3 text-xs">{{ p.address }}</td>
+                        <td class="px-5 py-3 text-sm">
+                            <button data-pin='{{ p | tojson }}' onclick="openCheckModal(this)" class="bg-blue-500 text-white px-3 py-1 rounded hover:bg-blue-600 text-xs">Prüfen</button>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="4" class="text-center py-4 text-gray-500">Alles erledigt.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- vorhandene (approved) pins -->
+        <h3 class="text-2xl font-bold mb-4">🗄️ Datenbank (Freigegeben)</h3>
+        
+        {% for category, items in approved | groupby('category') %}
+        <div class="mb-6">
+            <h4 class="text-lg font-bold uppercase tracking-wide text-gray-500 mb-2 border-b border-gray-600">{{ category }}s</h4>
+            <div class="bg-white dark:bg-gray-800 shadow rounded border dark:border-gray-700 overflow-hidden">
+                {% for p in items %}
+                <div class="flex justify-between items-center p-3 border-b dark:border-gray-700 last:border-0 hover:bg-gray-50 dark:hover:bg-gray-700">
+                    <div>
+                        <div class="font-bold">{{ p.title }}</div>
+                        <div class="text-xs text-gray-500">{{ p.address }}</div>
+                        {% if p.category == 'event' %}<div class="text-xs text-red-400">{{ p.date }}</div>{% endif %}
+                    </div>
+                    <div class="flex gap-2">
+                        <button data-pin='{{ p | tojson }}' onclick="openEditModal(this)" class="bg-gray-500 hover:bg-gray-600 text-white px-2 py-1 rounded text-xs">✏️ Edit</button>
+                        <a href="/admin/delete_approved/{{ p.id }}" onclick="return confirm('Wirklich löschen?')" class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-xs">🗑️ Löschen</a>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+
+        {% endif %}
+    </div>
+
+    <!-- prüfmodal -->
+    <div id="checkModal" class="fixed inset-0 bg-black bg-opacity-70 hidden z-50 flex justify-center items-center p-4">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-2xl p-6 border dark:border-gray-700">
+            <h3 id="modalTitle" class="text-xl font-bold mb-2 dark:text-white">Details</h3>
+            <div class="grid grid-cols-2 gap-4 mb-4">
+                <div>
+                    <p class="text-xs text-gray-500 uppercase">Desc</p><p id="modalDesc" class="text-sm bg-gray-100 dark:bg-gray-700 p-2 rounded mb-2"></p>
+                    <p class="text-xs text-gray-500 uppercase">Adresse</p><p id="modalAddr" class="text-sm font-bold mb-2"></p>
+                    <p class="text-xs text-gray-500 uppercase">Email</p><p id="modalEmail" class="text-sm text-blue-500"></p>
+                </div>
+                <div class="h-48 bg-gray-200 rounded relative"><div id="adminMap" class="h-full w-full rounded"></div></div>
+            </div>
+            <div class="flex justify-end gap-3 border-t dark:border-gray-700 pt-4">
+                <button onclick="document.getElementById('checkModal').classList.add('hidden')" class="text-gray-500">Abbrechen</button>
+                <a id="btnReject" href="#" class="bg-red-500 text-white px-4 py-2 rounded">Ablehnen</a>
+                <a id="btnApprove" href="#" class="bg-green-500 text-white px-4 py-2 rounded">Freigeben</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- bearbeiten von approved pins modal -->
+    <div id="editModal" class="fixed inset-0 bg-black bg-opacity-70 hidden z-50 flex justify-center items-center p-4">
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-xl w-full max-w-lg p-6 border dark:border-gray-700">
+            <h3 class="text-xl font-bold mb-4 dark:text-white">Eintrag bearbeiten</h3>
+            <form action="/admin/update" method="POST">
+                <input type="hidden" name="id" id="editId">
+                <div class="mb-2">
+                    <label class="text-xs font-bold">Titel</label>
+                    <input type="text" name="title" id="editTitle" class="w-full border dark:border-gray-600 rounded px-2 py-1 bg-white dark:bg-gray-700 dark:text-white">
+                </div>
+                <div class="mb-2">
+                    <label class="text-xs font-bold">Kategorie</label>
+                    <select name="category" id="editCat" class="w-full border dark:border-gray-600 rounded px-2 py-1 bg-white dark:bg-gray-700 dark:text-white">
+                        <option value="person">Person</option><option value="institution">Institution</option><option value="event">Veranstaltung</option>
+                    </select>
+                </div>
+                <div class="mb-2">
+                    <label class="text-xs font-bold">Adresse</label>
+                    <input type="text" name="address" id="editAddr" class="w-full border dark:border-gray-600 rounded px-2 py-1 bg-white dark:bg-gray-700 dark:text-white">
+                </div>
+                <div class="mb-2">
+                    <label class="text-xs font-bold">Beschreibung</label>
+                    <textarea name="description" id="editDesc" rows="2" class="w-full border dark:border-gray-600 rounded px-2 py-1 bg-white dark:bg-gray-700 dark:text-white"></textarea>
+                </div>
+                <div class="mb-2">
+                    <label class="text-xs font-bold">Email</label>
+                    <input type="text" name="email" id="editEmail" class="w-full border dark:border-gray-600 rounded px-2 py-1 bg-white dark:bg-gray-700 dark:text-white">
+                </div>
+                <!-- optionale felder für events -->
+                <div class="flex gap-2">
+                    <div class="w-1/2"><label class="text-xs font-bold">Datum</label><input type="date" name="date" id="editDate" class="w-full border dark:border-gray-600 rounded px-2 py-1 bg-white dark:bg-gray-700 dark:text-white"></div>
+                    <div class="w-1/2"><label class="text-xs font-bold">Zeit</label><input type="time" name="time" id="editTime" class="w-full border dark:border-gray-600 rounded px-2 py-1 bg-white dark:bg-gray-700 dark:text-white"></div>
+                </div>
+
+                <div class="flex justify-end gap-3 mt-4 border-t dark:border-gray-700 pt-4">
+                    <button type="button" onclick="document.getElementById('editModal').classList.add('hidden')" class="text-gray-500">Abbrechen</button>
+                    <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Speichern</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        let adminMap = null; let adminMarker = null;
+
+        // prüfmodal öffnen und daten füllen
+        function openCheckModal(btn) {
+            const pin = JSON.parse(btn.getAttribute('data-pin'));
+            document.getElementById('modalTitle').innerText = pin.title;
+            document.getElementById('modalDesc').innerText = pin.description;
+            document.getElementById('modalAddr').innerText = pin.address || "Keine Angabe";
+            document.getElementById('modalEmail').innerText = pin.email;
+            document.getElementById('btnApprove').href = "/admin/approve/" + pin.id;
+            document.getElementById('btnReject').href = "/admin/reject/" + pin.id;
+            
+            document.getElementById('checkModal').classList.remove('hidden');
+            
+            if(!adminMap) { adminMap = L.map('adminMap'); L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: 'OSM' }).addTo(adminMap); }
+            setTimeout(() => {
+                adminMap.invalidateSize();
+                adminMap.setView([pin.lat, pin.lng], 15);
+                if(adminMarker) adminMap.removeLayer(adminMarker);
+                adminMarker = L.marker([pin.lat, pin.lng]).addTo(adminMap);
+            }, 200);
+        }
+
+        // edit modal öffnen und daten füllen
+        function openEditModal(btn) {
+            const pin = JSON.parse(btn.getAttribute('data-pin'));
+            document.getElementById('editId').value = pin.id;
+            document.getElementById('editTitle').value = pin.title;
+            document.getElementById('editCat').value = pin.category;
+            document.getElementById('editAddr').value = pin.address || "";
+            document.getElementById('editDesc').value = pin.description;
+            document.getElementById('editEmail').value = pin.email;
+            document.getElementById('editDate').value = pin.date || "";
+            document.getElementById('editTime').value = pin.time || "";
+            
+            document.getElementById('editModal').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
