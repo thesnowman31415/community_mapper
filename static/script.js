@@ -34,7 +34,7 @@
                 applyFilters(); 
             }, (err) => {
                 console.log("Kein GPS");
-                document.getElementById('gpsStatus').innerText = "GPS nicht verfügbar. Umkreis deaktiviert. :()";
+                document.getElementById('gpsStatus').innerText = "GPS nicht verfügbar - Umkreis deaktiviert.";
                 document.getElementById('radiusRange').disabled = true;
             });
         }
