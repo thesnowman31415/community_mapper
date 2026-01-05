@@ -3,4 +3,3 @@ werkzeug
 holidays
 pypdf
 reportlab
-backports.zoneinfo
