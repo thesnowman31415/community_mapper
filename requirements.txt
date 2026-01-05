@@ -2,5 +2,5 @@ Flask==2.2.2
 werkzeug==2.2.2
 holidays==0.12
 pypdf==3.8.0
-reportlab==3.6.4
+reportlab==4.4.7
 zoneinfo==0.2.1
