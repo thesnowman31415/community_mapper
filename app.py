@@ -4,8 +4,9 @@ import os
 import uuid
 from datetime import datetime
 
-app = Flask(__name__)
-app.secret_key = 'pIt%V-@#s9!zX7$L'
+app = Flask(__name__, template_folder='templates', static_folder='static')
+app.config['JSON_AS_ASCII'] = False
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'pIt%V-@#s9!zX7$L')
 
 DATA_DIR = 'data'
 APPROVED_FILE = os.path.join(DATA_DIR, 'approved_pins.json')
