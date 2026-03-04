@@ -1,0 +1,5 @@
+Flask
+werkzeug
+holidays
+pypdf
+reportlab

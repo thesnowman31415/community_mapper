@@ -4,8 +4,9 @@ import os
 import uuid
 from datetime import datetime
 
-app = Flask(__name__)
-app.secret_key = 'pIt%V-@#s9!zX7$L'
+app = Flask(__name__, template_folder='templates', static_folder='static')
+app.config['JSON_AS_ASCII'] = False
+app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'pIt%V-@#s9!zX7$L')
 
 DATA_DIR = 'data'
 APPROVED_FILE = os.path.join(DATA_DIR, 'approved_pins.json')
@@ -178,4 +179,4 @@ def update_pin():
 if __name__ == '__main__':
     # Failsafe, dass Datenordner auch existiert. Ggf. durch Bucket ersetzen, wegen Performance und Persistenz
     os.makedirs(DATA_DIR, exist_ok=True)
-    app.run(debug=True, port=5000)
+    app.run(host='0.0.0.0', port=int(os.getenv("PORT", 5050)), debug=True)
