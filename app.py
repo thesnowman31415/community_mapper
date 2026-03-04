@@ -42,6 +42,14 @@ def clean_expired_events():
 def index():
     return render_template('index.html')
 
+@app.route('/hilfe')
+def hilfe():
+    return render_template('hilfe.html')
+
+@app.route('/datenschutz')
+def datenschutz():
+    return render_template('datenschutz.html')
+
 @app.route('/api/pins')
 def get_pins():
     clean_expired_events()
@@ -75,6 +83,19 @@ def contact_owner():
         print(f"MAIL an {target['email']}: {data.get('message')}")
         return jsonify({"success": True, "message": "Nachricht versendet."})
     return jsonify({"success": False, "message": "Fehler."}), 404
+
+
+
+
+
+@app.route('/api/contact_info/<pin_id>')
+def contact_info(pin_id):
+    pins = load_json(APPROVED_FILE)
+    target = next((p for p in pins if p['id'] == pin_id), None)
+    if target and target.get('email'):
+        return jsonify({"email": target['email']})
+    return jsonify({"error": "Nicht gefunden"}), 404
+
 
 # --- Admin Routen ---
 
@@ -133,16 +154,20 @@ def update_pin():
     data = request.form
     approved = load_json(APPROVED_FILE)
     
+
     for p in approved:
         if p['id'] == data.get('id'):
-            p['title'] = data.get('title')
+            p['title']       = data.get('title')
             p['description'] = data.get('description')
-            p['email'] = data.get('email')
-            p['address'] = data.get('address')
-            p['category'] = data.get('category')
-            # Event Felder nur updaten wenn vorhanden
+            p['email']       = data.get('email')
+            p['address']     = data.get('address')
+            p['category']    = data.get('category')
             if data.get('date'): p['date'] = data.get('date')
             if data.get('time'): p['time'] = data.get('time')
+            # Tags (kommasepariert aus Textfeld im Admin-Formular)
+            tags_raw = data.get('tags', '')
+            if tags_raw is not None:
+                p['tags'] = [t.strip() for t in tags_raw.split(',') if t.strip()]
             break
             
     save_json(APPROVED_FILE, approved)
