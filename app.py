@@ -3,7 +3,7 @@ import json
 import os
 import uuid
 from datetime import datetime
-
+import glob
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config['JSON_AS_ASCII'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'pIt%V-@#s9!zX7$L')
@@ -25,17 +25,72 @@ def save_json(filepath, data):
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=4, ensure_ascii=False)
 
+import re
+def next_occurrence(event_date_str, regularity, event_time_str=None):
+    if not event_date_str or not regularity or regularity == 'once':
+        return event_date_str
+    try:
+        from datetime import date, datetime, timedelta
+        import calendar
+        event_date = date.fromisoformat(event_date_str)
+        now = datetime.now()
+        today = now.date()
+
+        # Wenn das Event heute stattfindet: Uhrzeit prüfen
+        if event_date == today and event_time_str:
+            try:
+                h, mi = map(int, event_time_str.split(':'))
+                if now.hour < h or (now.hour == h and now.minute < mi):
+                    return event_date_str  # noch nicht vorbei
+            except Exception:
+                pass
+
+        if event_date > today:
+            return event_date_str
+
+        n_days, n_months, n_years = None, None, None
+
+        if   regularity == 'daily':    n_days   = 1
+        elif regularity == 'weekly':   n_days   = 7
+        elif regularity == 'biweekly': n_days   = 14
+        elif regularity == 'monthly':  n_months = 1
+        else:
+            match = re.match(r'^(\d+)(days?|weeks?|months?|years?)$', regularity)
+            if not match: return event_date_str
+            num  = int(match.group(1))
+            unit = match.group(2)
+            if   unit.startswith('day'):   n_days   = num
+            elif unit.startswith('week'):  n_days   = num * 7
+            elif unit.startswith('month'): n_months = num
+            elif unit.startswith('year'):  n_years  = num
+
+        def add_interval(d):
+            if n_days:
+                return d + timedelta(days=n_days)
+            elif n_months:
+                month = d.month + n_months
+                year  = d.year + (month - 1) // 12
+                month = ((month - 1) % 12) + 1
+                return date(year, month, min(d.day, calendar.monthrange(year, month)[1]))
+            elif n_years:
+                try:    return date(d.year + n_years, d.month, d.day)
+                except: return date(d.year + n_years, d.month, 28)
+
+        current = event_date
+
+        # Wenn heute und Uhrzeit bereits vorbei: einmal vorwärts erzwingen
+        today_passed = (event_date == today)
+
+        while current < today or today_passed:
+            current = add_interval(current)
+            today_passed = False  # nur einmal erzwingen
+
+        return current.isoformat()
+    except Exception:
+        return event_date_str
+
 def clean_expired_events():
-    pins = load_json(APPROVED_FILE)
-    today = datetime.now().strftime('%Y-%m-%d')
-    valid_pins = []
-    for p in pins:
-        if p.get('category') != 'event': valid_pins.append(p)
-        elif p.get('regularity', 'once') != 'once': valid_pins.append(p)
-        elif p.get('date') and p['date'] >= today: valid_pins.append(p)
-            
-    if len(pins) != len(valid_pins):
-        save_json(APPROVED_FILE, valid_pins)
+    pass
 
 # --- öffentliche Route(n) ---
 
@@ -53,13 +108,20 @@ def datenschutz():
 
 @app.route('/api/pins')
 def get_pins():
-    clean_expired_events()
+    today = datetime.now().strftime('%Y-%m-%d')
     pins = load_json(APPROVED_FILE)
     public_data = []
     for p in pins:
-        if p.get('lat') is None or p.get('lng') is None: continue
-        p_copy = p.copy()
-        if 'email' in p_copy: del p_copy['email'] 
+        if p.get('lat') is None or p.get('lng') is None:
+            continue
+        if p.get('category') == 'event':
+            reg = p.get('regularity', 'once')
+            if reg == 'once' and p.get('date') and p['date'] < today:
+                continue
+            p = p.copy()
+            p['date'] = next_occurrence(p.get('date'), reg, p.get('time'))
+        p_copy = p.copy()      # ← jetzt außerhalb des if-Blocks
+        p_copy.pop('email', None)
         public_data.append(p_copy)
     return jsonify(public_data)
 
@@ -69,6 +131,25 @@ def suggest_pin():
     data['id'] = str(uuid.uuid4())
     data['status'] = 'pending'
     if not data.get('address'): data['address'] = "Keine Adresse angegeben"
+
+    # Verifikation prüfen
+    if data.get('category') == 'person':
+        links = data.get('links', [])
+        is_verified = any(
+            re.match(r'https://forum\.communitymusicnetzwerk\.de/profil/user/', l.get('url', ''))
+            for l in links
+        )
+        if is_verified:
+            data['verified'] = True
+            data['pinIcon'] = 1
+            tags = data.get('tags', [])
+            if 'Verifiziertes Mitglied' not in tags:
+                tags.append('Verifiziertes Mitglied')
+            data['tags'] = tags
+        else:
+            data['verified'] = False
+    else:
+        data['verified'] = False
 
     pending = load_json(PENDING_FILE)
     pending.append(data)
@@ -174,6 +255,19 @@ def update_pin():
     save_json(APPROVED_FILE, approved)
     return redirect('/admin')
 
+## Hilfsroute, um verfügbare Pin-Icons dynamisch zu laden
+
+@app.route('/api/pin_icons/<category>')
+def pin_icons(category):
+    if category not in ('event', 'institution', 'person'):
+        return jsonify([])
+    folder = os.path.join(app.static_folder, 'pins', category)
+    files = sorted(
+        glob.glob(os.path.join(folder, '*.svg')),
+        key=lambda f: int(os.path.splitext(os.path.basename(f))[0])
+    )
+    urls = [f'/static/pins/{category}/{os.path.basename(f)}' for f in files]
+    return jsonify(urls)
 
 
 if __name__ == '__main__':

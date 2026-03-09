@@ -118,6 +118,68 @@ input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: none; b
     white-space: nowrap;
 }
 
+.pin-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+.pin-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 18px rgba(255,255,255,0.08), 0 8px 32px rgba(0,0,0,0.4);
+}
+
+.active-sort {
+    background: #2563eb;
+    color: white;
+}
+
+.view-switcher {
+    position: relative;
+}
+.view-switcher-pill {
+    position: absolute;
+    top: 4px; bottom: 4px;
+    width: 50%;
+    background: white;
+    border-radius: 9999px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+}
+.dark .view-switcher-pill {
+    background: #4b5563;
+}
+.view-switcher button {
+    position: relative;
+    z-index: 1;
+}
+
+/* Sort-Pill */
+.sort-pill-indicator {
+    position: absolute;
+    top: 4px; bottom: 4px;
+    background: white;
+    border-radius: 9999px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 0;
+}
+.dark .sort-pill-indicator {
+    background: #4b5563;
+}
+.sort-btn {
+    position: relative;
+    z-index: 1;
+}
+
+/* Karten-Einblend-Animation */
+@keyframes cardIn {
+    from { opacity: 0; transform: translateY(12px) scale(0.97); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.pin-card {
+    animation: cardIn 0.5s ease both;
+}
+
 
 @media (max-width: 768px) {
     .hidden { display: none !important; }

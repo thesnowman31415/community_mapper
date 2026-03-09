@@ -19,14 +19,59 @@ const CAT_COLOR = {
     event:       '#dc2626'
 };
 const CAT_GRADIENT = {
-    person:      'linear-gradient(180deg, #0a3320 0%, #111827 55%)',
-    institution: 'linear-gradient(180deg, #0c1f4a 0%, #111827 55%)',
-    event:       'linear-gradient(180deg, #3b0a0a 0%, #111827 55%)'
+    person:      'linear-gradient(135deg, #0a3320 0%, #111827 60%)',
+    institution: 'linear-gradient(135deg, #0c1f4a 0%, #111827 60%)',
+    event:       'linear-gradient(135deg, #3b0a0a 0%, #111827 60%)'
 };
 const REG_LABELS = {
-    once: 'Einmalig', weekly: 'Wöchentlich',
-    biweekly: 'Alle 2 Wochen', monthly: 'Monatlich'
+    once:      'Einmalig',
+    daily:     'Täglich',
+    weekly:    'Wöchentlich',
+    biweekly:  'Alle 2 Wochen',
+    monthly:   'Monatlich'
 };
+
+function showToast(msg, success = true) {
+    const t = document.createElement('div');
+    t.className = 'fixed bottom-24 left-1/2 z-[9999] px-5 py-3 rounded-full shadow-xl text-sm font-semibold text-white flex items-center gap-2 transition-all duration-300 opacity-0';
+    t.style.transform = 'translateX(-50%) translateY(10px)';
+    t.style.background = success ? '#16a34a' : '#dc2626';
+    t.innerHTML = `<i class="fa-solid ${success ? 'fa-circle-check' : 'fa-circle-xmark'}"></i> ${msg}`;
+    document.body.appendChild(t);
+    requestAnimationFrame(() => {
+        t.style.opacity = '1';
+        t.style.transform = 'translateX(-50%) translateY(0)';
+    });
+    setTimeout(() => {
+        t.style.opacity = '0';
+        t.style.transform = 'translateX(-50%) translateY(10px)';
+        setTimeout(() => t.remove(), 300);
+    }, 3000);
+}
+
+let currentSortMode = 'proximity';
+
+function setSortMode(mode) {
+    currentSortMode = mode;
+    const pill = document.getElementById('sortPill');
+    const activeBtn = document.getElementById('sortBtn-' + mode);
+
+    document.querySelectorAll('.sort-btn').forEach(b => {
+    b.classList.remove('text-blue-600', 'dark:text-blue-300');
+    b.classList.add('text-gray-500', 'dark:text-gray-400');
+    });
+
+    if (activeBtn && pill) {
+        activeBtn.classList.remove('text-gray-500', 'dark:text-gray-400');
+        activeBtn.classList.add('text-blue-600', 'dark:text-blue-300');
+        // Position relativ zum Container (dem flex-div mit position:relative)
+        pill.style.width = activeBtn.offsetWidth + 'px';
+        pill.style.transform = `translateX(${activeBtn.offsetLeft - 8}px)`;
+        pill.style.width = btnRect.width + 'px';
+        pill.style.transform = `translateX(${btnRect.left - containerRect.left - 8}px)`;
+    }
+    renderList();
+}
 
 // ============================================================
 //  STATE
@@ -67,27 +112,139 @@ function shortenUrl(url) {
     return clean.length > 22 ? clean.substring(0, 22) + '…' : clean;
 }
 
+function formatRegularity(reg) {
+    if (!reg) return '';
+    if (REG_LABELS[reg]) return REG_LABELS[reg];
+    const m = reg.match(/^(\d+)(days?|weeks?|months?|years?)$/);
+    if (m) {
+        const n = m[1];
+        const unitMap = {
+            day: 'Tag', days: 'Tage',
+            week: 'Woche', weeks: 'Wochen',
+            month: 'Monat', months: 'Monate',
+            year: 'Jahr', years: 'Jahre'
+        };
+        return `Alle ${n} ${unitMap[m[2]] || m[2]}`;
+    }
+    return reg;
+}
+
+const WEEKDAYS = ['So', 'Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa'];
+
+function formatDateWithWeekday(dateStr) {
+    if (!dateStr) return '';
+    const [y, m, d] = dateStr.split('-').map(Number);
+    const dt = new Date(y, m - 1, d);
+    const today = new Date(); today.setHours(0,0,0,0);
+    const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+    const pad = n => String(n).padStart(2,'0');
+    const dateFormatted = `${pad(d)}.${pad(m)}.${y}`;
+    if (dt.getTime() === today.getTime())    return `Heute, ${dateFormatted}`;
+    if (dt.getTime() === tomorrow.getTime()) return `Morgen, ${dateFormatted}`;
+    return `${WEEKDAYS[dt.getDay()]}, ${dateFormatted}`;
+}
+
+function nextNOccurrences(dateStr, regularity, n = 5, eventTime = null) {
+    if (!dateStr) return [];
+    const [y, m, d] = dateStr.split('-').map(Number);
+    let current = new Date(y, m - 1, d);
+    const today = new Date(); today.setHours(0,0,0,0);
+    const results = [];
+
+    // Intervall bestimmen
+    let nDays = null, nMonths = null, nYears = null;
+    if      (regularity === 'daily')    nDays   = 1;
+    else if (regularity === 'weekly')   nDays   = 7;
+    else if (regularity === 'biweekly') nDays   = 14;
+    else if (regularity === 'monthly')  nMonths = 1;
+    else if (regularity && regularity !== 'once') {
+        const mt = regularity.match(/^(\d+)(days?|weeks?|months?|years?)$/);
+        if (mt) {
+            const num = parseInt(mt[1]);
+            const unit = mt[2];
+            if      (unit.startsWith('day'))   nDays   = num;
+            else if (unit.startsWith('week'))  nDays   = num * 7;
+            else if (unit.startsWith('month')) nMonths = num;
+            else if (unit.startsWith('year'))  nYears  = num;
+        }
+    }
+
+    if (!nDays && !nMonths && !nYears) return [];  // einmalig → keine Folgedaten
+
+    const advance = (dt) => {
+        if (nDays) {
+            return new Date(dt.getFullYear(), dt.getMonth(), dt.getDate() + nDays);
+        } else if (nMonths) {
+            const nm = dt.getMonth() + nMonths;
+            const ny = dt.getFullYear() + Math.floor(nm / 12);
+            const finalMonth = nm % 12;
+            const maxDay = new Date(ny, finalMonth + 1, 0).getDate();
+            return new Date(ny, finalMonth, Math.min(dt.getDate(), maxDay));
+        } else {
+            try { return new Date(dt.getFullYear() + nYears, dt.getMonth(), dt.getDate()); }
+            catch { return new Date(dt.getFullYear() + nYears, dt.getMonth(), 28); }
+        }
+    };
+
+    // Zum ersten zukünftigen Termin vorspulen
+    const nowTime = new Date();
+        while (current < today || (
+            current.getTime() === today.getTime() &&
+            eventTime && (() => {
+                try {
+                    const [h, m] = eventTime.split(':').map(Number);
+                    return nowTime.getHours() > h || (nowTime.getHours() === h && nowTime.getMinutes() >= m);
+                } catch { return false; }
+            })()
+        )) { current = advance(current); }
+
+    // n Termine sammeln
+    for (let i = 0; i < n; i++) {
+        const ds = `${current.getFullYear()}-${String(current.getMonth()+1).padStart(2,'0')}-${String(current.getDate()).padStart(2,'0')}`;
+        results.push(ds);
+        current = advance(current);
+    }
+    return results;
+}
+
 // Adresse aus Nominatim-Objekt: "Ort, Straße Hausnr[, PLZ]"
 function formatNominatimAddress(data) {
-    const a    = data.address || {};
-    const city = a.city || a.town || a.village || a.municipality || a.county || '';
-    const road = a.road || a.pedestrian || a.path || '';
-    const num  = a.house_number || '';
-    const street = road ? road + (num ? ' ' + num : '') : '';
-    const parts = [city, street].filter(Boolean);
-    if (a.postcode) parts.push(a.postcode);
+    const a = data.address || {};
+    const city     = a.city || a.town || a.village || a.municipality || a.county || '';
+    const road     = a.road || a.pedestrian || a.path || '';
+    const num      = a.house_number || '';
+    const postcode = a.postcode || '';
+    const street   = road ? road + (num ? ' ' + num : '') : '';
+    const cityPart = [postcode, city].filter(Boolean).join(' ');
+    const parts    = [street, cityPart].filter(Boolean);
     return parts.join(', ') || data.display_name || '';
 }
 
-// ============================================================
-//  KARTE INITIALISIEREN
-// ============================================================
+function createPinIcon(category, iconIndex) {
+    const pinUrl = `/static/pins/${category}/pin.png`;
+    const svgUrl = (iconIndex !== null && iconIndex !== undefined && iconIndex !== '')
+        ? `/static/pins/${category}/${iconIndex}.svg`
+        : null;
+    const iconHtml = svgUrl
+        ? `<img src="${svgUrl}" style="position:absolute;width:22px;height:22px;top:7px;left:22%;filter:brightness(0) invert(1);pointer-events:none" onerror="this.src='/static/pins/${category}/0.svg'">`
+        : '';
+    return L.divIcon({
+        html: `<div style="position:relative;width:38px;height:54px">
+                   <img src="${pinUrl}" style="width:38px;height:54px;position:absolute;top:0;left:0">
+                   ${iconHtml}
+               </div>`,
+        className: '',
+        iconSize:    L.point(38, 54),
+        iconAnchor:  L.point(19, 54),
+        popupAnchor: L.point(0, -54)
+    });
+}
 
 const icons = {
-    person:      new L.Icon({ iconUrl: '/static/pins/person.png',      iconSize:[38,54], iconAnchor:[19,48], popupAnchor:[0,-48] }),
-    institution: new L.Icon({ iconUrl: '/static/pins/institution.png', iconSize:[38,54], iconAnchor:[19,48], popupAnchor:[0,-48] }),
-    event:       new L.Icon({ iconUrl: '/static/pins/event.png',       iconSize:[38,54], iconAnchor:[19,48], popupAnchor:[0,-48] }),
-    temp:        new L.Icon({ iconUrl: '/static/pins/person.png',      iconSize:[38,54], iconAnchor:[19,48], popupAnchor:[0,-48] })
+    person:      createPinIcon('person',      null),
+    institution: createPinIcon('institution', null),
+    event:       createPinIcon('event',       null),
+    temp:        createPinIcon('cluster',      null)
 };
 
 const map = L.map('map', { zoomControl: false }).setView([51.1657, 10.4515], 6);
@@ -122,6 +279,10 @@ clusterGroup = L.markerClusterGroup({
     }
 });
 map.addLayer(clusterGroup);
+const mapResizeObserver = new ResizeObserver(() => {
+    if (currentView === 'map') map.invalidateSize({ pan: false });
+});
+mapResizeObserver.observe(document.getElementById('map'));
 
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(pos => {
@@ -179,29 +340,58 @@ function onTagFilterChange() {
 
 function switchView(mode) {
     currentView = mode;
-    document.getElementById('mapView').classList.toggle('hidden', mode !== 'map');
-    document.getElementById('listView').classList.toggle('hidden', mode !== 'list');
-    const on  = 'bg-white dark:bg-gray-600 shadow text-blue-600 dark:text-blue-300';
-    const off = 'text-gray-600 dark:text-gray-400 hover:text-gray-900';
-    const bm  = document.getElementById('btnMap');
-    const bl  = document.getElementById('btnList');
-    const inp = document.getElementById('addrInput');
+    const mapView  = document.getElementById('mapView');
+    const listView = document.getElementById('listView');
+    const sortBar  = document.getElementById('sortBar');
+    const pill     = document.getElementById('viewPill');
+    const btnMap   = document.getElementById('btnMap');
+    const btnList  = document.getElementById('btnList');
 
     if (mode === 'map') {
-        bm.className = 'px-5 py-2 rounded-full transition-all duration-200 ' + on;
-        bl.className = 'px-5 py-2 rounded-full transition-all duration-200 ' + off;
-        document.getElementById('sortOptionsPanel').classList.add('hidden');
-        inp.placeholder = 'Adresse suchen...';
-        inp.value = '';
+        // Erst sichtbar machen, DANN invalidateSize
+        listView.classList.add('hidden');
+        mapView.classList.remove('hidden');
+        sortBar.classList.add('hidden');
+
+        const activeViewBtn = mode === 'map'
+            ? document.getElementById('btnMap')
+            : document.getElementById('btnList');
+        pill.style.width = activeViewBtn.offsetWidth + 'px';
+        pill.style.transform = `translateX(${activeViewBtn.offsetLeft - 4}px)`;
+        btnMap.classList.add('text-blue-600');
+        btnMap.classList.remove('text-gray-500');
+        btnList.classList.add('text-gray-500');
+        btnList.classList.remove('text-blue-600');
+
+        document.getElementById('addrInput').placeholder = 'Adresse suchen...';
+        document.getElementById('addrInput').value = '';
         document.getElementById('addrResults').classList.add('hidden');
+
+        // Mehrfach invalidieren um Resize-Edge-Cases abzufangen
+        setTimeout(() => map.invalidateSize({ pan: false }), 50);
+        setTimeout(() => map.invalidateSize({ pan: false }), 200);
+        setTimeout(() => map.invalidateSize({ pan: false }), 500);
+
     } else {
-        bl.className = 'px-5 py-2 rounded-full transition-all duration-200 ' + on;
-        bm.className = 'px-5 py-2 rounded-full transition-all duration-200 ' + off;
-        document.getElementById('sortOptionsPanel').classList.remove('hidden');
-        inp.placeholder = 'Suchen nach Titel, Beschreibung, Schlagwort…';
-        inp.value = listSearchQuery;
+        mapView.classList.add('hidden');
+        listView.classList.remove('hidden');
+        sortBar.classList.remove('hidden');
+
+        const activeViewBtn = mode === 'map'
+            ? document.getElementById('btnMap')
+            : document.getElementById('btnList');
+        pill.style.width = activeViewBtn.offsetWidth + 'px';
+        pill.style.transform = `translateX(${activeViewBtn.offsetLeft - 4}px)`;
+        btnList.classList.add('text-blue-600');
+        btnList.classList.remove('text-gray-500');
+        btnMap.classList.add('text-gray-500');
+        btnMap.classList.remove('text-blue-600');
+
+        document.getElementById('addrInput').placeholder = 'Suchen nach Titel, Beschreibung, Schlagwort…';
+        document.getElementById('addrInput').value = listSearchQuery;
         document.getElementById('addrResults').classList.add('hidden');
         renderList();
+        setTimeout(() => setSortMode(currentSortMode), 50);
     }
 }
 
@@ -311,7 +501,8 @@ function updateMapMarkers() {
     clusterGroup.clearLayers();
     markers = [];
     filteredPins.forEach(p => {
-        const m     = L.marker([p.lat, p.lng], { icon: icons[p.category] || icons.temp });
+    const markerIcon = createPinIcon(p.category, p.pinIcon ?? null);
+        const m = L.marker([p.lat, p.lng], { icon: markerIcon });
         const color = CAT_COLOR[p.category] || '#6b7280';
         const fa    = CAT_FA[p.category]    || '';
         const short = (p.description || '').length > 90
@@ -326,7 +517,7 @@ function updateMapMarkers() {
         }
 
         const html = `
-<div style="position:relative;width:220px">
+<div style="position:relative;width:200px">
   <div style="display:flex;align-items:flex-start;gap:8px;padding-right:28px;margin-bottom:6px">
     <i class="${fa}" style="color:${color};font-size:15px;margin-top:2px;flex-shrink:0"></i>
     <div style="flex:1;min-width:0">
@@ -336,14 +527,14 @@ function updateMapMarkers() {
   </div>
   ${short ? `<p style="color:#9ca3af;font-size:12px;line-height:1.5;margin:0 0 8px">${short}</p>` : ''}
   <button onclick="openDetails('${p.id}')"
-    style="width:100%;background:${color};color:white;border:none;padding:7px 0;border-radius:6px;font-size:12px;cursor:pointer;font-weight:600">
+    style="width:100%;background:${color};color:white;border:none;padding:7px 0;border-radius:25px;font-size:12px;cursor:pointer;font-weight:600">
     Details
   </button>
   <button onclick="window._cmap.closePopup()"
     style="position:absolute;top:-4px;right:-4px;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.15);border:none;color:rgba(255,255,255,0.8);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1">&times;</button>
 </div>`;
 
-        m.bindPopup(html, { minWidth: 242, maxWidth: 246, closeButton: false, className: `popup-${p.category}` });
+        m.bindPopup(html, { minWidth: 214, maxWidth: 216, closeButton: false, className: `popup-${p.category}` });
         markers.push(m);
         clusterGroup.addLayer(m);
     });
@@ -364,10 +555,22 @@ window.openDetails = function(id) {
     document.getElementById('detailModalInner').style.background = CAT_GRADIENT[pin.category];
 
     const iconEl = document.getElementById('detailCatIcon');
-    iconEl.className      = fa;
-    iconEl.style.color    = color;
-    iconEl.style.fontSize = '22px';
+    iconEl.innerHTML = '';
+    if (pin.pinIcon !== null && pin.pinIcon !== undefined && pin.pinIcon !== '') {
+        const svgUrl = `/static/pins/${pin.category}/${pin.pinIcon}.svg`;
+        iconEl.innerHTML = `<img src="${svgUrl}"
+            style="width:42px;height:42px;object-fit:contain;filter:brightness(0) invert(1)"
+            onerror="this.outerHTML='<i class=\'${fa}\' style=\'color:${color};font-size:22px\'></i>'">`;
+    } else {
+        iconEl.innerHTML = `<i class="${fa}" style="color:${color};font-size:22px"></i>`;
+    }
     document.getElementById('detailTitle').textContent = pin.title;
+    const verifiedBadge = document.getElementById('detailVerifiedBadge');
+        if (pin.verified && pin.category === 'person') {
+            verifiedBadge.classList.remove('hidden');
+        } else {
+            verifiedBadge.classList.add('hidden');
+        }
 
     const tagsEl = document.getElementById('detailTags');
     tagsEl.innerHTML = '';
@@ -382,10 +585,10 @@ window.openDetails = function(id) {
     if (pin.category === 'event') {
         evBlock.classList.remove('hidden');
         document.getElementById('detailDateLine').innerHTML =
-            `<i class="fa-regular fa-calendar" style="margin-right:6px"></i>${formatDate(pin.date) || '–'}`;
+            `<i class="fa-regular fa-calendar" style="margin-right:6px"></i>${formatDateWithWeekday(pin.date) || '–'}`;
         document.getElementById('detailTimeLine').innerHTML = pin.time
             ? `<i class="fa-regular fa-clock" style="margin-right:6px"></i>${pin.time} Uhr` : '';
-        const reg = REG_LABELS[pin.regularity] || pin.regularity || '';
+        const reg = formatRegularity(pin.regularity);
         document.getElementById('detailRegLine').innerHTML = reg
             ? `<i class="fa-solid fa-rotate" style="margin-right:6px"></i>${reg}` : '';
     } else {
@@ -393,6 +596,28 @@ window.openDetails = function(id) {
     }
 
     document.getElementById('detailDesc').textContent = pin.description || '';
+
+    const upcomingEl = document.getElementById('detailUpcoming');
+        if (pin.category === 'event' && pin.regularity && pin.regularity !== 'once') {
+                const dates = nextNOccurrences(pin.date, pin.regularity, 5, pin.time);            if (dates.length) {
+                upcomingEl.classList.remove('hidden');
+                upcomingEl.innerHTML = `
+                    <p class="text-xs font-bold text-gray-400 uppercase mb-2">
+                        <i class="fa-solid fa-calendar-days mr-1"></i>Kommende Termine
+                    </p>
+                    <div class="space-y-1">
+                        ${dates.map((ds, i) => `
+                            <div class="flex items-center gap-2 text-xs ${i === 0 ? 'text-white font-bold' : 'text-gray-400'}">
+                                <i class="fa-solid fa-circle text-[5px] shrink-0 ${i === 0 ? 'text-blue-400' : 'text-gray-600'}"></i>
+                                ${formatDateWithWeekday(ds)}
+                            </div>`).join('')}
+                    </div>`;
+            } else {
+                upcomingEl.classList.add('hidden');
+            }
+        } else {
+            upcomingEl.classList.add('hidden');
+        }
 
     const linksEl = document.getElementById('detailLinks');
     linksEl.innerHTML = '';
@@ -454,7 +679,7 @@ window.openDetails = function(id) {
         detailMap.invalidateSize();
         detailMap.setView([pin.lat, pin.lng], 15);
         if (detailMarker) detailMap.removeLayer(detailMarker);
-        detailMarker = L.marker([pin.lat, pin.lng], { icon: icons[pin.category] || icons.temp }).addTo(detailMap);
+        detailMarker = L.marker([pin.lat, pin.lng], { icon: createPinIcon(pin.category, pin.pinIcon ?? null) }).addTo(detailMap);
     }, 200);
 };
 
@@ -522,7 +747,7 @@ function setFormCat(cat) {
     updateFormFields();
     ['Person', 'Inst', 'Event'].forEach(c => {
         const b = document.getElementById('btnCat' + c);
-        b.className = 'cat-btn flex-1 px-4 py-2 text-sm font-medium border dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-900';
+        b.className = 'cat-btn flex-1 px-2 py-3 md:py-2 text-sm font-medium border dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-900 flex flex-col md:flex-row items-center justify-center gap-1';
         if (c === 'Person') b.classList.add('rounded-l-lg', 'border-r-0');
         if (c === 'Inst')   b.classList.add('border-l-0', 'border-r-0');
         if (c === 'Event')  b.classList.add('rounded-r-lg', 'border-l-0');
@@ -533,29 +758,88 @@ function setFormCat(cat) {
     if (cat === 'person')      ab.classList.add('bg-green-500', 'text-white', 'hover:bg-green-600', 'border-green-600');
     if (cat === 'institution') ab.classList.add('bg-blue-500',  'text-white', 'hover:bg-blue-600',  'border-blue-600');
     if (cat === 'event')       ab.classList.add('bg-red-500',   'text-white', 'hover:bg-red-600',   'border-red-600');
+        // Icon-Picker
+    const pickerBlock = document.getElementById('iconPickerBlock');
+    if (cat === 'event' || cat === 'institution') {
+        pickerBlock.classList.remove('hidden');
+        loadIconPicker(cat);
+    } else {
+        pickerBlock.classList.add('hidden');
+        document.getElementById('pinIcon').value = '';
+    }
+        const titleLabel = document.getElementById('titleLabel');
+    if (cat === 'event' || cat === 'institution') {
+        titleLabel.textContent = 'Titel & Icon';
+    } else {
+        titleLabel.textContent = 'Titel';
+    }
+
+    const placeholders = {
+        person:      'z.B. Maria Mustermann',
+        institution: 'z.B. Musikschule Svensheim',
+        event:       'z.B. Drum Circle im Park'
+    };
+    document.getElementById('title').placeholder = placeholders[cat];
+
+    const descPlaceholders = {
+        person:      'Wer bist du? Womit beschäftigst du dich? Was sind deine Schwerpunkte?',
+        institution: 'Was macht eure Institution? Was hat sie mit Community Music zu tun? Welche Angebote gibt es?',
+        event:       'Wie läuft das Event ab? Was erwartet die Teilnehmenden? Muss man etwas mitbringen? Wer ist die Zielgruppe?'
+    };
+    document.getElementById('desc').placeholder = descPlaceholders[cat];
 }
+
+
 
 function updateFormFields() {
     document.getElementById('eventFields').classList.toggle('hidden', document.getElementById('cat').value !== 'event');
 }
 function checkCustomReg() {
-    document.getElementById('regCustom').classList.toggle('hidden', document.getElementById('regularity').value !== 'custom');
+    const isCustom = document.getElementById('regularity').value === 'custom';
+    document.getElementById('regCustomFields').classList.toggle('hidden', !isCustom);
 }
 function closeModal(id) {
     document.getElementById(id).classList.add('hidden');
-    if (id === 'addModal' && isAddingMode) toggleAddMode();
+    if (id === 'addModal') {
+        // Wiederholung zurücksetzen
+        const reg = document.getElementById('regularity');
+        if (reg) {
+            reg.value = 'once';
+            document.getElementById('regCustomFields').classList.add('hidden');
+        }
+        // Selbstverortung Zähler zurücksetzen
+        const selfDescCount = document.getElementById('selfDescCount');
+        if (selfDescCount) selfDescCount.textContent = '0/150';
+        if (isAddingMode) toggleAddMode();
+    }
 }
 
 function submitPin() {
-    const reg     = document.getElementById('regularity').value;
+    let reg = document.getElementById('regularity').value;
+        if (reg === 'custom') {
+            const n    = parseInt(document.getElementById('regCustomN').value) || 1;
+            const unit = document.getElementById('regCustomUnit').value;
+            reg = `${n}${unit}`;  // z.B. "3months", "4weeks"
+        }
     const tags    = [...document.querySelectorAll('.pin-tag:checked')].map(el => el.value);
     const l1url   = document.getElementById('link1_url').value.trim();
     const l1title = document.getElementById('link1_title').value.trim();
     const l2url   = document.getElementById('link2_url').value.trim();
     const l2title = document.getElementById('link2_title').value.trim();
-    const links   = [];
-    if (l1url) links.push({ title: l1title, url: l1url });
-    if (l2url) links.push({ title: l2title, url: l2url });
+    const normalizeUrl = url => {
+        if (!url) return url;
+        if (/^https?:\/\//i.test(url)) return url;
+        return 'https://' + url;
+    };
+    const links = [];
+    if (l1url) links.push({ title: l1title, url: normalizeUrl(l1url) });
+    if (l2url) links.push({ title: l2title, url: normalizeUrl(l2url) });
+    const cat = document.getElementById('cat').value;
+    const rawIcon = document.getElementById('pinIcon').value;
+    const pinIcon = (cat === 'event' || cat === 'institution')
+        ? (rawIcon !== '' ? rawIcon : '0')
+        : (rawIcon !== '' ? rawIcon : '0');
+
 
     const data = {
         category:    document.getElementById('cat').value,
@@ -572,15 +856,18 @@ function submitPin() {
             ? (reg === 'custom' ? document.getElementById('regCustom').value : reg)
             : null,
         tags,
+        pinIcon,
         links
     };
-    fetch('/api/suggest', {
-        method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
-    }).then(r => r.json()).then(res => {
-        alert(res.message);
-        document.getElementById('addModal').classList.add('hidden');
-        if (isAddingMode) toggleAddMode();
-    });
+        fetch('/api/suggest', {
+            method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(data)
+        })
+        .then(r => r.json())
+        .then(res => {
+            showToast(res.message || 'Eintrag vorgeschlagen!', res.success !== false);
+            document.getElementById('addModal').classList.add('hidden');
+            if (isAddingMode) toggleAddMode();
+        });
 }
 
 // ============================================================
@@ -618,75 +905,149 @@ function renderList() {
     }
 
     // Kein Suchtext: nach Sortmode
-    const mode = document.getElementById('sortMode').value;
+    const mode = currentSortMode;
     if (mode === 'proximity' && userLocation) {
         listData.forEach(p => p.distance = getDistance(userLocation.lat, userLocation.lng, p.lat, p.lng));
         listData.sort((a, b) => a.distance - b.distance);
         renderSimpleGrid(container, listData, true);
     } else if (mode === 'date_asc') {
-        listData.sort((a, b) => (a.date||'9999').localeCompare(b.date||'9999'));
-        renderSimpleGrid(container, listData);
+    const today = new Date(); today.setHours(0,0,0,0);
+    const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+    const in7  = new Date(today); in7.setDate(today.getDate() + 7);
+    const in14 = new Date(today); in14.setDate(today.getDate() + 14);
+
+    const toDate = s => s ? new Date(s.split('-').join('-')) : null;
+
+    const soonToday    = listData.filter(p => { const d = toDate(p.date); return d && d <= tomorrow; });
+    const soon7        = listData.filter(p => { const d = toDate(p.date); return d && d > tomorrow && d <= in7; });
+    const soon14       = listData.filter(p => { const d = toDate(p.date); return d && d > in7 && d <= in14; });
+    const later        = listData.filter(p => { const d = toDate(p.date); return !d || d > in14; });
+
+        renderDateSection(container, 'Heute & Morgen',                  'fa-solid fa-sun',           soonToday, 'today');
+        renderDateSection(container, 'Kommende 7 Tage',                 'fa-solid fa-calendar-week', soon7,     'week');
+        renderDateSection(container, 'Innerhalb der nächsten 2 Wochen', 'fa-solid fa-calendar',      soon14,    'twoweeks');
+        renderDateSection(container, 'Später',                          'fa-solid fa-clock',         later,     'later');
+
     } else {
         const groups = { event:[], person:[], institution:[] };
         listData.forEach(p => { if (groups[p.category]) groups[p.category].push(p); });
-        renderSection(container, 'Veranstaltungen', groups.event,       'border-red-500',   'fa-solid fa-calendar-days', '#f87171');
-        renderSection(container, 'Personen',        groups.person,      'border-green-500', 'fa-solid fa-user',          '#4ade80');
-        renderSection(container, 'Institutionen',   groups.institution, 'border-blue-500',  'fa-solid fa-building',      '#60a5fa');
+        renderSection(container, 'Veranstaltungen', groups.event,       'border-red-500',   'fa-solid fa-calendar-days', '#f87171', 'events');
+        renderSection(container, 'Personen',        groups.person,      'border-green-500', 'fa-solid fa-user',          '#4ade80', 'persons');
+        renderSection(container, 'Institutionen',   groups.institution, 'border-blue-500',  'fa-solid fa-building',      '#60a5fa', 'institutions');
     }
 }
 
 function renderSimpleGrid(container, items, showDist=false) {
     if (!items.length) { container.innerHTML = "<p class='text-center text-gray-500 mt-10'>Keine Einträge gefunden.</p>"; return; }
     const grid = document.createElement('div');
-    grid.className = 'grid grid-cols-1 md:grid-cols-2 gap-4';
-    items.forEach(p => grid.appendChild(createPinCard(p, showDist)));
+    grid.className = 'grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full';
+    items.forEach((p, i) => {
+        const card = createPinCard(p, showDist);
+        card.style.animationDelay = `${i * 40}ms`;
+        grid.appendChild(card);
+    });
     container.appendChild(grid);
 }
-
-function renderSection(container, title, items, colorClass, faClass, iconColor) {
+function renderSection(container, title, items, colorClass, faClass, iconColor, sectionId) {
     if (!items.length) return;
     const sec = document.createElement('div');
-    sec.innerHTML = `<h3 class="font-bold text-gray-500 uppercase text-xs mb-3 pl-2 border-l-4 ${colorClass} flex items-center gap-2">
-        <i class="${faClass}" style="color:${iconColor}"></i> ${title}
-    </h3>`;
-    const grid = document.createElement('div');
-    grid.className = 'grid grid-cols-1 md:grid-cols-2 gap-4 mb-6';
-    items.forEach(p => grid.appendChild(createPinCard(p)));
-    sec.appendChild(grid);
+    sec.className = 'mb-6';
+    const headerId = 'sec-' + sectionId;
+    const gridId   = 'grid-' + sectionId;
+    sec.innerHTML = `
+        <button onclick="toggleSection('${gridId}', '${headerId}')"
+            class="w-full text-left font-bold text-gray-500 uppercase text-xs mb-3 pl-2 border-l-4 ${colorClass} flex items-center gap-2 group">
+            <i class="${faClass}" style="color:${iconColor}"></i>
+            ${title}
+            <span class="ml-auto text-gray-400 text-[10px] font-normal">${items.length} Einträge</span>
+            <i id="${headerId}-arrow" class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-200 mr-1"></i>
+        </button>
+        <div id="${gridId}" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full"></div>`;
+    const grid = sec.querySelector('#' + gridId);
+    items.forEach((p, i) => {
+        const card = createPinCard(p);
+        card.style.animationDelay = `${i * 40}ms`;
+        grid.appendChild(card);
+    });
     container.appendChild(sec);
+}
+
+function renderDateSection(container, title, icon, items, sectionId) {
+    if (!items.length) return;
+    const sec = document.createElement('div');
+    sec.className = 'mb-6';
+    const headerId = 'sec-' + sectionId;
+    const gridId   = 'grid-' + sectionId;
+    sec.innerHTML = `
+        <button onclick="toggleSection('${gridId}', '${headerId}')"
+            class="w-full text-left font-bold text-gray-500 uppercase text-xs mb-3 pl-2 border-l-4 border-blue-500 flex items-center gap-2">
+            <i class="${icon} text-blue-400"></i>
+            ${title}
+            <span class="ml-auto text-gray-400 text-[10px] font-normal">${items.length} Einträge</span>
+            <i id="${headerId}-arrow" class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-200 mr-1"></i>
+        </button>
+        <div id="${gridId}" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full"></div>`;
+    const grid = sec.querySelector('#' + gridId);
+    items.forEach((p, i) => {
+        const card = createPinCard(p);
+        card.style.animationDelay = `${i * 40}ms`;
+        grid.appendChild(card);
+    });
+    container.appendChild(sec);
+}
+
+function toggleSection(gridId, headerId) {
+    const grid  = document.getElementById(gridId);
+    const arrow = document.getElementById(headerId + '-arrow');
+    const isHidden = grid.classList.toggle('hidden');
+    arrow.style.transform = isHidden ? 'rotate(-90deg)' : '';
 }
 
 function createPinCard(p, showDist=false) {
     const div   = document.createElement('div');
     const color = CAT_COLOR[p.category] || '#6b7280';
     const fa    = CAT_FA[p.category]    || '';
-    div.className = 'bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col overflow-hidden';
+    const grad  = CAT_GRADIENT[p.category] || 'linear-gradient(135deg,#1f2937 0%,#111827 100%)';
+    div.className = 'pin-card rounded-xl overflow-hidden flex flex-col border border-white/10 cursor-pointer';
+    div.style.background = grad;
+    div.onclick = (e) => {
+        if (!e.target.closest('button')) openDetails(p.id);
+    };
+
+    // Icon: SVG wenn vorhanden, sonst FA
+    const iconHtml = (p.pinIcon !== null && p.pinIcon !== undefined && p.pinIcon !== '')
+        ? `<img src="/static/pins/${p.category}/${p.pinIcon}.svg"
+               style="width:16px;height:16px;object-fit:contain;filter:brightness(0) invert(1);flex-shrink:0"
+               onerror="this.outerHTML='<i class=\'${fa}\' style=\'color:${color};font-size:13px;flex-shrink:0\'></i>'">`
+        : `<i class="${fa}" style="color:${color};font-size:13px;flex-shrink:0"></i>`;
 
     let meta = '';
-    if (p.category === 'event')
-        meta += `<div class="text-red-500 font-bold text-sm mb-1"><i class="fa-regular fa-calendar mr-1"></i>${formatDate(p.date)||'?'}${p.time?' &middot; '+p.time:''}</div>`;
+    if (p.category === 'event' && p.date)
+        meta += `<div class="text-red-300 text-xs mb-1 font-semibold"><i class="fa-regular fa-calendar mr-1"></i>${formatDate(p.date)}${p.time ? ' · ' + p.time : ''}</div>`;
     if (showDist && p.distance)
-        meta += `<div class="text-xs text-blue-500 mb-1"><i class="fa-solid fa-location-arrow mr-1"></i>${p.distance.toFixed(1)} km</div>`;
+        meta += `<div class="text-xs text-blue-300 mb-1"><i class="fa-solid fa-location-arrow mr-1"></i>${p.distance.toFixed(1)} km</div>`;
 
-    const tagsHtml = (p.tags||[]).slice(0,3).map(t =>
-        `<span style="font-size:10px;padding:2px 8px;border-radius:9999px;background:#374151;color:#d1d5db;border:1px solid #4b5563">${t}</span>`
-    ).join('') + (p.tags&&p.tags.length>3 ? `<span style="font-size:10px;color:#9ca3af;align-self:center">+${p.tags.length-3}</span>` : '');
+    const tagsHtml = (p.tags || []).slice(0, 3).map(t =>
+        `<span style="font-size:10px;padding:2px 8px;border-radius:9999px;background:rgba(255,255,255,0.12);color:rgba(255,255,255,0.75);border:1px solid rgba(255,255,255,0.2)">${t}</span>`
+    ).join('') + (p.tags && p.tags.length > 3
+        ? `<span style="font-size:10px;color:rgba(255,255,255,0.4)">+${p.tags.length - 3}</span>` : '');
 
     div.innerHTML = `
-        <div style="height:3px;background:${color}"></div>
         <div class="p-4 flex flex-col flex-grow">
-            <div class="flex justify-between items-start mb-1 gap-2">
-                <h4 class="font-bold text-base dark:text-white leading-tight flex items-center gap-2">
-                    <i class="${fa}" style="color:${color};font-size:13px;flex-shrink:0"></i>${p.title}
-                </h4>
-                <span class="text-[10px] px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 dark:text-gray-300 uppercase shrink-0">${p.category}</span>
+            <div class="flex items-start gap-2 mb-2">
+                ${iconHtml}
+                <h4 class="font-bold text-sm text-white leading-tight flex-grow">${p.title}</h4>
             </div>
             ${meta}
-            <p class="text-gray-600 dark:text-gray-400 text-sm mt-1 line-clamp-2 flex-grow">${p.description||''}</p>
+            <p class="text-white/60 text-xs mt-1 line-clamp-2 flex-grow leading-relaxed">${p.description || ''}</p>
             ${tagsHtml ? `<div class="flex flex-wrap gap-1 mt-2">${tagsHtml}</div>` : ''}
-            <div class="mt-3 pt-3 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center">
-                <span class="text-xs text-gray-400 truncate max-w-[60%]">${p.address||''}</span>
-                <button onclick="openDetails('${p.id}')" class="text-sm font-bold hover:underline" style="color:${color}">Details</button>
+            <div class="mt-3 pt-3 border-t border-white/10 flex justify-between items-center gap-2">
+                <span class="text-xs text-white/40 truncate">${p.address || ''}</span>
+                <button onclick="openDetails('${p.id}')"
+                    style="background:${color};flex-shrink:0"
+                    class="text-white text-xs font-bold px-3 py-1.5 rounded-full hover:opacity-90 transition-opacity">
+                    Details
+                </button>
             </div>
         </div>`;
     return div;
@@ -741,6 +1102,51 @@ function selectAddress(item) {
         document.getElementById('addModal').classList.remove('hidden');
     }
 }
+
+function loadIconPicker(cat) {
+    const grid    = document.getElementById('iconPickerGrid');
+    const preview = document.getElementById('iconPickerPreview');
+    const tray    = document.getElementById('iconPickerTray');
+
+    grid.innerHTML = '<span class="text-xs text-gray-400">Lädt…</span>';
+    document.getElementById('pinIcon').value = '';
+    preview.src = `/static/pins/${cat}/0.svg`;
+    preview.style.filter = 'brightness(0) invert(1)';
+
+    fetch(`/api/pin_icons/${cat}`)
+    .then(r => r.json())
+    .then(urls => {
+        grid.innerHTML = '';
+        if (!urls.length) {
+            grid.innerHTML = '<span class="text-xs text-gray-400">Keine Icons gefunden.</span>';
+            return;
+        }
+
+        urls.forEach((url) => {
+            // Dateiname ohne Extension = die Zahl
+            const index = url.split('/').pop().replace('.svg', '');
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = `icon-pick-btn w-10 h-10 rounded border-2 ${index === '0' ? '!border-blue-500' : 'border-transparent'} bg-gray-700 flex items-center justify-center hover:border-blue-400 transition-all`;            btn.innerHTML = `<img src="${url}" style="width:24px;height:24px;object-fit:contain;filter:brightness(0) invert(1)">`;
+            btn.onclick = () => {
+                document.querySelectorAll('.icon-pick-btn').forEach(b => b.classList.remove('!border-blue-500'));
+                btn.classList.add('!border-blue-500');
+                document.getElementById('pinIcon').value = index;  // nur die Zahl speichern
+                preview.src = url;
+                preview.style.filter = 'brightness(0) invert(1)';
+                tray.classList.add('hidden');
+            };
+            grid.appendChild(btn);
+        });
+    });
+}
+
+document.getElementById('pinForm').addEventListener('click', function(e) {
+    if (!e.target.closest('#iconPickerBlock')) {
+        const tray = document.getElementById('iconPickerTray');
+        if (tray) tray.classList.add('hidden');
+    }
+});
 
 // ============================================================
 //  INIT

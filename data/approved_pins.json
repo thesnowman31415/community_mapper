@@ -1,2578 +1,2477 @@
 [
     {
-        "id": "a1b2c3d4-0001-0001-0001-000000000001",
-        "status": "approved",
-        "category": "person",
-        "title": "Markus Weller – Rhythmuspädagoge",
-        "description": "Ich biete offene Trommelkreise und rhythmuspädagogische Einzelstunden für alle Altersgruppen an. Mein Fokus liegt auf westafrikanischer Djembe-Tradition und ihrer Anwendung in sozialen und therapeutischen Kontexten.",
-        "selfDesc": "Community Music bedeutet für mich das gemeinsame Erleben von Rhythmus als soziale Sprache.",
-        "email": "markus.weller@example.de",
-        "lat": 52.52,
-        "lng": 13.405,
-        "address": "Berlin, Prenzlauer Berg, 10405",
-        "tags": [
-            "Percussion/Trommeln",
-            "Gesundheit & Wohlbefinden",
-            "Für Erwachsene"
-        ],
-        "links": [
-            {
-                "title": "Homepage",
-                "url": "https://example.de/markusweller"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "a1b2c3d4-0002-0002-0002-000000000002",
-        "status": "approved",
-        "category": "institution",
-        "title": "Klangraum Hamburg e.V.",
-        "description": "Wir sind ein gemeinnütziger Verein, der inklusive Musikprojekte für Menschen aller Hintergründe anbietet. Unsere Räume stehen für Proben, Workshops und Konzerte zur Verfügung.",
-        "selfDesc": "Als Verein verstehen wir uns als offene Plattform für Community Music in der Hansestadt.",
-        "email": "info@klangraum-hamburg.example.de",
-        "lat": 53.5753,
-        "lng": 10.0153,
-        "address": "Hamburg, Schanzenhöhe 12, 20357",
-        "tags": [
-            "Vernetzungstreffen",
-            "Für Kinder",
-            "Für Erwachsene",
-            "Instrumentalmusik"
-        ],
-        "links": [
-            {
-                "title": "Website",
-                "url": "https://example.de/klangraum"
-            },
-            {
-                "title": "Instagram",
-                "url": "https://instagram.example.com/klangraum"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "a1b2c3d4-0003-0003-0003-000000000003",
-        "status": "approved",
-        "category": "event",
-        "title": "Offener Singkreis Münster",
-        "description": "Jeden Mittwochabend kommen wir zusammen, um gemeinsam zu singen – ohne Vorkenntnisse, ohne Leistungsdruck. Volkslieder, Kanons und Weltmusik stehen auf dem Programm.",
-        "selfDesc": "Singen verbindet – dieser Gedanke trägt unser wöchentliches Treffen.",
-        "email": "singkreis.muenster@example.de",
-        "lat": 51.9607,
-        "lng": 7.6261,
-        "address": "Münster, Ludgeristraße 5, 48143",
-        "tags": [
-            "Singen",
-            "Für Erwachsene",
-            "Vernetzungstreffen"
-        ],
-        "links": [],
-        "date": "2026-03-12",
-        "time": "19:00",
-        "regularity": "weekly"
-    },
-    {
-        "id": "a1b2c3d4-0004-0004-0004-000000000004",
-        "status": "approved",
-        "category": "person",
-        "title": "Yuki Tanaka – Improvisationsmusikerin",
-        "description": "Ich leite Improvisationsworkshops für Einsteiger und Fortgeschrittene auf Basis der Prinzipien der Freien Improvisation. Kein Instrument notwendig – Stimme reicht!",
-        "selfDesc": "Improvisation ist für mich die direkteste Form musikalischer Gemeinschaft.",
-        "email": "yuki.tanaka@example.de",
-        "lat": 48.1351,
-        "lng": 11.582,
-        "address": "München, Gärtnerplatz 3, 80469",
-        "tags": [
-            "Improvisation",
-            "Singen",
-            "Für Erwachsene",
-            "Weiterbildung"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "a1b2c3d4-0005-0005-0005-000000000005",
-        "status": "approved",
-        "category": "event",
-        "title": "Kindertrommelkurs Frühjahr",
-        "description": "Ein sechswöchiger Einführungskurs in Djembe und Cajon für Kinder zwischen 6 und 12 Jahren. Spielerisches Erlernen von Rhythmen aus aller Welt.",
-        "selfDesc": "Musik für Kinder zugänglich machen ist unser Herzensanliegen.",
-        "email": "kids@rhythmuswerkstatt.example.de",
-        "lat": 51.0504,
-        "lng": 13.7373,
-        "address": "Dresden, Bürgerstraße 22, 01127",
-        "tags": [
-            "Percussion/Trommeln",
-            "Für Kinder",
-            "Bewegung/Tanz"
-        ],
-        "links": [
-            {
-                "title": "Anmeldung",
-                "url": "https://example.de/kinderkurs"
-            }
-        ],
-        "date": "2026-04-08",
-        "time": "15:00",
-        "regularity": "weekly"
-    },
-    {
-        "id": "a1b2c3d4-0006-0006-0006-000000000006",
-        "status": "approved",
-        "category": "institution",
-        "title": "Musikwerkstatt Freiburg",
-        "description": "Eine offene Werkstatt für gemeinschaftliches Musizieren, Komposition und Klangerforschung. Wir bieten Instrumente zum Ausprobieren und regelmäßige Open Jams.",
-        "selfDesc": "Wir schaffen Räume, in denen Musik als soziale Praxis erlebt werden kann.",
-        "email": "kontakt@musikwerkstatt-fr.example.de",
-        "lat": 47.999,
-        "lng": 7.8421,
-        "address": "Freiburg, Wilhelmstraße 7, 79098",
-        "tags": [
-            "Instrumentalmusik",
-            "Improvisation",
-            "Vernetzungstreffen"
-        ],
-        "links": [
-            {
-                "title": "Programm",
-                "url": "https://example.de/musikwerkstatt-fr"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "a1b2c3d4-0007-0007-0007-000000000007",
-        "status": "approved",
-        "category": "event",
-        "title": "Songwriting-Circle Leipzig",
-        "description": "Monatliches Treffen für Songschreiberinnen und Songwriter aller Levels. Eigene Songs vorstellen, Feedback geben und empfangen, gemeinsam neue Ideen entwickeln.",
-        "selfDesc": "Songwriting ist mein Weg, Gemeinschaft herzustellen.",
-        "email": "songcircle.leipzig@example.de",
-        "lat": 51.3397,
-        "lng": 12.3731,
-        "address": "Leipzig, Karl-Liebknecht-Straße 48, 04275",
-        "tags": [
-            "Songwriting",
-            "Vernetzungstreffen",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": "2026-04-15",
-        "time": "18:30",
-        "regularity": "monthly"
-    },
-    {
-        "id": "a1b2c3d4-0008-0008-0008-000000000008",
-        "status": "approved",
-        "category": "person",
-        "title": "Chidera Okafor – Musiktherapeutin",
-        "description": "Ich arbeite mit Gruppen und Einzelpersonen in präventiven und rehabilitativen Settings. Musik als Werkzeug zur Förderung von Wohlbefinden und sozialer Teilhabe steht im Zentrum meiner Arbeit.",
-        "selfDesc": "Community Music und Musiktherapie ergänzen sich für mich auf natürliche Weise.",
-        "email": "chidera.okafor@example.de",
-        "lat": 50.9333,
-        "lng": 6.95,
-        "address": "Köln, Ehrenstraße 4, 50672",
-        "tags": [
-            "Gesundheit & Wohlbefinden",
-            "Für Erwachsene",
-            "Weiterbildung"
-        ],
-        "links": [
-            {
-                "title": "Praxis",
-                "url": "https://example.de/okafor-therapie"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "a1b2c3d4-0009-0009-0009-000000000009",
-        "status": "approved",
-        "category": "event",
-        "title": "Tanz & Klang – Bewegungsworkshop",
-        "description": "Ein experimenteller Workshop, der Improvisation in Musik und Bewegung verbindet. Keine Vorkenntnisse in Tanz oder Musik notwendig. Offene Atmosphäre für alle Körper.",
-        "selfDesc": "Ich glaube an die Verbindung von Musik und körperlicher Erfahrung.",
-        "email": "tanzklang@example.de",
-        "lat": 53.0793,
-        "lng": 8.8017,
-        "address": "Bremen, Ostertorsteinweg 30, 28203",
-        "tags": [
-            "Bewegung/Tanz",
-            "Improvisation",
-            "Gesundheit & Wohlbefinden"
-        ],
-        "links": [],
-        "date": "2026-03-22",
-        "time": "14:00",
-        "regularity": "once"
-    },
-    {
-        "id": "a1b2c3d4-0010-0010-0010-000000000010",
-        "status": "approved",
-        "category": "institution",
-        "title": "Soziale Musikschule Ruhr",
-        "description": "Wir bieten beitragsfreie Musikstunden für Kinder aus sozial benachteiligten Verhältnissen an. Unser Team aus ehrenamtlichen Musikerinnen und Musikern unterrichtet wöchentlich.",
-        "selfDesc": "Jedes Kind hat ein Recht auf musikalische Bildung.",
-        "email": "info@sms-ruhr.example.de",
-        "lat": 51.4818,
-        "lng": 7.2162,
-        "address": "Bochum, Hattinger Straße 15, 44789",
-        "tags": [
-            "Für Kinder",
-            "Instrumentalmusik",
-            "Weiterbildung"
-        ],
-        "links": [
-            {
-                "title": "Mitmachen",
-                "url": "https://example.de/sms-ruhr"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "a1b2c3d4-0011-0011-0011-000000000011",
-        "status": "approved",
-        "category": "person",
-        "title": "Lena Brandt – Chorleiterin",
-        "description": "Ich leite einen offenen Gospelchor in Stuttgart. Wir proben zweiwöchentlich und freuen uns über Menschen jeder Konfession und Singstimme.",
-        "selfDesc": "Gospelmusik ist für mich eine der lebendigsten Formen von Community Music.",
-        "email": "lena.brandt@example.de",
-        "lat": 48.7758,
-        "lng": 9.1829,
-        "address": "Stuttgart, Marktplatz 1, 70173",
-        "tags": [
-            "Singen",
-            "Für Erwachsene",
-            "Vernetzungstreffen"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "a1b2c3d4-0012-0012-0012-000000000012",
-        "status": "approved",
-        "category": "event",
-        "title": "Weltmusikfestival Heidelberg",
-        "description": "Ein eintägiges offenes Festival mit Workshops, Jam-Sessions und Konzerten rund um Musik aus aller Welt. Eintritt frei, Beiträge willkommen.",
-        "selfDesc": "Weltmusik als Brücke zwischen Kulturen und Menschen.",
-        "email": "festival@heidelberg-klingt.example.de",
-        "lat": 49.4093,
-        "lng": 8.6942,
-        "address": "Heidelberg, Bismarckplatz, 69115",
-        "tags": [
-            "Instrumentalmusik",
-            "Vernetzungstreffen",
-            "Für Erwachsene",
-            "Für Kinder"
-        ],
-        "links": [
-            {
-                "title": "Programm",
-                "url": "https://example.de/heidelberg-festival"
-            }
-        ],
-        "date": "2026-05-03",
-        "time": "11:00",
-        "regularity": "once"
-    },
-    {
-        "id": "a1b2c3d4-0013-0013-0013-000000000013",
-        "status": "approved",
-        "category": "person",
-        "title": "Tobias Kurz – Gitarrist & Kursleiter",
-        "description": "Ich biete Gitarrenkurse für Anfänger und offene Begleitstunden für Singgruppen an. Mein Ansatz ist niedrigschwellig und auf Gemeinschaft ausgerichtet.",
-        "selfDesc": "Die Gitarre ist das sozialste Instrument – man kann damit überall Gemeinschaft schaffen.",
-        "email": "tobias.kurz@example.de",
-        "lat": 49.0069,
-        "lng": 8.4037,
-        "address": "Karlsruhe, Kaiserstraße 92, 76133",
-        "tags": [
-            "Instrumentalmusik",
-            "Weiterbildung",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "a1b2c3d4-0014-0014-0014-000000000014",
-        "status": "approved",
-        "category": "institution",
-        "title": "Haus der Kulturen Nürnberg",
-        "description": "Ein interkultureller Begegnungsort mit musikalischen Angeboten aus verschiedenen Traditionen. Wir veranstalten regelmäßige Konzerte, Kurse und offene Abende.",
-        "selfDesc": "Musik als gemeinsame Sprache in einer vielfältigen Stadt.",
-        "email": "musik@hdk-nuernberg.example.de",
-        "lat": 49.4521,
-        "lng": 11.0767,
-        "address": "Nürnberg, Königstraße 93, 90402",
-        "tags": [
-            "Vernetzungstreffen",
-            "Für Erwachsene",
-            "Instrumentalmusik",
-            "Singen"
-        ],
-        "links": [
-            {
-                "title": "Veranstaltungen",
-                "url": "https://example.de/hdk-nuernberg"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "a1b2c3d4-0015-0015-0015-000000000015",
-        "status": "approved",
-        "category": "event",
-        "title": "Percussions-Jam Hannover",
-        "description": "Offener monatlicher Treffpunkt für alle, die Percussion lieben. Djembe, Congas, Cajon, Rahmentrommeln – alles willkommen. Instrumente können ausgeliehen werden.",
-        "selfDesc": "Rhythmus braucht keine Worte und keine Vorkenntnisse.",
-        "email": "percjam.hannover@example.de",
-        "lat": 52.3759,
-        "lng": 9.732,
-        "address": "Hannover, Lister Meile 27, 30161",
-        "tags": [
-            "Percussion/Trommeln",
-            "Improvisation",
-            "Vernetzungstreffen"
-        ],
-        "links": [],
-        "date": "2026-04-02",
-        "time": "19:30",
-        "regularity": "monthly"
-    },
-    {
-        "id": "a1b2c3d4-0016-0016-0016-000000000016",
-        "status": "approved",
-        "category": "person",
-        "title": "Miriam Seidel – Musikpädagogin",
-        "description": "Ich entwickle musikpädagogische Konzepte für Schulen und Sozialeinrichtungen, die auf aktiver Teilhabe statt Konsum basieren. Fortbildungen für Lehrkräfte auf Anfrage.",
-        "selfDesc": "Musikpädagogik ist für mich immer Community Music.",
-        "email": "miriam.seidel@example.de",
-        "lat": 51.2217,
-        "lng": 6.7762,
-        "address": "Düsseldorf, Immermannstraße 40, 40210",
-        "tags": [
-            "Weiterbildung",
-            "Für Kinder",
-            "Singen"
-        ],
-        "links": [
-            {
-                "title": "Fortbildungen",
-                "url": "https://example.de/seidel-musik"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "a1b2c3d4-0017-0017-0017-000000000017",
-        "status": "approved",
-        "category": "event",
-        "title": "Klangmeditation – Gongs & Klangschalen",
-        "description": "Eine angeleitete Klangreise mit Gongs, Klangschalen und Obertongesang zur Entspannung und inneren Einkehr. Mitbringen: Decke und Kissen.",
-        "selfDesc": "Klang als Heilmittel – das verbindet mich mit Community Music.",
-        "email": "klangmeditation@example.de",
-        "lat": 48.3705,
-        "lng": 10.8978,
-        "address": "Augsburg, Bahnhofstraße 12, 86150",
-        "tags": [
-            "Gesundheit & Wohlbefinden",
-            "Singen",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": "2026-03-29",
-        "time": "18:00",
-        "regularity": "biweekly"
-    },
-    {
-        "id": "a1b2c3d4-0018-0018-0018-000000000018",
-        "status": "approved",
-        "category": "institution",
-        "title": "TonArt Wiesbaden",
-        "description": "Gemeinnützige Initiative zur Förderung von Community Music in Wiesbaden. Wir vernetzen lokale Musikschaffende, organisieren öffentliche Veranstaltungen und betreiben ein offenes Tonstudio.",
-        "selfDesc": "Wir glauben, dass Musik der Gemeinschaft gehört.",
-        "email": "info@tonart-wi.example.de",
-        "lat": 50.082,
-        "lng": 8.2403,
-        "address": "Wiesbaden, Wilhelmstraße 55, 65183",
-        "tags": [
-            "Vernetzungstreffen",
-            "Songwriting",
-            "Instrumentalmusik"
-        ],
-        "links": [
-            {
-                "title": "TonArt",
-                "url": "https://example.de/tonart-wi"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "a1b2c3d4-0019-0019-0019-000000000019",
-        "status": "approved",
-        "category": "event",
-        "title": "Mama-Baby-Musikrunde",
-        "description": "Wöchentliche Musikrunde für Eltern mit Kleinkindern bis 3 Jahre. Reime, Lieder, Klanginstrumente – eine sinnliche Entdeckungsreise für die Kleinsten.",
-        "selfDesc": "Musik von Anfang an – das ist der Kern meiner Arbeit.",
-        "email": "mamababy@klangraum-bonn.example.de",
-        "lat": 50.7374,
-        "lng": 7.0982,
-        "address": "Bonn, Friedrichstraße 16, 53111",
-        "tags": [
-            "Für Kinder",
-            "Singen",
-            "Gesundheit & Wohlbefinden"
-        ],
-        "links": [],
-        "date": "2026-03-11",
-        "time": "10:00",
-        "regularity": "weekly"
-    },
-    {
-        "id": "a1b2c3d4-0020-0020-0020-000000000020",
-        "status": "approved",
-        "category": "person",
-        "title": "Ahmad Karimi – Oud-Spieler & Lehrer",
-        "description": "Ich unterrichte Oud und arabische Musiktheorie und biete interkulturelle Konzertformate an. Gerne auch in Kooperation mit anderen Musikschaffenden.",
-        "selfDesc": "Musik ist die universelle Sprache – die Oud ist mein Beitrag dazu.",
-        "email": "ahmad.karimi@example.de",
-        "lat": 52.4968,
-        "lng": 13.3647,
-        "address": "Berlin, Neuköllner Straße 74, 12053",
-        "tags": [
-            "Instrumentalmusik",
-            "Weiterbildung",
-            "Vernetzungstreffen"
-        ],
-        "links": [
-            {
-                "title": "Konzerte",
-                "url": "https://example.de/karimi-oud"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "a1b2c3d4-0021-0021-0021-000000000021",
-        "status": "approved",
-        "category": "event",
-        "title": "Offene Bühne – Unplugged Erfurt",
-        "description": "Monatlicher Open-Mic-Abend für alle Musikstile. Wer auftreten möchte, trägt sich vor Ort in die Liste ein. Publikum herzlich willkommen!",
-        "selfDesc": "Eine offene Bühne ist demokratischste Form von Community Music.",
-        "email": "openmic.erfurt@example.de",
-        "lat": 50.9848,
-        "lng": 11.0299,
-        "address": "Erfurt, Anger 2, 99084",
-        "tags": [],
-        "links": [],
-        "date": "2026-02-21",
-        "time": "20:00",
-        "regularity": "Immer am 3. Freitag im Monat außer wenn Vollmond ist"
-    },
-    {
-        "id": "a1b2c3d4-0022-0022-0022-000000000022",
-        "status": "approved",
-        "category": "institution",
-        "title": "Junge Töne – Musikprojekt Mannheim",
-        "description": "Projekt zur musikalischen Bildung von Jugendlichen in Mannheim-Neckarstadt. Beatproduktion, Rap, Gesang und Bandarbeit – alles unter einem Dach.",
-        "selfDesc": "Jugendliche durch Musik stärken – das ist unser Antrieb.",
-        "email": "jungetoene@example.de",
-        "lat": 49.4875,
-        "lng": 8.466,
-        "address": "Mannheim, Mittelstraße 49, 68169",
-        "tags": [
-            "Für Kinder",
-            "Songwriting",
-            "Weiterbildung"
-        ],
-        "links": [
-            {
-                "title": "Projekt",
-                "url": "https://example.de/junge-toene"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "a1b2c3d4-0023-0023-0023-000000000023",
-        "status": "approved",
-        "category": "event",
-        "title": "Singen gegen Einsamkeit",
-        "description": "Ein niedrigschwelliges Singformat für ältere Menschen und alle, die sich Gemeinschaft wünschen. Bekannte Lieder aus verschiedenen Jahrzehnten, Begleitung auf Akkordeon.",
-        "selfDesc": "Musik kann Einsamkeit heilen – das erlebe ich jede Woche neu.",
-        "email": "singen@gemeinschaft-koeln.example.de",
-        "lat": 50.9413,
-        "lng": 6.9583,
-        "address": "Köln, Venloer Straße 10, 50672",
-        "tags": [
-            "Singen",
-            "Gesundheit & Wohlbefinden",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": "2026-03-18",
-        "time": "15:30",
-        "regularity": "weekly"
-    },
-    {
-        "id": "a1b2c3d4-0024-0024-0024-000000000024",
-        "status": "approved",
-        "category": "person",
-        "title": "Sara Hoffmann – Tanz & Rhythmus",
-        "description": "Ich verbinde in meinen Workshops Perkussion, Bodypercussion und Tanz. Mein Ziel ist es, den eigenen Körper als Instrument zu entdecken.",
-        "selfDesc": "Der Körper ist das erste Instrument – alles andere kommt danach.",
-        "email": "sara.hoffmann@example.de",
-        "lat": 53.5753,
-        "lng": 9.934,
-        "address": "Hamburg, Ottenser Marktplatz 8, 22765",
-        "tags": [
-            "Bewegung/Tanz",
-            "Percussion/Trommeln",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "a1b2c3d4-0025-0025-0025-000000000025",
-        "status": "approved",
-        "category": "event",
-        "title": "Klangforum – Neue Musik Werkstatt",
-        "description": "Zweitägiger Workshop zur Komposition und Aufführung zeitgenössischer Musik in Ensembles. Auch für Musikerinnen und Musiker ohne Notenkenntnisse geeignet.",
-        "selfDesc": "Neue Musik braucht neue Gemeinschaft – das ist mein Ansatz.",
-        "email": "klangforum@example.de",
-        "lat": 48.7758,
-        "lng": 9.1829,
-        "address": "Stuttgart, Breitscheidstraße 4, 70176",
-        "tags": [
-            "Improvisation",
-            "Instrumentalmusik",
-            "Weiterbildung"
-        ],
-        "links": [
-            {
-                "title": "Details",
-                "url": "https://example.de/klangforum"
-            }
-        ],
-        "date": "2026-05-16",
-        "time": "10:00",
-        "regularity": "once"
-    },
-    {
-        "id": "a1b2c3d4-0026-0026-0026-000000000026",
-        "status": "approved",
-        "category": "institution",
-        "title": "Rhythmikon Dresden",
-        "description": "Trommeln, Percussions und Rhythmusinstrumente aus aller Welt zum Anfassen, Ausprobieren und Lernen. Regelmäßige Kurse und ein offenes Perkussionsensemble.",
-        "selfDesc": "Wir machen Rhythmus für alle zugänglich.",
-        "email": "info@rhythmikon.example.de",
-        "lat": 51.0504,
-        "lng": 13.7373,
-        "address": "Dresden, Louisenstraße 47, 01099",
-        "tags": [
-            "Percussion/Trommeln",
-            "Für Kinder",
-            "Für Erwachsene"
-        ],
-        "links": [
-            {
-                "title": "Kursangebot",
-                "url": "https://example.de/rhythmikon"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "a1b2c3d4-0027-0027-0027-000000000027",
-        "status": "approved",
-        "category": "event",
-        "title": "Familienkonzert im Park – Mainz",
-        "description": "Ein offenes Mitmachkonzert für Familien mit Kindern. Instrumente zum Ausprobieren, Mitsingen und Tanzen – spontane Mitwirkung ausdrücklich erwünscht.",
-        "selfDesc": "Musik im öffentlichen Raum ist ein Geschenk an die Gemeinschaft.",
-        "email": "park.konzert@mainz-klingt.example.de",
-        "lat": 49.9929,
-        "lng": 8.2473,
-        "address": "Mainz, Stadtpark, 55116",
-        "tags": [
-            "Für Kinder",
-            "Singen",
-            "Bewegung/Tanz",
-            "Vernetzungstreffen"
-        ],
-        "links": [],
-        "date": "2026-06-07",
-        "time": "15:00",
-        "regularity": "once"
-    },
-    {
-        "id": "a1b2c3d4-0028-0028-0028-000000000028",
-        "status": "approved",
-        "category": "person",
-        "title": "Klaus Bauer – Volksmusikpflege",
-        "description": "Ich sammle und vermittle deutsche und europäische Volksmusiktraditionen durch Workshops, Konzerte und Tanzabende. Alte Instrumente herzlich willkommen.",
-        "selfDesc": "Volksmusik ist lebendige Gemeinschaftsmusik – nicht museal, sondern mitten unter uns.",
-        "email": "klaus.bauer@volksklang.example.de",
-        "lat": 48.1351,
-        "lng": 11.582,
-        "address": "München, Sendlinger Straße 68, 80331",
-        "tags": [
-            "Instrumentalmusik",
-            "Vernetzungstreffen",
-            "Bewegung/Tanz"
-        ],
-        "links": [
-            {
-                "title": "Tanzabende",
-                "url": "https://example.de/volksklang-bauer"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "a1b2c3d4-0029-0029-0029-000000000029",
-        "status": "approved",
-        "category": "event",
-        "title": "Bodypercussion-Workshop für Schulen",
-        "description": "Halbtägiger Workshop für Schulklassen ab der 3. Klasse: Klatschen, Stampfen, Schnippen – der Körper als Orchester. Buchung für Klassen und Gruppen möglich.",
-        "selfDesc": "Ich bringe Community Music in die Schule – ohne Instrumente, ohne Noten.",
-        "email": "bodyperc@example.de",
-        "lat": 51.3397,
-        "lng": 12.3731,
-        "address": "Leipzig, Dittrichring 20, 04109",
-        "tags": [
-            "Für Kinder",
-            "Bewegung/Tanz",
-            "Percussion/Trommeln",
-            "Weiterbildung"
-        ],
-        "links": [],
-        "date": "2026-03-26",
-        "time": "09:00",
-        "regularity": "once"
-    },
-    {
-        "id": "a1b2c3d4-0030-0030-0030-000000000030",
-        "status": "approved",
-        "category": "institution",
-        "title": "Netzwerk Community Music Deutschland",
-        "description": "Bundesweites Netzwerk zur Vernetzung von Community-Music-Praktikerinnen und -Praktikern. Wir organisieren Jahrestagungen, Fortbildungen und den deutschsprachigen Fachaustausch.",
-        "selfDesc": "Wir sind das Netzwerk für alle, die Community Music leben.",
-        "email": "info@netzwerk-cm.example.de",
-        "lat": 52.52,
-        "lng": 13.405,
-        "address": "Berlin, Unter den Linden 10, 10117",
-        "tags": [
-            "Vernetzungstreffen",
-            "Weiterbildung",
-            "Sonstiges"
-        ],
-        "links": [
-            {
-                "title": "Netzwerk",
-                "url": "https://example.de/netzwerk-cm"
-            },
-            {
-                "title": "Jahrestagung",
-                "url": "https://example.de/jahrestagung-cm"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "a6b2c3d4-0030-0030-0030-000300000030",
-        "status": "approved",
-        "category": "institution",
-        "title": "Netzwerk 2 Community Music Deutschland",
-        "description": "Bundesweites Netzwerk zur Vernetzung von Community-Music-Praktikerinnen und -Praktikern. Wir organisieren Jahrestagungen, Fortbildungen und den deutschsprachigen Fachaustausch.",
-        "selfDesc": "Wir sind das Netzwerk für alle, die Community Music leben.",
-        "email": "info@netzwerk-cm.example.de",
-        "lat": 52.52,
-        "lng": 13.405,
-        "address": "Berlin, Unter den Linden 10, 10117",
-        "tags": [
-            "Vernetzungstreffen",
-            "Weiterbildung",
-            "Sonstiges"
-        ],
-        "links": [
-            {
-                "title": "Netzwerk 2",
-                "url": "https://example.de/netzwerk-cm"
-            },
-            {
-                "title": "Jahrestagung",
-                "url": "https://example.de/jahrestagung-cm"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
         "id": "b2c3d4e5-0001-0001-0001-000000000001",
         "status": "approved",
         "category": "person",
-        "title": "Elena Rossi – Community Choir Leader",
-        "description": "Ich leite 'Circle Singing' Workshops, bei denen wir aus dem Moment heraus mehrstimmige Chorstücke entwickeln. Perfekt für alle, die ihre Stimme ohne Noten entdecken wollen.",
-        "selfDesc": "Singen ist ein Geburtsrecht, keine Leistungsschau.",
-        "email": "elena.rossi@example.com",
-        "lat": 50.1109,
-        "lng": 8.6821,
-        "address": "Frankfurt am Main, Bornheim, 60385",
-        "tags": [
-            "Singen",
-            "Improvisation",
-            "Für Erwachsene"
-        ],
-        "links": [],
+        "title": "Maria Schreiber",
+        "description": "Freie Musikpädagogin mit Schwerpunkt auf inklusiver Musikpraxis und Stimmarbeit in Gemeinschaftsprojekten.",
+        "selfDesc": "Ich verstehe Community Music als Raum, in dem jeder Mensch seine musikalische Stimme finden kann.",
+        "email": "maria.schreiber@example.de",
+        "lat": 52.52,
+        "lng": 13.405,
+        "address": "Berlin, 10115",
         "date": null,
         "time": null,
-        "regularity": null
+        "regularity": null,
+        "tags": [
+            "Singen",
+            "Für Kinder",
+            "Weiterbildung"
+        ],
+        "links": [],
+        "pinIcon": 0
     },
     {
         "id": "b2c3d4e5-0002-0002-0002-000000000002",
         "status": "approved",
-        "category": "institution",
-        "title": "Kulturzentrum Lagerhaus",
-        "description": "Ein offener Ort für interkulturelle Musikprojekte. Wir bieten Probenräume für Geflüchteten-Initiativen und regelmäßige Weltmusik-Sessions an.",
-        "selfDesc": "Bremen tanzt und klingt zusammen – über alle Grenzen hinweg.",
-        "email": "musik@lagerhaus-bremen.example.de",
-        "lat": 53.0735,
-        "lng": 8.8217,
-        "address": "Bremen, Schildstraße 12, 28203",
-        "tags": [
-            "Vernetzungstreffen",
-            "Instrumentalmusik",
-            "Für Erwachsene"
-        ],
-        "links": [
-            {
-                "title": "Programm",
-                "url": "https://example.de/lagerhaus"
-            }
-        ],
+        "category": "person",
+        "title": "Jonas Merk",
+        "description": "Percussionist und Facilitator für Trommelworkshops in sozialen Einrichtungen und offenen Kulturzentren.",
+        "selfDesc": "Rhythmus verbindet. Meine Arbeit liegt an der Schnittstelle von Musik, Sozialarbeit und politischer Bildung.",
+        "email": "jonas.merk@example.de",
+        "lat": 48.1351,
+        "lng": 11.582,
+        "address": "München, 80331",
         "date": null,
         "time": null,
-        "regularity": null
+        "regularity": null,
+        "tags": [
+            "Percussion/Trommeln",
+            "Für Erwachsene"
+        ],
+        "links": [],
+        "pinIcon": 0
     },
     {
         "id": "b2c3d4e5-0003-0003-0003-000000000003",
         "status": "approved",
-        "category": "event",
-        "title": "Urban Drum Circle – Marktplatz",
-        "description": "Ein riesiger, offener Trommelkreis mitten in der Stadt. Jede/r kann dazustoßen. Bring dein Instrument mit oder nutze unsere Leih-Percussion.",
-        "selfDesc": "Wir machen den Rhythmus der Stadt hörbar.",
-        "email": "drumcircle-kassel@example.de",
-        "lat": 51.3127,
-        "lng": 9.4797,
-        "address": "Kassel, Königsplatz, 34117",
+        "category": "person",
+        "title": "Lena Hoffmann",
+        "description": "Musiktherapeutin und Songwriterin, tätig in psychiatrischen Einrichtungen und freier Gruppenarbeit.",
+        "selfDesc": "Community Music ist für mich therapeutische Praxis ohne klinischen Rahmen – offen und transformativ.",
+        "email": "lena.hoffmann@example.de",
+        "lat": 53.5753,
+        "lng": 10.0153,
+        "address": "Hamburg, 20095",
+        "date": null,
+        "time": null,
+        "regularity": null,
         "tags": [
-            "Percussion/Trommeln",
-            "Für Kinder",
-            "Für Erwachsene"
+            "Songwriting",
+            "Gesundheit & Wohlbefinden"
         ],
         "links": [],
-        "date": "2026-06-21",
-        "time": "16:00",
-        "regularity": "once"
+        "pinIcon": 0
     },
     {
         "id": "b2c3d4e5-0004-0004-0004-000000000004",
         "status": "approved",
         "category": "person",
-        "title": "Simon Berger – Inklusions-Musikcoach",
-        "description": "Ich biete Band-Coaching für gemischte Gruppen aus Menschen mit und ohne Behinderung an. Fokus auf einfachem Zugang und viel Spielfreude.",
-        "selfDesc": "Barrieren existieren nur im Kopf, nicht im Klang.",
-        "email": "simon.berger@example.de",
-        "lat": 48.2082,
-        "lng": 16.3738,
-        "address": "Wien, Taborstraße 10, 1020",
-        "tags": [
-            "Instrumentalmusik",
-            "Gesundheit & Wohlbefinden",
-            "Weiterbildung"
-        ],
-        "links": [
-            {
-                "title": "Inklusions-Projekte",
-                "url": "https://example.at/simon-musik"
-            }
-        ],
+        "title": "Thomas Baum",
+        "description": "Chorleiter und Improvisationspädagoge mit langjähriger Erfahrung in der Arbeit mit Laienensembles.",
+        "selfDesc": "Ich glaube daran, dass gemeinschaftliches Singen soziale Räume heilen und stärken kann.",
+        "email": "thomas.baum@example.de",
+        "lat": 51.0504,
+        "lng": 13.7373,
+        "address": "Dresden, 01067",
         "date": null,
         "time": null,
-        "regularity": null
+        "regularity": null,
+        "tags": [
+            "Singen",
+            "Improvisation"
+        ],
+        "links": [],
+        "pinIcon": 0
     },
     {
         "id": "b2c3d4e5-0005-0005-0005-000000000005",
         "status": "approved",
-        "category": "institution",
-        "title": "SoundLab Potsdam",
-        "description": "Ein digitaler Spielplatz für Community Music. Hier lernen Jugendliche, wie man mit Tablets und einfachen Apps gemeinsam Tracks produziert.",
-        "selfDesc": "Technik als Werkzeug für soziale Kreativität.",
-        "email": "hello@soundlab-potsdam.example.de",
-        "lat": 52.3906,
-        "lng": 13.0645,
-        "address": "Potsdam, Schiffbauergasse 4, 14467",
-        "tags": [
-            "Songwriting",
-            "Für Kinder",
-            "Weiterbildung"
-        ],
-        "links": [
-            {
-                "title": "Workshops",
-                "url": "https://example.de/soundlab"
-            }
-        ],
+        "category": "person",
+        "title": "Aisha Kone",
+        "description": "Westafrikanische Trommel- und Tanzpädagogin, leitet interkulturelle Workshops in Schulen und Jugendzentren.",
+        "selfDesc": "Musik als universelle Sprache zu vermitteln ist meine Berufung – mit Körper, Stimme und Gemeinschaft.",
+        "email": "aisha.kone@example.de",
+        "lat": 51.4556,
+        "lng": 7.0116,
+        "address": "Essen, 45127",
         "date": null,
         "time": null,
-        "regularity": null
+        "regularity": null,
+        "tags": [
+            "Percussion/Trommeln",
+            "Bewegung/Tanz",
+            "Für Kinder"
+        ],
+        "links": [],
+        "pinIcon": 0
     },
     {
         "id": "b2c3d4e5-0006-0006-0006-000000000006",
         "status": "approved",
-        "category": "event",
-        "title": "Feierabend-Singen am See",
-        "description": "Entspanntes Singen von Kanons und einfachen Liedern zum Sonnenuntergang. Decke und Getränke bitte selbst mitbringen.",
-        "selfDesc": "Den Tag gemeinsam ausklingen lassen.",
-        "email": "singen-konstanz@example.de",
-        "lat": 47.6603,
-        "lng": 9.1758,
-        "address": "Konstanz, Seepromenade, 78462",
+        "category": "institution",
+        "title": "Klingende Nachbarschaft e.V.",
+        "description": "Gemeinnütziger Verein zur Förderung partizipativer Musikprojekte in Stadtteilen mit besonderem Entwicklungsbedarf.",
+        "selfDesc": "Wir verbinden Musikpädagogik, Soziokultur und Stadtteilarbeit zu einem lebendigen Community-Music-Angebot.",
+        "email": "info@klingende-nachbarschaft.de",
+        "lat": 51.2217,
+        "lng": 6.7762,
+        "address": "Düsseldorf, 40213",
+        "date": null,
+        "time": null,
+        "regularity": null,
         "tags": [
-            "Singen",
-            "Gesundheit & Wohlbefinden",
-            "Für Erwachsene"
+            "Vernetzungstreffen",
+            "Weiterbildung"
         ],
         "links": [],
-        "date": "2026-07-01",
-        "time": "19:30",
-        "regularity": "weekly"
+        "pinIcon": 0
     },
     {
         "id": "b2c3d4e5-0007-0007-0007-000000000007",
         "status": "approved",
-        "category": "person",
-        "title": "Dr. Martina Vogt – Musiksoziologin",
-        "description": "Ich berate Kommunen und Vereine beim Aufbau von Community-Music-Strukturen und führe Evaluationen von sozialen Musikprojekten durch.",
-        "selfDesc": "Wirkung von Musik messbar und sichtbar machen.",
-        "email": "martina.vogt@example.de",
-        "lat": 52.52,
-        "lng": 13.405,
-        "address": "Berlin, Chausseestraße 8, 10115",
-        "tags": [
-            "Weiterbildung",
-            "Vernetzungstreffen",
-            "Sonstiges"
-        ],
-        "links": [],
+        "category": "institution",
+        "title": "Musikschule Brücke gGmbH",
+        "description": "Soziokulturelles Zentrum mit Fokus auf inklusive Musikbildung, Ensemblearbeit und offene Proberäume.",
+        "selfDesc": "Community Music ist für uns kein Zusatzangebot, sondern das Herzstück unserer pädagogischen Arbeit.",
+        "email": "info@musikschule-bruecke.de",
+        "lat": 49.4521,
+        "lng": 11.0767,
+        "address": "Nürnberg, 90402",
         "date": null,
         "time": null,
-        "regularity": null
+        "regularity": null,
+        "tags": [
+            "Weiterbildung",
+            "Für Kinder",
+            "Instrumentalmusik"
+        ],
+        "links": [],
+        "pinIcon": 1
     },
     {
         "id": "b2c3d4e5-0008-0008-0008-000000000008",
         "status": "approved",
         "category": "institution",
-        "title": "Gitarren-Zentrum Erfurt",
-        "description": "Wir organisieren 'Guitar-Orchestras' für Laien. Gemeinsam erarbeiten wir mehrstimmige Arrangements von Pop bis Klassik.",
-        "selfDesc": "Hundert Gitarren, eine Leidenschaft.",
-        "email": "info@gitarre-erfurt.example.de",
-        "lat": 50.9787,
-        "lng": 11.0328,
-        "address": "Erfurt, Marktstraße 21, 99084",
-        "tags": [
-            "Instrumentalmusik",
-            "Für Erwachsene",
-            "Weiterbildung"
-        ],
-        "links": [],
+        "title": "Haus der Kulturen Leipzig",
+        "description": "Interkulturelles Begegnungszentrum mit breitem Musikprogramm, Proberäumen und regelmäßigen Community-Music-Angeboten.",
+        "selfDesc": "Wir verstehen uns als offenes Haus, das Musik und Begegnung für alle ermöglicht.",
+        "email": "info@hdk-leipzig.de",
+        "lat": 51.3397,
+        "lng": 12.3731,
+        "address": "Leipzig, 04109",
         "date": null,
         "time": null,
-        "regularity": null
+        "regularity": null,
+        "tags": [
+            "Vernetzungstreffen",
+            "Singen",
+            "Für Kinder"
+        ],
+        "links": [],
+        "pinIcon": 2
     },
     {
         "id": "b2c3d4e5-0009-0009-0009-000000000009",
         "status": "approved",
-        "category": "event",
-        "title": "Ukulele-Flashmob",
-        "description": "Treffpunkt am Bahnhof. Wir spielen drei einfache Songs (C, F, G7). Akkordblätter werden vor Ort verteilt.",
-        "selfDesc": "Kleine Instrumente, große Wirkung.",
-        "email": "uku-flash@example.de",
-        "lat": 48.1351,
-        "lng": 11.582,
-        "address": "München, Hauptbahnhof, 80335",
+        "category": "institution",
+        "title": "Forum Neue Musik Freiburg",
+        "description": "Plattform zur Vernetzung von Musikschaffenden, Pädagogen und Initiativen im Bereich Community Music.",
+        "selfDesc": "Wir bringen Theorie und Praxis der Community Music zusammen.",
+        "email": "info@forum-neue-musik.de",
+        "lat": 47.999,
+        "lng": 7.8421,
+        "address": "Freiburg im Breisgau, 79098",
+        "date": null,
+        "time": null,
+        "regularity": null,
         "tags": [
-            "Instrumentalmusik",
-            "Für Erwachsene",
-            "Für Kinder"
+            "Vernetzungstreffen",
+            "Weiterbildung"
         ],
         "links": [],
-        "date": "2026-05-15",
-        "time": "14:00",
-        "regularity": "once"
+        "pinIcon": 0
     },
     {
         "id": "b2c3d4e5-0010-0010-0010-000000000010",
         "status": "approved",
-        "category": "person",
-        "title": "Jonas Klee – Rap-Pädagoge",
-        "description": "Hip-Hop-Workshops für Jugendliche in Jugendzentren. Texte schreiben, Beats bauen und die eigene Stimme finden.",
-        "selfDesc": "Rap ist das Sprachrohr der Community.",
-        "email": "jonas.klee@example.de",
-        "lat": 51.4556,
-        "lng": 7.0116,
-        "address": "Essen, Rüttenscheider Str. 50, 45130",
-        "tags": [
-            "Songwriting",
-            "Für Kinder",
-            "Weiterbildung"
-        ],
-        "links": [
-            {
-                "title": "Videos",
-                "url": "https://youtube.example.com/jonasklee"
-            }
-        ],
+        "category": "institution",
+        "title": "SoundBridge Köln",
+        "description": "Interkulturelle Musikinitiative mit Angeboten für Geflüchtete, Jugendliche und Familien im Kölner Norden.",
+        "selfDesc": "Wir glauben, dass Musik Brücken baut, wo Sprache noch fehlt.",
+        "email": "hallo@soundbridge-koeln.de",
+        "lat": 50.9333,
+        "lng": 6.95,
+        "address": "Köln, 50667",
         "date": null,
         "time": null,
-        "regularity": null
+        "regularity": null,
+        "tags": [
+            "Vernetzungstreffen",
+            "Für Kinder"
+        ],
+        "links": [],
+        "pinIcon": 0
     },
     {
         "id": "b2c3d4e5-0011-0011-0011-000000000011",
         "status": "approved",
-        "category": "institution",
-        "title": "Musikbrücke Kiel",
-        "description": "Wir vermitteln Instrumenten-Patenschaften und organisieren kostenlose Tandem-Unterrichtsstunden zwischen Profis und Amateuren.",
-        "selfDesc": "Musik verbindet Generationen und soziale Schichten.",
-        "email": "kontakt@musikbruecke-kiel.example.de",
-        "lat": 54.3233,
-        "lng": 10.1228,
-        "address": "Kiel, Holtenauer Straße 100, 24105",
+        "category": "event",
+        "title": "Offener Singkreis",
+        "description": "Wöchentlicher Singkreis für alle – keine Vorkenntnisse nötig. Volkslieder, World Music und eigene Kompositionen.",
+        "selfDesc": "Singen verbindet und heilt. Dieser Kreis ist ein Geschenk an die Gemeinschaft.",
+        "email": "singkreis@example.de",
+        "lat": 52.3759,
+        "lng": 9.732,
+        "address": "Hannover, 30159",
+        "date": "2026-03-10",
+        "time": "18:00",
+        "regularity": "weekly",
         "tags": [
-            "Vernetzungstreffen",
-            "Instrumentalmusik",
-            "Sonstiges"
+            "Singen",
+            "Für Erwachsene",
+            "Gesundheit & Wohlbefinden"
         ],
         "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
+        "pinIcon": 5
     },
     {
         "id": "b2c3d4e5-0012-0012-0012-000000000012",
         "status": "approved",
         "category": "event",
-        "title": "Obertongesang – Einführung",
-        "description": "Erlebe die Magie der zwei Stimmen in einem Körper. Ein Schnupperworkshop für alle Neugierigen.",
-        "selfDesc": "Klangforschung im eigenen Körper.",
-        "email": "oberton-hd@example.de",
-        "lat": 49.4077,
-        "lng": 8.6907,
-        "address": "Heidelberg, Hauptstraße 10, 69117",
+        "title": "Drum Circle im Park",
+        "description": "Monatlicher offener Trommelkreis im Stadtpark – mitbringen was klingt, Trommeln werden gestellt.",
+        "selfDesc": "Rhythmus ist die Sprache, die alle sprechen können.",
+        "email": "drumcircle@example.de",
+        "lat": 53.5711,
+        "lng": 10.0153,
+        "address": "Hamburg Stadtpark, 22303",
+        "date": "2026-03-15",
+        "time": "14:00",
+        "regularity": "monthly",
         "tags": [
-            "Singen",
-            "Gesundheit & Wohlbefinden",
+            "Percussion/Trommeln",
+            "Für Kinder",
             "Für Erwachsene"
         ],
         "links": [],
-        "date": "2026-04-12",
-        "time": "10:00",
-        "regularity": "once"
+        "pinIcon": 4
     },
     {
         "id": "b2c3d4e5-0013-0013-0013-000000000013",
         "status": "approved",
-        "category": "person",
-        "title": "Fatoumata Kamara – Djembe-Meisterin",
-        "description": "Traditionelle Rhythmen aus Guinea für Gruppen. Ich lege Wert auf die kulturellen Hintergründe und das gemeinschaftliche Erleben.",
-        "selfDesc": "Die Trommel ist das Herz des Dorfes.",
-        "email": "fatou.djembe@example.de",
-        "lat": 53.5511,
-        "lng": 9.9937,
-        "address": "Hamburg, Altona, 22767",
+        "category": "event",
+        "title": "Improvisationsabend",
+        "description": "Zweiwöchentliches Treffen für freie musikalische Improvisation – alle Instrumente und Stimmen willkommen.",
+        "selfDesc": "Improvisation als gemeinschaftliche Praxis, nicht als Solokunst.",
+        "email": "impro@example.de",
+        "lat": 48.7758,
+        "lng": 9.1829,
+        "address": "Stuttgart, 70173",
+        "date": "2026-03-12",
+        "time": "19:30",
+        "regularity": "biweekly",
         "tags": [
-            "Percussion/Trommeln",
-            "Bewegung/Tanz",
-            "Für Erwachsene"
+            "Improvisation",
+            "Instrumentalmusik"
         ],
         "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
+        "pinIcon": 1
     },
     {
         "id": "b2c3d4e5-0014-0014-0014-000000000014",
         "status": "approved",
-        "category": "institution",
-        "title": "Senioren-Rock-Band 'Spätzünder'",
-        "description": "Ein Projekt für Menschen 60+, die (wieder) zur E-Gitarre oder zum Schlagzeug greifen wollen. Wir proben wöchentlich.",
-        "selfDesc": "Zu alt für Rock 'n' Roll? Niemals!",
-        "email": "rock-senioren@example.de",
-        "lat": 52.3759,
-        "lng": 9.732,
-        "address": "Hannover, Georgstraße 5, 30159",
+        "category": "event",
+        "title": "Kinderchor Probe",
+        "description": "Wöchentliche Probe des offenen Kinderchors – für Kinder zwischen 6 und 12 Jahren, keine Anmeldung nötig.",
+        "selfDesc": "Kinder singen von Natur aus. Ich schaffe nur den Rahmen dafür.",
+        "email": "kinderchor@example.de",
+        "lat": 51.5136,
+        "lng": 7.4653,
+        "address": "Dortmund, 44135",
+        "date": "2026-03-11",
+        "time": "16:00",
+        "regularity": "weekly",
         "tags": [
-            "Instrumentalmusik",
-            "Für Erwachsene",
-            "Vernetzungstreffen"
+            "Singen",
+            "Für Kinder"
         ],
         "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
+        "pinIcon": 6
     },
     {
         "id": "b2c3d4e5-0015-0015-0015-000000000015",
         "status": "approved",
         "category": "event",
-        "title": "Interkulturelle Jam Session",
-        "description": "Bring dein Instrument mit – egal ob Geige, Sitar, Oud oder Saxophon. Wir finden eine gemeinsame Sprache.",
-        "selfDesc": "Cross-Over als gelebte Vielfalt.",
-        "email": "jam-leipzig@example.de",
-        "lat": 51.3397,
-        "lng": 12.3731,
-        "address": "Leipzig, Eisenbahnstraße 12, 04315",
+        "title": "Gitarren-Jam",
+        "description": "Offener Gitarren-Jam für alle Level – akustisch, elektrisch, klassisch. Einfach vorbeikommen.",
+        "selfDesc": "Gitarre verbindet Generationen. Dieser Jam ist für alle, die spielen möchten.",
+        "email": "gitarrenjam@example.de",
+        "lat": 50.1109,
+        "lng": 8.6821,
+        "address": "Frankfurt am Main, 60311",
+        "date": "2026-03-21",
+        "time": "19:00",
+        "regularity": "biweekly",
         "tags": [
-            "Improvisation",
             "Instrumentalmusik",
-            "Vernetzungstreffen"
+            "Für Erwachsene"
         ],
         "links": [],
-        "date": "2026-03-27",
-        "time": "20:00",
-        "regularity": "monthly"
+        "pinIcon": 2
     },
     {
         "id": "b2c3d4e5-0016-0016-0016-000000000016",
         "status": "approved",
-        "category": "person",
-        "title": "Lukas Meyer – Instrumentenbauer",
-        "description": "Baukurse für einfache Instrumente (Cajons, einsaitige Gitarren) für Schulklassen und soziale Einrichtungen.",
-        "selfDesc": "Wer sein Instrument baut, versteht die Musik besser.",
-        "email": "meyer-bau@example.de",
-        "lat": 48.3705,
-        "lng": 10.8978,
-        "address": "Augsburg, Maxstraße 40, 86150",
+        "category": "event",
+        "title": "Songwriting-Café",
+        "description": "Monatliches offenes Treffen für Songschreibende – Texte teilen, Feedback geben, gemeinsam entwickeln.",
+        "selfDesc": "Songwriting muss kein einsamer Prozess sein. Hier machen wir es zur Gemeinschaftspraxis.",
+        "email": "songcafe@example.de",
+        "lat": 52.517,
+        "lng": 13.388,
+        "address": "Berlin Mitte, 10117",
+        "date": "2026-03-20",
+        "time": "18:30",
+        "regularity": "monthly",
         "tags": [
-            "Sonstiges",
-            "Für Kinder",
-            "Weiterbildung"
+            "Songwriting",
+            "Vernetzungstreffen"
         ],
         "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
+        "pinIcon": 1
     },
     {
         "id": "b2c3d4e5-0017-0017-0017-000000000017",
         "status": "approved",
-        "category": "institution",
-        "title": "Chorverband 'Alle Stimmen'",
-        "description": "Dachverband für offene Chöre, die sich der Community Music verschrieben haben. Wir bieten Fortbildungen für Chorleiter an.",
-        "selfDesc": "Demokratisierung des Singens.",
-        "email": "info@alle-stimmen.example.de",
-        "lat": 50.9333,
-        "lng": 6.95,
-        "address": "Köln, Neumarkt 2, 50667",
+        "category": "event",
+        "title": "Bewegung & Klang",
+        "description": "Wöchentliche Session die Tanz, Bewegung und freie Klangerzeugung verbindet – für Erwachsene aller Levels.",
+        "selfDesc": "Ich glaube, der Körper ist das erste Instrument.",
+        "email": "bewegungklang@example.de",
+        "lat": 48.1551,
+        "lng": 11.572,
+        "address": "München Schwabing, 80797",
+        "date": "2026-03-13",
+        "time": "10:00",
+        "regularity": "weekly",
         "tags": [
-            "Singen",
-            "Weiterbildung",
-            "Vernetzungstreffen"
+            "Bewegung/Tanz",
+            "Improvisation",
+            "Gesundheit & Wohlbefinden"
         ],
-        "links": [
-            {
-                "title": "Verband",
-                "url": "https://example.de/alle-stimmen"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
+        "links": [],
+        "pinIcon": 8
     },
     {
         "id": "b2c3d4e5-0018-0018-0018-000000000018",
         "status": "approved",
         "category": "event",
-        "title": "Lullaby Project – Für junge Eltern",
-        "description": "Schreibe dein eigenes Wiegenlied für dein Kind. Professionelle Musiker helfen dir bei der Melodie und Aufnahme.",
-        "selfDesc": "Bindung durch Klang stärken.",
-        "email": "lullaby@example.de",
-        "lat": 52.52,
-        "lng": 13.405,
-        "address": "Berlin, Neukölln, 12043",
+        "title": "Netzwerktreffen Community Music",
+        "description": "Vierteljährliches Treffen für alle, die im Bereich Community Music aktiv sind – Austausch, Vorstellung neuer Projekte.",
+        "selfDesc": "Vernetzung ist die Grundlage für nachhaltige Musikarbeit in der Gemeinschaft.",
+        "email": "netzwerk@example.de",
+        "lat": 51.3317,
+        "lng": 12.38,
+        "address": "Leipzig, 04103",
+        "date": "2026-04-12",
+        "time": "14:00",
+        "regularity": "3months",
         "tags": [
-            "Songwriting",
-            "Für Kinder",
-            "Gesundheit & Wohlbefinden"
+            "Vernetzungstreffen",
+            "Weiterbildung"
         ],
         "links": [],
-        "date": "2026-05-10",
-        "time": "11:00",
-        "regularity": "once"
+        "pinIcon": 14
     },
     {
         "id": "b2c3d4e5-0019-0019-0019-000000000019",
         "status": "approved",
-        "category": "person",
-        "title": "Sofia Garcia – Flamenco für alle",
-        "description": "Rhythmusarbeit und einfacher Tanz. Wir nutzen Flamenco-Elemente, um das Selbstbewusstsein und die Körperpräsenz zu stärken.",
-        "selfDesc": "Leidenschaft ist keine Frage des Alters.",
-        "email": "sofia.flamenco@example.de",
-        "lat": 48.7758,
-        "lng": 9.1829,
-        "address": "Stuttgart, Tübinger Str. 15, 70178",
+        "category": "event",
+        "title": "Offenes Mikrofon – Volkshaus",
+        "description": "Jeden zweiten Freitag: offene Bühne für alle Musikerinnen und Musiker, Singer-Songwriter und Spoken Word.",
+        "selfDesc": "Eine offene Bühne ist der demokratischste Musikort, den es gibt.",
+        "email": "offenesmik@example.de",
+        "lat": 51.0604,
+        "lng": 13.7273,
+        "address": "Dresden Neustadt, 01097",
+        "date": "2026-03-14",
+        "time": "20:00",
+        "regularity": "biweekly",
         "tags": [
-            "Bewegung/Tanz",
-            "Percussion/Trommeln",
-            "Für Erwachsene"
+            "Songwriting",
+            "Instrumentalmusik",
+            "Vernetzungstreffen"
         ],
         "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
+        "pinIcon": 5
     },
     {
         "id": "b2c3d4e5-0020-0020-0020-000000000020",
         "status": "approved",
-        "category": "institution",
-        "title": "Musiktherapie-Zentrum West",
-        "description": "Wir integrieren Community Music Ansätze in die klinische Arbeit. Offene Musikgruppen für Menschen in Krisensituationen.",
-        "selfDesc": "Heilung durch Teilhabe.",
-        "email": "klinik-musik@example.de",
-        "lat": 51.2217,
-        "lng": 6.7762,
-        "address": "Düsseldorf, Grafenberger Allee, 40237",
+        "category": "event",
+        "title": "Klangmeditation",
+        "description": "Tägliche geführte Klangmeditation mit Klangschalen, Stimme und Stille – offen für alle.",
+        "selfDesc": "Stille und Klang sind zwei Seiten derselben Münze.",
+        "email": "klangmed@example.de",
+        "lat": 47.989,
+        "lng": 7.8521,
+        "address": "Freiburg, 79100",
+        "date": "2026-03-09",
+        "time": "07:30",
+        "regularity": "daily",
         "tags": [
             "Gesundheit & Wohlbefinden",
-            "Vernetzungstreffen",
             "Singen"
         ],
         "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
+        "pinIcon": 11
     },
     {
-        "id": "b2c3d4e5-0021-0021-0021-000000000021",
+        "id": "b2c3d4e5-0100-0000-0000-000000000106",
+        "status": "approved",
+        "category": "person",
+        "title": "Samira Al-Fayed",
+        "description": "Oud-Spielerin und Dozentin für transkulturelle Ensemblearbeit.",
+        "selfDesc": "Traditionen verbinden, Neues schaffen.",
+        "email": "samira.al@example.de",
+        "lat": 53.0793,
+        "lng": 8.8017,
+        "address": "Bremen, 28195",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Instrumentalmusik",
+            "Weiterbildung"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000107",
         "status": "approved",
         "category": "event",
-        "title": "Beatbox-Convention für Kids",
-        "description": "Lerne die Grundlagen des Beatboxens. Nur Mund und Mikrofon nötig!",
-        "selfDesc": "Dein Körper ist ein Schlagzeug.",
-        "email": "beatbox-kids@example.de",
-        "lat": 53.5511,
-        "lng": 9.9937,
-        "address": "Hamburg, Feldstraße 66, 20359",
+        "title": "Hafen-Chor Offen",
+        "description": "Maritimes Singen für alle Altersgruppen, direkt am Wasser.",
+        "selfDesc": "Gesang mit frischer Brise.",
+        "email": "hafenchor@example.de",
+        "lat": 54.0924,
+        "lng": 12.0991,
+        "address": "Rostock, 18055",
+        "date": "2026-04-02",
+        "time": "18:00",
+        "regularity": "weekly",
         "tags": [
-            "Für Kinder",
+            "Singen",
+            "Für Erwachsene"
+        ],
+        "links": [],
+        "pinIcon": 5
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000108",
+        "status": "approved",
+        "category": "institution",
+        "title": "Nordic Sound Lab",
+        "description": "Forschungs- und Praxiszentrum für digitale Musikpädagogik.",
+        "selfDesc": "Die Zukunft der Musikvermittlung.",
+        "email": "info@nordicsound.de",
+        "lat": 54.3233,
+        "lng": 10.1394,
+        "address": "Kiel, 24103",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Weiterbildung",
+            "Vernetzungstreffen"
+        ],
+        "links": [],
+        "pinIcon": 2
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000109",
+        "status": "approved",
+        "category": "event",
+        "title": "Beatmaking Workshop",
+        "description": "Einführung in die Musikproduktion für Jugendliche.",
+        "selfDesc": "Dein Sound, deine Regeln.",
+        "email": "beats@jugendhaus-erfurt.de",
+        "lat": 50.9787,
+        "lng": 11.0328,
+        "address": "Erfurt, 99084",
+        "date": "2026-03-25",
+        "time": "15:00",
+        "regularity": "monthly",
+        "tags": [
+            "Instrumentalmusik",
+            "Für Kinder"
+        ],
+        "links": [],
+        "pinIcon": 3
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000110",
+        "status": "approved",
+        "category": "person",
+        "title": "Oliver Krause",
+        "description": "Musikgeragoge mit Fokus auf Demenzpatienten.",
+        "selfDesc": "Musik erreicht uns, wenn Worte fehlen.",
+        "email": "krause.musik@example.de",
+        "lat": 52.1205,
+        "lng": 11.6276,
+        "address": "Magdeburg, 39104",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Gesundheit & Wohlbefinden",
+            "Singen"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000111",
+        "status": "approved",
+        "category": "event",
+        "title": "Songwriting für FLINTA*",
+        "description": "Ein sicherer Raum (Safer Space) zum Schreiben und Teilen eigener Songs.",
+        "selfDesc": "Erzähl deine Geschichte.",
+        "email": "songwriting@wiesbaden.de",
+        "lat": 50.0782,
+        "lng": 8.2398,
+        "address": "Wiesbaden, 65183",
+        "date": "2026-04-10",
+        "time": "19:00",
+        "regularity": "biweekly",
+        "tags": [
+            "Songwriting",
+            "Vernetzungstreffen"
+        ],
+        "links": [],
+        "pinIcon": 1
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000112",
+        "status": "approved",
+        "category": "institution",
+        "title": "Haus der Rhythmik",
+        "description": "Zentrum für ganzheitliche musikalische Körperarbeit.",
+        "selfDesc": "Rhythmus ist Leben.",
+        "email": "kontakt@rhythmik-mainz.de",
+        "lat": 49.9929,
+        "lng": 8.2473,
+        "address": "Mainz, 55116",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Bewegung/Tanz",
+            "Gesundheit & Wohlbefinden"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000113",
+        "status": "approved",
+        "category": "event",
+        "title": "Trommelkreis am Fluss",
+        "description": "Freies Percussion-Treffen an der Saar.",
+        "selfDesc": "Bring deine Djembe mit!",
+        "email": "trommeln@saarbruecken.de",
+        "lat": 49.2402,
+        "lng": 6.9969,
+        "address": "Saarbrücken, 66111",
+        "date": "2026-05-01",
+        "time": "16:00",
+        "regularity": "weekly",
+        "tags": [
             "Percussion/Trommeln",
+            "Für Erwachsene"
+        ],
+        "links": [],
+        "pinIcon": 4
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000114",
+        "status": "approved",
+        "category": "person",
+        "title": "Dr. Elena Rost",
+        "description": "Forscherin und Netzwerkerin im Bereich Community Music.",
+        "selfDesc": "Theorie in die Praxis übersetzen.",
+        "email": "e.rost@uni-potsdam.de",
+        "lat": 52.3906,
+        "lng": 13.0645,
+        "address": "Potsdam, 14467",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Weiterbildung",
+            "Vernetzungstreffen"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000115",
+        "status": "approved",
+        "category": "event",
+        "title": "Tanz-Improvisation im Schlossgarten",
+        "description": "Begleitet von Live-Musik bewegen wir uns frei in der Natur.",
+        "selfDesc": "Klang und Bewegung im Einklang.",
+        "email": "tanz@schwerin.de",
+        "lat": 53.6336,
+        "lng": 11.4149,
+        "address": "Schwerin, 19053",
+        "date": "2026-06-15",
+        "time": "10:00",
+        "regularity": "monthly",
+        "tags": [
+            "Bewegung/Tanz",
             "Improvisation"
         ],
         "links": [],
-        "date": "2026-08-15",
-        "time": "14:00",
-        "regularity": "once"
+        "pinIcon": 8
     },
     {
-        "id": "b2c3d4e5-0022-0022-0022-000000000022",
-        "status": "approved",
-        "category": "person",
-        "title": "Oliver Nachtwey – DJ & Producer",
-        "description": "Ich leite 'Community DJing' Kurse, in denen wir gemeinsam Playlists für Stadtteilfeste erstellen und das Mixen lernen.",
-        "selfDesc": "Jeder kann die Crowd bewegen.",
-        "email": "oli.mix@example.de",
-        "lat": 48.1351,
-        "lng": 11.582,
-        "address": "München, Glockenbachviertel, 80469",
-        "tags": [
-            "Sonstiges",
-            "Weiterbildung",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "b2c3d4e5-0023-0023-0023-000000000023",
+        "id": "b2c3d4e5-0100-0000-0000-000000000116",
         "status": "approved",
         "category": "institution",
-        "title": "Haus der Musiktherapie",
-        "description": "Fortbildungszentrum für Musiker, die im sozialen Bereich arbeiten wollen. Wir vermitteln Praktika und Supervision.",
-        "selfDesc": "Kompetenz für soziale Klangarbeit.",
-        "email": "info@therapie-musik.example.de",
-        "lat": 50.1109,
-        "lng": 8.6821,
-        "address": "Frankfurt, Zeil 10, 60313",
-        "tags": [
-            "Weiterbildung",
-            "Gesundheit & Wohlbefinden",
-            "Vernetzungstreffen"
-        ],
-        "links": [],
+        "title": "Grenzklang e.V.",
+        "description": "Grenzüberschreitende Musikprojekte im Dreiländereck.",
+        "selfDesc": "Musik kennt keine Grenzen.",
+        "email": "info@grenzklang-aachen.de",
+        "lat": 50.7753,
+        "lng": 6.0839,
+        "address": "Aachen, 52062",
         "date": null,
         "time": null,
-        "regularity": null
-    },
-    {
-        "id": "b2c3d4e5-0024-0024-0024-000000000024",
-        "status": "approved",
-        "category": "event",
-        "title": "Stille Disco – Community Dance",
-        "description": "Tanzen über Kopfhörer im Park. Drei Kanäle mit verschiedenen Musikstilen von lokalen DJs.",
-        "selfDesc": "Leise Party, laute Gemeinschaft.",
-        "email": "silent-dance@example.de",
-        "lat": 51.3397,
-        "lng": 12.3731,
-        "address": "Leipzig, Clara-Zetkin-Park, 04107",
+        "regularity": null,
         "tags": [
-            "Bewegung/Tanz",
-            "Sonstiges",
-            "Für Erwachsene"
+            "Vernetzungstreffen",
+            "Singen"
         ],
         "links": [],
-        "date": "2026-07-12",
-        "time": "21:00",
-        "regularity": "once"
+        "pinIcon": 1
     },
     {
-        "id": "b2c3d4e5-0025-0025-0025-000000000025",
+        "id": "b2c3d4e5-0100-0000-0000-000000000117",
+        "status": "approved",
+        "category": "event",
+        "title": "Mantra Singen zur Vollmondzeit",
+        "description": "Meditatives Singen in alten Gewölben.",
+        "selfDesc": "Zur Ruhe kommen durch Wiederholung.",
+        "email": "mantra@trier.de",
+        "lat": 49.7499,
+        "lng": 6.6371,
+        "address": "Trier, 54290",
+        "date": "2026-03-31",
+        "time": "20:00",
+        "regularity": "monthly",
+        "tags": [
+            "Gesundheit & Wohlbefinden",
+            "Singen"
+        ],
+        "links": [],
+        "pinIcon": 13
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000118",
         "status": "approved",
         "category": "person",
-        "title": "Hanna Schmidt – Querflöten-Ensemble",
-        "description": "Offenes Ensemble für alle Holzbläser. Wir spielen einfache Arrangements aus Filmmusik und Folklore.",
-        "selfDesc": "Zusammenspiel statt Einzelkampf.",
-        "email": "hanna.floete@example.de",
-        "lat": 49.0069,
-        "lng": 8.4037,
-        "address": "Karlsruhe, Waldstraße 5, 76133",
+        "title": "Felix Weber",
+        "description": "Gitarrenlehrer für inklusive Bandprojekte.",
+        "selfDesc": "Jeder hat eine Rolle in der Band.",
+        "email": "felix.weber@example.de",
+        "lat": 47.6586,
+        "lng": 9.1725,
+        "address": "Konstanz, 78462",
+        "date": null,
+        "time": null,
+        "regularity": null,
         "tags": [
             "Instrumentalmusik",
-            "Für Erwachsene",
             "Für Kinder"
         ],
         "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
+        "pinIcon": 0
     },
     {
-        "id": "b2c3d4e5-0026-0026-0026-000000000026",
+        "id": "b2c3d4e5-0100-0000-0000-000000000119",
+        "status": "approved",
+        "category": "event",
+        "title": "Online-Vernetzung Südost",
+        "description": "Digitales Treffen für Community Musician im ländlichen Raum.",
+        "selfDesc": "Wir bleiben in Kontakt.",
+        "email": "netzwerk@passau-music.de",
+        "lat": 48.5667,
+        "lng": 13.4319,
+        "address": "Passau, 94032",
+        "date": "2026-04-05",
+        "time": "18:00",
+        "regularity": "monthly",
+        "tags": [
+            "Vernetzungstreffen",
+            "Weiterbildung"
+        ],
+        "links": [],
+        "pinIcon": 12
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000120",
         "status": "approved",
         "category": "institution",
-        "title": "Rhythmus-Werkstatt Oberpfalz",
-        "description": "Mobiler Trommelbus, der in ländliche Regionen fährt und dort Workshops für Dörfer anbietet.",
-        "selfDesc": "Wir bringen den Beat aufs Land.",
-        "email": "bus@rhythmus-werkstatt.example.de",
-        "lat": 49.0134,
-        "lng": 12.1016,
-        "address": "Regensburg, Stadtamhof, 93059",
+        "title": "Kulturbrücke Görlitz",
+        "description": "Soziokulturelles Zentrum mit Proberäumen und Instrumentenverleih.",
+        "selfDesc": "Mach einfach Musik.",
+        "email": "hallo@kulturbruecke.de",
+        "lat": 51.1506,
+        "lng": 14.9671,
+        "address": "Görlitz, 02826",
+        "date": null,
+        "time": null,
+        "regularity": null,
         "tags": [
-            "Percussion/Trommeln",
+            "Instrumentalmusik",
+            "Für Erwachsene"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000121",
+        "status": "approved",
+        "category": "event",
+        "title": "Musik am Whiteboard",
+        "description": "Theorie und Praxis des Songaufbaus spielerisch erklärt.",
+        "selfDesc": "Musik verstehen lernen.",
+        "email": "theorie@flensburg-musik.de",
+        "lat": 54.7937,
+        "lng": 9.4366,
+        "address": "Flensburg, 24937",
+        "date": "2026-03-28",
+        "time": "14:00",
+        "regularity": "weekly",
+        "tags": [
+            "Weiterbildung",
+            "Songwriting"
+        ],
+        "links": [],
+        "pinIcon": 9
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000122",
+        "status": "approved",
+        "category": "person",
+        "title": "Sarah Yilmaz",
+        "description": "Zertifizierte Community Music Facilitatorin.",
+        "selfDesc": "Ich schaffe den Rahmen, die Musik macht ihr.",
+        "email": "sarah.y@example.de",
+        "lat": 51.3127,
+        "lng": 9.4797,
+        "address": "Kassel, 34117",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Improvisation",
+            "Weiterbildung"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000123",
+        "status": "approved",
+        "category": "event",
+        "title": "Kids Jam Session",
+        "description": "Eine sichere Bühne für die allerersten musikalischen Schritte.",
+        "selfDesc": "Laut sein ist hier ausdrücklich erwünscht.",
+        "email": "kidsjam@muenster.de",
+        "lat": 51.9607,
+        "lng": 7.6261,
+        "address": "Münster, 48143",
+        "date": "2026-03-21",
+        "time": "15:00",
+        "regularity": "monthly",
+        "tags": [
             "Für Kinder",
+            "Improvisation"
+        ],
+        "links": [],
+        "pinIcon": 6
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000124",
+        "status": "approved",
+        "category": "institution",
+        "title": "Schwarzwald Sound Museum",
+        "description": "Museum mit interaktiven Klanginstallationen und Workshops.",
+        "selfDesc": "Hören, Anfassen, Mitmachen.",
+        "email": "info@soundmuseum-fr.de",
+        "lat": 47.999,
+        "lng": 7.8421,
+        "address": "Freiburg, 79098",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Weiterbildung",
+            "Instrumentalmusik"
+        ],
+        "links": [],
+        "pinIcon": 2
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000125",
+        "status": "approved",
+        "category": "event",
+        "title": "Abschluss-Konzert CM-Kurs",
+        "description": "Präsentation der Ergebnisse des letzten Community Music Zertifikatskurses.",
+        "selfDesc": "Wir feiern unsere Absolvent:innen.",
+        "email": "abschluss@ulm-musik.de",
+        "lat": 48.4011,
+        "lng": 9.9876,
+        "address": "Ulm, 89073",
+        "date": "2026-07-15",
+        "time": "19:00",
+        "regularity": "single",
+        "tags": [
+            "Vernetzungstreffen",
+            "Weiterbildung"
+        ],
+        "links": [],
+        "pinIcon": 10
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000126",
+        "status": "approved",
+        "category": "person",
+        "title": "Timo Hanke",
+        "description": "Musikpädagoge in der forensischen Psychiatrie.",
+        "selfDesc": "Resozialisierung durch Klang und Rhythmus.",
+        "email": "timo.hanke@example.de",
+        "lat": 53.1435,
+        "lng": 8.2146,
+        "address": "Oldenburg, 26122",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Gesundheit & Wohlbefinden",
+            "Percussion/Trommeln"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000127",
+        "status": "approved",
+        "category": "event",
+        "title": "Kalender-Planungstreffen 2027",
+        "description": "Koordination der Termine aller regionalen Musikinitiativen.",
+        "selfDesc": "Zusammen planen, Synergien nutzen.",
+        "email": "orga@wuerzburg-kultur.de",
+        "lat": 49.7913,
+        "lng": 9.9534,
+        "address": "Würzburg, 97070",
+        "date": "2026-09-01",
+        "time": "18:00",
+        "regularity": "single",
+        "tags": [
             "Vernetzungstreffen"
         ],
         "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
+        "pinIcon": 0
     },
     {
-        "id": "b2c3d4e5-0027-0027-0027-000000000027",
+        "id": "b2c3d4e5-0100-0000-0000-000000000128",
+        "status": "approved",
+        "category": "institution",
+        "title": "Musikverein Chemnitz West",
+        "description": "Traditionsreicher Verein im Wandel zur offenen Stadtteilarbeit.",
+        "selfDesc": "Von der Blaskapelle zur Community Band.",
+        "email": "vorstand@mv-chemnitz.de",
+        "lat": 50.8323,
+        "lng": 12.9253,
+        "address": "Chemnitz, 09111",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Instrumentalmusik",
+            "Singen"
+        ],
+        "links": [],
+        "pinIcon": 1
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000129",
         "status": "approved",
         "category": "event",
-        "title": "Gospel-Night – Sing Along",
-        "description": "Großer Abend zum Mitsingen. Ein Profi-Chor leitet das Publikum an. Keine Noten nötig.",
-        "selfDesc": "Power durch gemeinsames Singen.",
-        "email": "gospel-sing@example.de",
-        "lat": 52.52,
-        "lng": 13.405,
-        "address": "Berlin, Gedächtniskirche, 10789",
+        "title": "Bewegter Chor",
+        "description": "Chorsingen in ständiger Bewegung im Raum.",
+        "selfDesc": "Die Stimme folgt dem Körper.",
+        "email": "chor@luebeck-singt.de",
+        "lat": 53.8655,
+        "lng": 10.6866,
+        "address": "Lübeck, 23552",
+        "date": "2026-04-18",
+        "time": "19:30",
+        "regularity": "weekly",
         "tags": [
             "Singen",
-            "Für Erwachsene",
-            "Für Kinder"
+            "Bewegung/Tanz"
         ],
         "links": [],
-        "date": "2026-12-05",
-        "time": "19:00",
-        "regularity": "once"
+        "pinIcon": 7
     },
     {
-        "id": "b2c3d4e5-0028-0028-0028-000000000028",
+        "id": "b2c3d4e5-0100-0000-0000-000000000130",
         "status": "approved",
         "category": "person",
-        "title": "Tarek Al-Aswad – Saz-Lehrer",
-        "description": "Einführung in die anatolische Laute Saz und die Maqam-Musiktheorie. Fokus auf gemeinsames Spiel in der Gruppe.",
-        "selfDesc": "Saz spielen heißt Geschichten teilen.",
-        "email": "tarek.saz@example.de",
-        "lat": 50.9333,
-        "lng": 6.95,
-        "address": "Köln, Keupstraße 15, 51063",
+        "title": "Mia Bergmann",
+        "description": "Workshopleiterin für den Bau von einfachen Instrumenten aus Recyclingmaterial.",
+        "selfDesc": "Musik machen aus dem, was da ist.",
+        "email": "mia.bergmann@example.de",
+        "lat": 52.2799,
+        "lng": 8.0472,
+        "address": "Osnabrück, 49074",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Für Kinder",
+            "Percussion/Trommeln"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000131",
+        "status": "approved",
+        "category": "event",
+        "title": "Community Music Meetup",
+        "description": "Lockeres Kennenlernen für Initiativen und Interessierte in Sachsen-Anhalt.",
+        "selfDesc": "Hände schütteln, Ideen austauschen.",
+        "email": "meetup@halle-musik.de",
+        "lat": 51.4827,
+        "lng": 11.9696,
+        "address": "Halle (Saale), 06108",
+        "date": "2026-05-12",
+        "time": "19:00",
+        "regularity": "single",
+        "tags": [
+            "Vernetzungstreffen"
+        ],
+        "links": [],
+        "pinIcon": 14
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000132",
+        "status": "approved",
+        "category": "person",
+        "title": "Lars Krüger",
+        "description": "Blasmusik-Pädagoge, baut generationsübergreifende Bläserklassen auf.",
+        "selfDesc": "Ein langer Atem für die Gemeinschaft.",
+        "email": "lars.krueger@example.de",
+        "lat": 52.0302,
+        "lng": 8.5325,
+        "address": "Bielefeld, 33602",
+        "date": null,
+        "time": null,
+        "regularity": null,
         "tags": [
             "Instrumentalmusik",
-            "Weiterbildung",
             "Für Erwachsene"
         ],
         "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
+        "pinIcon": 0
     },
     {
-        "id": "b2c3d4e5-0029-0029-0029-000000000029",
+        "id": "b2c3d4e5-0100-0000-0000-000000000133",
         "status": "approved",
         "category": "institution",
-        "title": "Klanggarten e.V.",
-        "description": "Ein urbaner Garten, in dem Musik-Workshops im Freien stattfinden. Wir nutzen auch Naturmaterialien zur Klangerzeugung.",
-        "selfDesc": "Natur und Musik im Einklang.",
-        "email": "garten@klanggarten.example.de",
-        "lat": 53.5511,
-        "lng": 9.9937,
-        "address": "Hamburg, Wilhelmsburg, 21107",
+        "title": "Klanghaus Bonn",
+        "description": "Unabhängiges Zentrum für akustische Künste und soziokulturelle Projekte.",
+        "selfDesc": "Ein Haus voller Resonanz.",
+        "email": "info@klanghaus-bonn.de",
+        "lat": 50.7374,
+        "lng": 7.0982,
+        "address": "Bonn, 53111",
+        "date": null,
+        "time": null,
+        "regularity": null,
         "tags": [
-            "Sonstiges",
+            "Vernetzungstreffen",
+            "Weiterbildung"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000134",
+        "status": "approved",
+        "category": "event",
+        "title": "Notenlesen leicht gemacht",
+        "description": "Crashkurs für Erwachsene ohne Vorkenntnisse, die in Chören singen möchten.",
+        "selfDesc": "Von Punkten und Strichen zur Melodie.",
+        "email": "noten@koblenz.de",
+        "lat": 50.3569,
+        "lng": 7.594,
+        "address": "Koblenz, 56068",
+        "date": "2026-04-08",
+        "time": "18:30",
+        "regularity": "weekly",
+        "tags": [
+            "Weiterbildung",
+            "Singen"
+        ],
+        "links": [],
+        "pinIcon": 1
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000135",
+        "status": "approved",
+        "category": "person",
+        "title": "Monika Weishaupt",
+        "description": "Leiterin von Seniorensingkreisen und Veeh-Harfen-Ensembles.",
+        "selfDesc": "Musik hält den Geist lebendig.",
+        "email": "m.weishaupt@example.de",
+        "lat": 49.0134,
+        "lng": 12.1016,
+        "address": "Regensburg, 93047",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Gesundheit & Wohlbefinden",
+            "Instrumentalmusik"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000136",
+        "status": "approved",
+        "category": "event",
+        "title": "Mischpult-Führerschein",
+        "description": "Workshop an den Reglern: Grundlagen der Live-Beschallung für Jugendbands.",
+        "selfDesc": "Der gute Ton macht die Musik.",
+        "email": "technik@erlangen-kultur.de",
+        "lat": 49.5897,
+        "lng": 11.0039,
+        "address": "Erlangen, 91054",
+        "date": "2026-05-22",
+        "time": "14:00",
+        "regularity": "monthly",
+        "tags": [
+            "Weiterbildung",
+            "Instrumentalmusik"
+        ],
+        "links": [],
+        "pinIcon": 3
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000137",
+        "status": "approved",
+        "category": "institution",
+        "title": "Freie Musikschule Thüringen",
+        "description": "Inklusive Musikschule mit Stipendienprogramm für einkommensschwache Familien.",
+        "selfDesc": "Geld darf kein Hindernis für Bildung sein.",
+        "email": "info@fms-thueringen.de",
+        "lat": 50.9271,
+        "lng": 11.5892,
+        "address": "Jena, 07743",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
             "Für Kinder",
+            "Instrumentalmusik"
+        ],
+        "links": [],
+        "pinIcon": 1
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000138",
+        "status": "approved",
+        "category": "event",
+        "title": "Synthesizer-Abend im Club",
+        "description": "Gemeinsames Schrauben an analogen Synths, offen für elektronische Experimente.",
+        "selfDesc": "Wellenformen in der Gemeinschaft.",
+        "email": "synth@cottbus.de",
+        "lat": 51.7563,
+        "lng": 14.3329,
+        "address": "Cottbus, 03046",
+        "date": "2026-04-17",
+        "time": "20:00",
+        "regularity": "biweekly",
+        "tags": [
+            "Instrumentalmusik",
+            "Improvisation"
+        ],
+        "links": [],
+        "pinIcon": 3
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000139",
+        "status": "approved",
+        "category": "person",
+        "title": "Henrik Larsen",
+        "description": "Singer-Songwriter, bietet Workshops zum Texten in Leichter Sprache an.",
+        "selfDesc": "Klare Worte, starke Gefühle.",
+        "email": "h.larsen@example.de",
+        "lat": 54.3091,
+        "lng": 13.0815,
+        "address": "Stralsund, 18439",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Songwriting",
+            "Weiterbildung"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000140",
+        "status": "approved",
+        "category": "event",
+        "title": "Mondschein-Singen",
+        "description": "Spätabendliches Singen von Wiegen- und Abendliedern am Bodden.",
+        "selfDesc": "Der Tag klingt aus.",
+        "email": "mondschein@greifswald.de",
+        "lat": 54.0967,
+        "lng": 13.3813,
+        "address": "Greifswald, 17489",
+        "date": "2026-06-05",
+        "time": "22:00",
+        "regularity": "monthly",
+        "tags": [
+            "Singen",
             "Gesundheit & Wohlbefinden"
         ],
         "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
+        "pinIcon": 13
     },
     {
-        "id": "b2c3d4e5-0030-0030-0030-000000000030",
-        "status": "approved",
-        "category": "event",
-        "title": "Handpan-Schnupperkurs",
-        "description": "Entdecke die beruhigenden Klänge der Handpan. Instrumente werden gestellt.",
-        "selfDesc": "Entspannung durch sanfte Rhythmen.",
-        "email": "handpan-muc@example.de",
-        "lat": 48.1351,
-        "lng": 11.582,
-        "address": "München, Westpark, 81373",
-        "tags": [
-            "Instrumentalmusik",
-            "Gesundheit & Wohlbefinden",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": "2026-06-14",
-        "time": "15:00",
-        "regularity": "once"
-    },
-    {
-        "id": "b2c3d4e5-0031-0031-0031-000000000031",
-        "status": "approved",
-        "category": "person",
-        "title": "Mila Pavlović – Balkan-Tanz",
-        "description": "Kreistänze aus Südosteuropa. Einfach mitzumachen, Fokus auf Gemeinschaft und Taktgefühl.",
-        "selfDesc": "Der Kreis hält uns alle.",
-        "email": "mila.dance@example.de",
-        "lat": 52.3759,
-        "lng": 9.732,
-        "address": "Hannover, Linden, 30451",
-        "tags": [
-            "Bewegung/Tanz",
-            "Vernetzungstreffen",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "b2c3d4e5-0032-0032-0032-000000000032",
+        "id": "b2c3d4e5-0100-0000-0000-000000000141",
         "status": "approved",
         "category": "institution",
-        "title": "Pop-Akademie Community Department",
-        "description": "Studenten entwickeln Musikprojekte für Stadtteile mit hohem Förderbedarf.",
-        "selfDesc": "Wissenstransfer in die Gesellschaft.",
-        "email": "community@pop-akademie.example.de",
-        "lat": 49.4875,
-        "lng": 8.466,
-        "address": "Mannheim, Hafenstraße 33, 68159",
+        "title": "Museum für regionale Instrumentengeschichte",
+        "description": "Ausstellung historischer Instrumente mit großem Bereich zum Ausprobieren.",
+        "selfDesc": "Geschichte zum Anfassen und Klingen bringen.",
+        "email": "kontakt@instrumentenmuseum.de",
+        "lat": 54.0714,
+        "lng": 9.9897,
+        "address": "Neumünster, 24534",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Instrumentalmusik",
+            "Weiterbildung"
+        ],
+        "links": [],
+        "pinIcon": 2
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000142",
+        "status": "approved",
+        "category": "person",
+        "title": "Anja Römer",
+        "description": "Musiktherapeutin, arbeitet mit traumatisierten Geflüchteten.",
+        "selfDesc": "Musik ist ein sicherer Ort.",
+        "email": "anja.roemer@example.de",
+        "lat": 53.2487,
+        "lng": 10.4078,
+        "address": "Lüneburg, 21335",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Gesundheit & Wohlbefinden",
+            "Vernetzungstreffen"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000143",
+        "status": "approved",
+        "category": "event",
+        "title": "Cajon-Bau-Workshop",
+        "description": "Wir bauen unsere eigenen Trommelkisten und spielen sie danach direkt.",
+        "selfDesc": "Dein Instrument, von dir gebaut.",
+        "email": "cajon@celle.de",
+        "lat": 52.6253,
+        "lng": 10.0825,
+        "address": "Celle, 29221",
+        "date": "2026-05-16",
+        "time": "10:00",
+        "regularity": "single",
+        "tags": [
+            "Percussion/Trommeln",
+            "Instrumentalmusik"
+        ],
+        "links": [],
+        "pinIcon": 4
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000144",
+        "status": "approved",
+        "category": "person",
+        "title": "David Zimmer",
+        "description": "Chorleiter für den lokalen Pop- und Jazzchor. Arrangiert selbst.",
+        "selfDesc": "A cappella Pop mit Groove.",
+        "email": "d.zimmer@example.de",
+        "lat": 52.1508,
+        "lng": 9.9511,
+        "address": "Hildesheim, 31134",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Singen",
+            "Für Erwachsene"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000145",
+        "status": "approved",
+        "category": "institution",
+        "title": "Studienzentrum Community Music",
+        "description": "Einrichtung der Universität zur Erforschung partizipativer Musikpraxis.",
+        "selfDesc": "Forschung im direkten Austausch mit der Gesellschaft.",
+        "email": "sekretariat@cm-goettingen.de",
+        "lat": 51.5339,
+        "lng": 9.9356,
+        "address": "Göttingen, 37073",
+        "date": null,
+        "time": null,
+        "regularity": null,
         "tags": [
             "Weiterbildung",
+            "Vernetzungstreffen"
+        ],
+        "links": [],
+        "pinIcon": 1
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000146",
+        "status": "approved",
+        "category": "event",
+        "title": "Rollstuhl-Tanz & Live-Percussion",
+        "description": "Ein integrativer Workshop für Menschen mit und ohne Rollstuhl.",
+        "selfDesc": "Bewegung kennt keine Norm.",
+        "email": "tanz@marburg.de",
+        "lat": 50.809,
+        "lng": 8.7706,
+        "address": "Marburg, 35037",
+        "date": "2026-04-25",
+        "time": "15:00",
+        "regularity": "monthly",
+        "tags": [
+            "Bewegung/Tanz",
+            "Percussion/Trommeln"
+        ],
+        "links": [],
+        "pinIcon": 7
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000147",
+        "status": "approved",
+        "category": "person",
+        "title": "Kerstin Bauer",
+        "description": "Pianistin und Improvisatorin. Leitet freie Ensembles.",
+        "selfDesc": "Loslassen von Notenblättern.",
+        "email": "k.bauer@example.de",
+        "lat": 50.5841,
+        "lng": 8.6784,
+        "address": "Gießen, 35390",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Improvisation",
+            "Instrumentalmusik"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000148",
+        "status": "approved",
+        "category": "event",
+        "title": "Online-Jam-Session via Low-Latency",
+        "description": "Wir nutzen Jamulus für eine verzögerungsfreie Session über das Internet.",
+        "selfDesc": "Weltweit verbunden, lokal am Instrument.",
+        "email": "onlinejam@fulda.de",
+        "lat": 50.5528,
+        "lng": 9.6775,
+        "address": "Fulda, 36037",
+        "date": "2026-03-24",
+        "time": "20:00",
+        "regularity": "weekly",
+        "tags": [
+            "Instrumentalmusik",
+            "Vernetzungstreffen"
+        ],
+        "links": [],
+        "pinIcon": 12
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000149",
+        "status": "approved",
+        "category": "institution",
+        "title": "Jugendkulturzentrum Bessungen",
+        "description": "Städtische Einrichtung mit voll ausgestatteten Band-Proberäumen.",
+        "selfDesc": "Raum für laute Gedanken.",
+        "email": "jukuz@darmstadt.de",
+        "lat": 49.8728,
+        "lng": 8.6512,
+        "address": "Darmstadt, 64283",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Für Kinder",
+            "Instrumentalmusik"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000150",
+        "status": "approved",
+        "category": "event",
+        "title": "Rhythmus-Diplom für Kids",
+        "description": "Abschlussveranstaltung des Ferien-Trommelkurses für Kinder.",
+        "selfDesc": "Stolze Trommler:innen.",
+        "email": "diplom@offenbach.de",
+        "lat": 50.1049,
+        "lng": 8.7663,
+        "address": "Offenbach, 63065",
+        "date": "2026-08-14",
+        "time": "16:00",
+        "regularity": "single",
+        "tags": [
+            "Für Kinder",
+            "Percussion/Trommeln"
+        ],
+        "links": [],
+        "pinIcon": 10
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000151",
+        "status": "approved",
+        "category": "person",
+        "title": "Peter Scholz",
+        "description": "Lehrer für orientalische Perkussion (Darbuka, Riq).",
+        "selfDesc": "Die ungeraden Takte sind mein Zuhause.",
+        "email": "p.scholz@example.de",
+        "lat": 50.1328,
+        "lng": 8.9169,
+        "address": "Hanau, 63450",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Percussion/Trommeln",
+            "Weiterbildung"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000152",
+        "status": "approved",
+        "category": "event",
+        "title": "Gitarren-Picknick",
+        "description": "Zusammen sitzen, essen und Akustikgitarre spielen.",
+        "selfDesc": "Zupfen und Genießen im Park.",
+        "email": "picknick@aschaffenburg.de",
+        "lat": 49.975,
+        "lng": 9.1478,
+        "address": "Aschaffenburg, 63739",
+        "date": "2026-06-20",
+        "time": "15:00",
+        "regularity": "monthly",
+        "tags": [
+            "Instrumentalmusik",
+            "Für Erwachsene"
+        ],
+        "links": [],
+        "pinIcon": 2
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000153",
+        "status": "approved",
+        "category": "institution",
+        "title": "Musikwerkstatt Unterfranken",
+        "description": "Regionales Förderzentrum für Bandkultur und Songwriting.",
+        "selfDesc": "Vom Proberaum auf die Bühne.",
+        "email": "info@musikwerkstatt-sw.de",
+        "lat": 50.0483,
+        "lng": 10.2333,
+        "address": "Schweinfurt, 97421",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
             "Songwriting",
             "Vernetzungstreffen"
         ],
         "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
+        "pinIcon": 0
     },
     {
-        "id": "b2c3d4e5-0033-0033-0033-000000000033",
-        "status": "approved",
-        "category": "event",
-        "title": "Body-Percussion Flashmob",
-        "description": "Kurze, knackige Rhythmen auf dem Bahnhofsvorplatz. Video-Tutorials zur Vorbereitung online.",
-        "selfDesc": "Klatschen verbindet.",
-        "email": "body-flash@example.de",
-        "lat": 50.1109,
-        "lng": 8.6821,
-        "address": "Frankfurt, Hauptbahnhof, 60329",
-        "tags": [
-            "Percussion/Trommeln",
-            "Bewegung/Tanz",
-            "Für Kinder"
-        ],
-        "links": [],
-        "date": "2026-09-19",
-        "time": "13:00",
-        "regularity": "once"
-    },
-    {
-        "id": "b2c3d4e5-0034-0034-0034-000000000034",
+        "id": "b2c3d4e5-0100-0000-0000-000000000154",
         "status": "approved",
         "category": "person",
-        "title": "Christian Vogt – Inklusions-DJ",
-        "description": "DJ-Workshops für Menschen mit kognitiven Einschränkungen. Wir nutzen barrierefreie Controller.",
-        "selfDesc": "Musik für alle Sinne zugänglich machen.",
-        "email": "chris.dj@example.de",
-        "lat": 53.0793,
-        "lng": 8.8017,
-        "address": "Bremen, Neustadt, 28199",
-        "tags": [
-            "Sonstiges",
-            "Gesundheit & Wohlbefinden",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "b2c3d4e5-0035-0035-0035-000000000035",
-        "status": "approved",
-        "category": "institution",
-        "title": "Samba-Schule 'Alegría'",
-        "description": "Offene Bateria für alle. Wir proben für Karnevalsumzüge und Stadtfeste.",
-        "selfDesc": "Energie und Lebensfreude in der Gruppe.",
-        "email": "info@samba-alegria.example.de",
-        "lat": 51.0504,
-        "lng": 13.7373,
-        "address": "Dresden, Neustadt, 01099",
-        "tags": [
-            "Percussion/Trommeln",
-            "Bewegung/Tanz",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "b2c3d4e5-0036-0036-0036-000000000036",
-        "status": "approved",
-        "category": "event",
-        "title": "Community Music Stammtisch",
-        "description": "Informelles Treffen für alle Aktiven in der Region. Vernetzung und Ideenaustausch.",
-        "selfDesc": "Gemeinsam stärker für die Musik.",
-        "email": "stammtisch-nrw@example.de",
-        "lat": 51.2217,
-        "lng": 6.7762,
-        "address": "Düsseldorf, Altstadt, 40213",
-        "tags": [
-            "Vernetzungstreffen",
-            "Sonstiges",
-            "Weiterbildung"
-        ],
-        "links": [],
-        "date": "2026-03-25",
-        "time": "19:00",
-        "regularity": "monthly"
-    },
-    {
-        "id": "b2c3d4e5-0037-0037-0037-000000000037",
-        "status": "approved",
-        "category": "person",
-        "title": "Elias Kofler – Alm-Jodeln",
-        "description": "Jodel-Workshops in der Natur. Die Urform der Kommunikation neu entdecken.",
-        "selfDesc": "Singen ohne Worte, aber mit viel Gefühl.",
-        "email": "elias.jodel@example.de",
-        "lat": 47.4917,
-        "lng": 11.0955,
-        "address": "Garmisch-Partenkirchen, Am Kurpark, 82467",
-        "tags": [
-            "Singen",
-            "Sonstiges",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "b2c3d4e5-0038-0038-0038-000000000038",
-        "status": "approved",
-        "category": "institution",
-        "title": "Rockmobil Pfalz",
-        "description": "Ein LKW voller Instrumente besucht Schulen und Jugendtreffs für einwöchige Band-Workshops.",
-        "selfDesc": "Wir bringen die Bühne zu euch.",
-        "email": "rockmobil@example.de",
-        "lat": 49.4447,
-        "lng": 7.7689,
-        "address": "Kaiserslautern, Rathausplatz, 67653",
-        "tags": [
-            "Instrumentalmusik",
-            "Für Kinder",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "b2c3d4e5-0039-0039-0039-000000000039",
-        "status": "approved",
-        "category": "event",
-        "title": "Drum-Night für Frauen",
-        "description": "Ein geschützter Raum zum Trommeln, Austauschen und Empowern.",
-        "selfDesc": "Sisterhood through Rhythm.",
-        "email": "women-drums@example.de",
-        "lat": 52.52,
-        "lng": 13.405,
-        "address": "Berlin, Kreuzberg, 10961",
-        "tags": [
-            "Percussion/Trommeln",
-            "Vernetzungstreffen",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": "2026-04-08",
-        "time": "19:00",
-        "regularity": "monthly"
-    },
-    {
-        "id": "b2c3d4e5-0040-0040-0040-000000000040",
-        "status": "approved",
-        "category": "person",
-        "title": "Sarah Ben-Ami – Klezmer-Workshop",
-        "description": "Traditionelle jüdische Musik für Ensembles. Wir lernen Verzierungen und die typische Spielweise.",
-        "selfDesc": "Musik, die lacht und weint.",
-        "email": "sarah.klezmer@example.de",
-        "lat": 50.1109,
-        "lng": 8.6821,
-        "address": "Frankfurt, Westend, 60325",
-        "tags": [
-            "Instrumentalmusik",
-            "Vernetzungstreffen",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "category": "person",
-        "title": "Popchor",
-        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-        "selfDesc": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-        "email": "jasper.fertig@outlook.de",
-        "lat": 51.767839887322154,
-        "lng": 9.074707031250002,
-        "address": "3, Zum Klusberg, Pömbsen, Bad Driburg, Kreis Höxter, Nordrhein-Westfalen, 33014, Deutschland",
-        "date": "0006-03-05",
-        "time": "15:30",
-        "regularity": null,
-        "tags": [],
-        "links": [
-            {
-                "title": "",
-                "url": "https://www.kloster-michaelstein.de"
-            },
-            {
-                "title": "Homepage",
-                "url": "https://www.kloster-michaelstein.de"
-            }
-        ],
-        "id": "817c1f5f-ad4e-4972-9315-9c1a1d214b66",
-        "status": "approved"
-    },
-    {
-        "category": "person",
-        "title": "Popchor",
-        "description": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-        "selfDesc": "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.",
-        "email": "jasper.fertig@outlook.de",
-        "lat": 53.27894017537635,
-        "lng": 6.197449906365394,
-        "address": "Augsbuert-Lytsewâld, Beyweg 1, 9292 MJ",
-        "date": "0006-03-05",
-        "time": "15:30",
-        "regularity": null,
-        "tags": [],
-        "links": [
-            {
-                "title": "",
-                "url": "https://www.kloster-michaelstein.de"
-            },
-            {
-                "title": "Homepage",
-                "url": "https://www.kloster-michaelstein.de"
-            }
-        ],
-        "id": "54c51714-effa-4993-8d1a-15f3553f767f",
-        "status": "approved"
-    },
-    {
-        "category": "person",
-        "title": "öü",
-        "description": "",
-        "selfDesc": "",
-        "email": "k@k.co",
-        "lat": 48.37279093159702,
-        "lng": 10.903036121201275,
-        "address": "Augsburg, Lauterlech 49, 86152",
+        "title": "Silvia Metz",
+        "description": "Musikpädagogin mit Spezialisierung auf musikalische Früherziehung.",
+        "selfDesc": "Kinder entdecken die Welt durch Klang.",
+        "email": "s.metz@example.de",
+        "lat": 49.8988,
+        "lng": 10.9028,
+        "address": "Bamberg, 96047",
         "date": null,
         "time": null,
         "regularity": null,
-        "tags": [],
-        "links": [],
-        "id": "91f66e8c-f458-4a44-89b3-c482f62166d0",
-        "status": "approved"
-    },
-    {
-        "id": "c3d4e5f6-0001-0001-0001-000000000001",
-        "status": "approved",
-        "category": "person",
-        "title": "Hinnerk Janssen – Shantyman",
-        "description": "Ich bewahre das maritime Erbe durch offene Shanty-Singen in Häfen und Seniorenheimen. Mitsingen ist ausdrücklich erwünscht, Texte werden verteilt.",
-        "selfDesc": "Shantys waren die erste Community Music der Seefahrt.",
-        "email": "hinnerk.shanty@example.de",
-        "lat": 54.1888,
-        "lng": 9.0761,
-        "address": "Büsum, Hafenbecken, 25761",
         "tags": [
-            "Singen",
-            "Für Erwachsene",
-            "Sonstiges"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0002-0002-0002-000000000002",
-        "status": "approved",
-        "category": "institution",
-        "title": "Klanghütte Erzgebirge",
-        "description": "Ein Treffpunkt für traditionellen Instrumentenbau und Hausmusik. Wir bauen gemeinsam einfache Zithern und Flöten.",
-        "selfDesc": "Altes Handwerk für neue Gemeinschaft.",
-        "email": "info@klanghuette.example.de",
-        "lat": 50.5962,
-        "lng": 13.0012,
-        "address": "Annaberg-Buchholz, Markt 4, 09456",
-        "tags": [
-            "Sonstiges",
-            "Instrumentalmusik",
-            "Für Kinder"
-        ],
-        "links": [
-            {
-                "title": "Werkstatt",
-                "url": "https://example.de/klanghuette"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0003-0003-0003-000000000003",
-        "status": "approved",
-        "category": "event",
-        "title": "Alm-Jodel-Tag",
-        "description": "Ein Tagesausflug mit gemeinsamem Jodeln am Berggipfel. Keine Vorkenntnisse nötig, Trittsicherheit erforderlich.",
-        "selfDesc": "Den Berg zum Klingen bringen.",
-        "email": "jodel-oberstdorf@example.de",
-        "lat": 47.4124,
-        "lng": 10.2758,
-        "address": "Oberstdorf, Nebelhorn, 87561",
-        "tags": [
-            "Singen",
-            "Gesundheit & Wohlbefinden",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": "2026-07-15",
-        "time": "09:00",
-        "regularity": "once"
-    },
-    {
-        "id": "c3d4e5f6-0004-0004-0004-000000000004",
-        "status": "approved",
-        "category": "person",
-        "title": "Dr. Anja Seifert – Veeh-Harfen Dozentin",
-        "description": "Ich leite Gruppen für das Spiel auf der Veeh-Harfe, besonders für Menschen mit Demenz oder ohne Notenkenntnisse.",
-        "selfDesc": "Jeder Mensch ist musikalisch, wenn das Werkzeug stimmt.",
-        "email": "anja.seifert@example.de",
-        "lat": 49.8728,
-        "lng": 8.6512,
-        "address": "Darmstadt, Rheinstraße 12, 64283",
-        "tags": [
-            "Gesundheit & Wohlbefinden",
-            "Instrumentalmusik",
-            "Weiterbildung"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0005-0005-0005-000000000005",
-        "status": "approved",
-        "category": "institution",
-        "title": "Saale-Beat-Box",
-        "description": "Ein offenes Studio für Jugendliche in Sachsen-Anhalt. Hier entstehen Rap-Songs über das Leben in der Provinz.",
-        "selfDesc": "Gib deiner Heimat eine Stimme.",
-        "email": "info@saalebeat.example.de",
-        "lat": 51.4828,
-        "lng": 11.9691,
-        "address": "Halle (Saale), Steintor, 06112",
-        "tags": [
-            "Songwriting",
-            "Für Kinder",
-            "Weiterbildung"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0006-0006-0006-000000000006",
-        "status": "approved",
-        "category": "event",
-        "title": "Bodensee-Percussion-Camp",
-        "description": "Drei Tage Trommeln am Ufer. Workshops für alle Levels, abends Lagerfeuer und Jam-Sessions.",
-        "selfDesc": "Rhythmus, Wasser, Gemeinschaft.",
-        "email": "camp@lake-beats.example.de",
-        "lat": 47.6779,
-        "lng": 9.4533,
-        "address": "Friedrichshafen, Uferpromenade, 88045",
-        "tags": [
-            "Percussion/Trommeln",
-            "Vernetzungstreffen",
-            "Für Erwachsene"
-        ],
-        "links": [
-            {
-                "title": "Anmeldung",
-                "url": "https://example.de/lake-beats"
-            }
-        ],
-        "date": "2026-08-21",
-        "time": "10:00",
-        "regularity": "once"
-    },
-    {
-        "id": "c3d4e5f6-0007-0007-0007-000000000007",
-        "status": "approved",
-        "category": "person",
-        "title": "Marek Nowak – Akkordeon-Treff",
-        "description": "Ich organisiere monatliche Runden für Akkordeonspieler, die Lust auf osteuropäische Folklore haben.",
-        "selfDesc": "Das Akkordeon ist das Atmen der Gemeinschaft.",
-        "email": "marek.akkordeon@example.de",
-        "lat": 52.3192,
-        "lng": 14.5501,
-        "address": "Frankfurt (Oder), Karl-Marx-Straße, 15230",
-        "tags": [
-            "Instrumentalmusik",
-            "Vernetzungstreffen",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0008-0008-0008-000000000008",
-        "status": "approved",
-        "category": "institution",
-        "title": "Musikmobil Saar",
-        "description": "Wir fahren in kleine Dörfer im Saarland und bieten dort kostenlose Schnupperstunden für Blasinstrumente an.",
-        "selfDesc": "Kultur kommt zu den Leuten.",
-        "email": "saar-mobil@example.de",
-        "lat": 49.2326,
-        "lng": 7.0004,
-        "address": "Saarbrücken, Landwehrplatz, 66111",
-        "tags": [
-            "Instrumentalmusik",
-            "Für Kinder",
-            "Sonstiges"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0009-0009-0009-000000000009",
-        "status": "approved",
-        "category": "event",
-        "title": "Kloster-Klang-Wochenende",
-        "description": "Gemeinsames Singen gregorianischer Choräle und meditatives Musizieren in historischer Kulisse.",
-        "selfDesc": "Stille und Klang im Dialog.",
-        "email": "klosterklang@example.de",
-        "lat": 51.6508,
-        "lng": 9.3752,
-        "address": "Höxter, Schloss Corvey, 37671",
-        "tags": [
-            "Singen",
-            "Gesundheit & Wohlbefinden",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": "2026-11-13",
-        "time": "17:00",
-        "regularity": "once"
-    },
-    {
-        "id": "c3d4e5f6-0010-0010-0010-000000000010",
-        "status": "approved",
-        "category": "person",
-        "title": "Svenja Larsson – Ukulele für Kids",
-        "description": "Spielerischer Einstieg in die Saitenwelt für Kinder ab 5 Jahren in Ostfriesland.",
-        "selfDesc": "Vier Saiten reichen für die ganze Welt.",
-        "email": "svenja.uku@example.de",
-        "lat": 53.3671,
-        "lng": 7.2061,
-        "address": "Emden, Delft, 26721",
-        "tags": [
-            "Instrumentalmusik",
             "Für Kinder",
             "Singen"
         ],
         "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
+        "pinIcon": 0
     },
     {
-        "id": "c3d4e5f6-0011-0011-0011-000000000011",
-        "status": "approved",
-        "category": "institution",
-        "title": "Bayerisches Zentrum für Musiktherapie",
-        "description": "Forschung und Praxis von Musik als soziale Therapieform. Wir beraten Einrichtungen zur Umsetzung von Community Music.",
-        "selfDesc": "Wissenschaft trifft soziale Praxis.",
-        "email": "beratung@bzmt.example.de",
-        "lat": 48.1351,
-        "lng": 11.582,
-        "address": "München, Sonnenstraße 10, 80331",
-        "tags": [
-            "Weiterbildung",
-            "Gesundheit & Wohlbefinden",
-            "Vernetzungstreffen"
-        ],
-        "links": [
-            {
-                "title": "Forschung",
-                "url": "https://example.de/bzmt"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0012-0012-0012-000000000012",
+        "id": "b2c3d4e5-0100-0000-0000-000000000155",
         "status": "approved",
         "category": "event",
-        "title": "Weinberg-Singen Rheingau",
-        "description": "Wandern und Singen in den Weinbergen. Volkslieder und geselliges Beisammensein.",
-        "selfDesc": "Kulturgenuss unter freiem Himmel.",
-        "email": "wein-singen@example.de",
-        "lat": 50.0031,
-        "lng": 7.9304,
-        "address": "Rüdesheim am Rhein, Niederwalddenkmal, 65385",
-        "tags": [
-            "Singen",
-            "Für Erwachsene",
-            "Sonstiges"
-        ],
-        "links": [],
-        "date": "2026-06-28",
-        "time": "14:00",
-        "regularity": "once"
-    },
-    {
-        "id": "c3d4e5f6-0013-0013-0013-000000000013",
-        "status": "approved",
-        "category": "person",
-        "title": "Aras Bakir – Baglama & Dialog",
-        "description": "Interkulturelle Musikabende in Thüringen. Wir lernen die Baglama kennen und sprechen über Musik als Brücke.",
-        "selfDesc": "Saitenklang verbindet Kulturen.",
-        "email": "aras.baglama@example.de",
-        "lat": 50.9271,
-        "lng": 11.5892,
-        "address": "Jena, Wagnergasse, 07743",
-        "tags": [
-            "Instrumentalmusik",
-            "Vernetzungstreffen",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0014-0014-0014-000000000014",
-        "status": "approved",
-        "category": "institution",
-        "title": "Harz-Klang-Netzwerk",
-        "description": "Zusammenschluss von Musiklehrern, die Community-Projekte in der Harz-Region fördern.",
-        "selfDesc": "Vernetzung im Gebirge.",
-        "email": "info@harz-klang.example.de",
-        "lat": 51.833,
-        "lng": 10.784,
-        "address": "Wernigerode, Marktplatz, 38855",
-        "tags": [
-            "Vernetzungstreffen",
-            "Weiterbildung",
-            "Sonstiges"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0015-0015-0015-000000000015",
-        "status": "approved",
-        "category": "event",
-        "title": "Street Piano Festival",
-        "description": "In der ganzen Stadt stehen bemalte Klaviere. Jeder darf spielen, jeder darf zuhören.",
-        "selfDesc": "Die Stadt wird zum Konzertsaal.",
-        "email": "pianos-trier@example.de",
-        "lat": 49.7499,
-        "lng": 6.6371,
-        "address": "Trier, Porta-Nigra-Vorplatz, 54290",
-        "tags": [
-            "Instrumentalmusik",
-            "Für Kinder",
-            "Sonstiges"
-        ],
-        "links": [],
-        "date": "2026-05-20",
-        "time": "10:00",
-        "regularity": "once"
-    },
-    {
-        "id": "c3d4e5f6-0016-0016-0016-000000000016",
-        "status": "approved",
-        "category": "person",
-        "title": "Katrin Baum – Waldkinder-Musik",
-        "description": "Naturpädagogik und Musik. Wir bauen Instrumente aus Stöcken und Steinen im Pfälzerwald.",
-        "selfDesc": "Der Wald ist das größte Instrument.",
-        "email": "katrin.waldmusik@example.de",
-        "lat": 49.3494,
-        "lng": 8.1347,
-        "address": "Neustadt an der Weinstraße, Hambacher Schloss, 67433",
-        "tags": [
-            "Für Kinder",
-            "Sonstiges",
-            "Bewegung/Tanz"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0017-0017-0017-000000000017",
-        "status": "approved",
-        "category": "institution",
-        "title": "Landesmusikrat Schleswig-Holstein",
-        "description": "Koordinierungsstelle für Breitenmusik und Community-Projekte im Norden.",
-        "selfDesc": "Musikland zwischen den Meeren.",
-        "email": "info@lmr-sh.example.de",
-        "lat": 54.3233,
-        "lng": 10.1228,
-        "address": "Kiel, Rathausplatz, 24103",
-        "tags": [
-            "Vernetzungstreffen",
-            "Weiterbildung",
-            "Sonstiges"
-        ],
-        "links": [
-            {
-                "title": "Webseite",
-                "url": "https://example.de/lmr-sh"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0018-0018-0018-000000000018",
-        "status": "approved",
-        "category": "event",
-        "title": "Mondschein-Trommeln am Strand",
-        "description": "Offener Trommelabend bei Vollmond am Ostseestrand.",
-        "selfDesc": "Rhythmus und Wellen.",
-        "email": "moon-drum@example.de",
-        "lat": 54.1472,
-        "lng": 12.0864,
-        "address": "Warnemünde, Teepott, 18119",
-        "tags": [
-            "Percussion/Trommeln",
-            "Gesundheit & Wohlbefinden",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": "2026-06-15",
-        "time": "21:00",
-        "regularity": "monthly"
-    },
-    {
-        "id": "c3d4e5f6-0019-0019-0019-000000000019",
-        "status": "approved",
-        "category": "person",
-        "title": "Pavel Weber – Blechbläser für alle",
-        "description": "Ich leite ein generationsübergreifendes Posaunen-Ensemble in der Oberlausitz.",
-        "selfDesc": "Blech klingt am besten gemeinsam.",
-        "email": "pavel.brass@example.de",
-        "lat": 51.1506,
-        "lng": 14.4237,
-        "address": "Bautzen, Hauptmarkt, 02625",
-        "tags": [
-            "Instrumentalmusik",
-            "Für Erwachsene",
-            "Für Kinder"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0020-0020-0020-000000000020",
-        "status": "approved",
-        "category": "institution",
-        "title": "Inklusive Musikschule Münsterland",
-        "description": "Musikunterricht für Menschen mit und ohne Handicap. Wir bilden auch Ensembles.",
-        "selfDesc": "Keine Ausreden – jeder kann Musik machen.",
-        "email": "info@inklusive-musik.example.de",
-        "lat": 51.9607,
-        "lng": 7.6261,
-        "address": "Münster, Domplatz, 48143",
-        "tags": [
-            "Gesundheit & Wohlbefinden",
-            "Instrumentalmusik",
-            "Weiterbildung"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0021-0021-0021-000000000021",
-        "status": "approved",
-        "category": "event",
-        "title": "Lahn-Kanu-Singen",
-        "description": "Wir paddeln gemeinsam die Lahn hinunter und singen in den Echo-Passagen.",
-        "selfDesc": "Natur, Sport und Gesang.",
-        "email": "kanu-chor@example.de",
-        "lat": 50.3564,
-        "lng": 7.5999,
-        "address": "Lahnstein, Lahnmündung, 56112",
-        "tags": [
-            "Singen",
-            "Sonstiges",
-            "Für Erwachsene"
-        ],
-        "links": [],
+        "title": "Community Choir Festival",
+        "description": "Großes Treffen von Laienchören aus ganz Oberfranken.",
+        "selfDesc": "Hunderte Stimmen, ein Klang.",
+        "email": "festival@bayreuth-choere.de",
+        "lat": 49.9481,
+        "lng": 11.5783,
+        "address": "Bayreuth, 95444",
         "date": "2026-07-04",
-        "time": "11:00",
-        "regularity": "once"
-    },
-    {
-        "id": "c3d4e5f6-0022-0022-0022-000000000022",
-        "status": "approved",
-        "category": "person",
-        "title": "Birgit Meier – Tanz in der Heide",
-        "description": "Folklore-Tanzworkshops für Einsteiger in der Lüneburger Heide.",
-        "selfDesc": "Tanzen erdet und verbindet.",
-        "email": "birgit.heide@example.de",
-        "lat": 53.2458,
-        "lng": 10.4116,
-        "address": "Lüneburg, Am Sande, 21335",
-        "tags": [
-            "Bewegung/Tanz",
-            "Für Erwachsene",
-            "Vernetzungstreffen"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0023-0023-0023-000000000023",
-        "status": "approved",
-        "category": "institution",
-        "title": "Rock-Akademie Schwarzwald",
-        "description": "Wir unterstützen junge Bands im Schwarzwald durch Coaching und Probenräume.",
-        "selfDesc": "Wir bringen den Wald zum Beben.",
-        "email": "rock@schwarzwald.example.de",
-        "lat": 48.0501,
-        "lng": 8.2014,
-        "address": "Furtwangen, Marktplatz, 78120",
-        "tags": [
-            "Songwriting",
-            "Instrumentalmusik",
-            "Für Kinder"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0024-0024-0024-000000000024",
-        "status": "approved",
-        "category": "event",
-        "title": "Zechen-Chor-Tag",
-        "description": "Ehemalige Bergleute und junge Städter singen gemeinsam Lieder der Arbeit und der Hoffnung.",
-        "selfDesc": "Tradition trifft Zukunft unter Tage.",
-        "email": "zeche-singt@example.de",
-        "lat": 51.5036,
-        "lng": 7.1328,
-        "address": "Gelsenkirchen, Zeche Consolidation, 45889",
-        "tags": [
-            "Singen",
-            "Vernetzungstreffen",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": "2026-09-12",
-        "time": "15:00",
-        "regularity": "once"
-    },
-    {
-        "id": "c3d4e5f6-0025-0025-0025-000000000025",
-        "status": "approved",
-        "category": "person",
-        "title": "Tobias Klein – Digitaler Chorleiter",
-        "description": "Ich leite einen reinen Online-Chor für Menschen, die mobil eingeschränkt sind.",
-        "selfDesc": "Virtuelle Nähe durch realen Klang.",
-        "email": "tobias.webchor@example.de",
-        "lat": 52.52,
-        "lng": 13.405,
-        "address": "Berlin (Online), 10115",
-        "tags": [
-            "Singen",
-            "Sonstiges",
-            "Gesundheit & Wohlbefinden"
-        ],
-        "links": [
-            {
-                "title": "Zoom-Chor",
-                "url": "https://example.de/webchor"
-            }
-        ],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0026-0026-0026-000000000026",
-        "status": "approved",
-        "category": "institution",
-        "title": "Zentrum für Percussion Bodensee",
-        "description": "Ein Haus voller Trommeln. Wir bieten wöchentliche Ensembles für alle Altersstufen.",
-        "selfDesc": "Dein Herzschlag ist unser Takt.",
-        "email": "info@bodensee-drums.example.de",
-        "lat": 47.7508,
-        "lng": 8.955,
-        "address": "Radolfzell, Seestraße, 78315",
-        "tags": [
-            "Percussion/Trommeln",
-            "Für Kinder",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0027-0027-0027-000000000027",
-        "status": "approved",
-        "category": "event",
-        "title": "Folk-Workshop Wendland",
-        "description": "Gemeinsames Erlernen von Folk-Tänzen und Melodien im Rahmen einer Land-Exkursion.",
-        "selfDesc": "Musik als Widerstand und Gemeinschaft.",
-        "email": "folk-wendland@example.de",
-        "lat": 53.0333,
-        "lng": 11.0833,
-        "address": "Lüchow, Marktplatz, 29439",
-        "tags": [
-            "Instrumentalmusik",
-            "Bewegung/Tanz",
-            "Vernetzungstreffen"
-        ],
-        "links": [],
-        "date": "2026-05-30",
         "time": "10:00",
-        "regularity": "once"
-    },
-    {
-        "id": "c3d4e5f6-0028-0028-0028-000000000028",
-        "status": "approved",
-        "category": "person",
-        "title": "Isolde Frank – Zither-Neuzeit",
-        "description": "Ich bringe die Zither aus dem Museum in die Community Music. Moderne Stücke und Improvisation.",
-        "selfDesc": "Tradition darf Spaß machen.",
-        "email": "isolde.zither@example.de",
-        "lat": 48.3333,
-        "lng": 12.6833,
-        "address": "Altötting, Kapellplatz, 84503",
-        "tags": [
-            "Instrumentalmusik",
-            "Improvisation",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0029-0029-0029-000000000029",
-        "status": "approved",
-        "category": "institution",
-        "title": "Bremerhavener Hafen-Chöre",
-        "description": "Zusammenschluss verschiedener Laienchöre der Stadt für große Open-Air-Events.",
-        "selfDesc": "Eine Stadt, viele Stimmen.",
-        "email": "choere@bhv.example.de",
-        "lat": 53.5394,
-        "lng": 8.5809,
-        "address": "Bremerhaven, Columbus Center, 27568",
+        "regularity": "single",
         "tags": [
             "Singen",
-            "Vernetzungstreffen",
-            "Für Erwachsene"
+            "Vernetzungstreffen"
         ],
         "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
+        "pinIcon": 5
     },
     {
-        "id": "c3d4e5f6-0030-0030-0030-000000000030",
-        "status": "approved",
-        "category": "event",
-        "title": "Mitmach-Konzert Regenbogen",
-        "description": "Buntes Konzert für Familien mit Fokus auf Diversität und Kinderlieder aus aller Welt.",
-        "selfDesc": "Alle Farben, alle Klänge.",
-        "email": "regenbogen@example.de",
-        "lat": 50.082,
-        "lng": 8.2403,
-        "address": "Wiesbaden, Staatstheater Vorplatz, 65189",
-        "tags": [
-            "Für Kinder",
-            "Singen",
-            "Bewegung/Tanz"
-        ],
-        "links": [],
-        "date": "2026-06-01",
-        "time": "16:00",
-        "regularity": "once"
-    },
-    {
-        "id": "c3d4e5f6-0031-0031-0031-000000000031",
+        "id": "b2c3d4e5-0100-0000-0000-000000000156",
         "status": "approved",
         "category": "person",
-        "title": "Jan Fedder – Blues-Harp Workshop",
-        "description": "Die Mundharmonika als einfachstes Gemeinschaftsinstrument. Kurs für absolute Anfänger.",
-        "selfDesc": "Der Blues passt in jede Hosentasche.",
-        "email": "jan.harp@example.de",
-        "lat": 53.5511,
-        "lng": 9.9937,
-        "address": "Hamburg, St. Pauli, 20359",
-        "tags": [
-            "Instrumentalmusik",
-            "Für Erwachsene",
-            "Für Kinder"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0032-0032-0032-000000000032",
-        "status": "approved",
-        "category": "institution",
-        "title": "Thüringer Folklore-Archiv",
-        "description": "Wir stellen Noten und Aufnahmen für Community-Music-Projekte zur Verfügung und beraten bei Recherchen.",
-        "selfDesc": "Wissen teilen für neues Klingen.",
-        "email": "archiv@folklore.example.de",
-        "lat": 50.9787,
-        "lng": 11.0328,
-        "address": "Erfurt, Domplatz, 99084",
-        "tags": [
-            "Sonstiges",
-            "Vernetzungstreffen",
-            "Weiterbildung"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0033-0033-0033-000000000033",
-        "status": "approved",
-        "category": "event",
-        "title": "Klang-Yoga am See",
-        "description": "Verbindung von Yoga-Praxis und Live-Begleitung durch Hang und Klangschalen.",
-        "selfDesc": "Innere Ruhe durch äußeren Klang.",
-        "email": "yoga-klang@example.de",
-        "lat": 47.9392,
-        "lng": 12.3475,
-        "address": "Prien am Chiemsee, Kurpark, 83209",
-        "tags": [
-            "Gesundheit & Wohlbefinden",
-            "Instrumentalmusik",
-            "Sonstiges"
-        ],
-        "links": [],
-        "date": "2026-08-05",
-        "time": "08:00",
-        "regularity": "weekly"
-    },
-    {
-        "id": "c3d4e5f6-0034-0034-0034-000000000034",
-        "status": "approved",
-        "category": "person",
-        "title": "Sarah Al-Amiri – Arabischer Chor",
-        "description": "Wir singen klassische und moderne arabische Lieder. Alle Nationalitäten willkommen.",
-        "selfDesc": "Harmonie durch Vielfalt.",
-        "email": "sarah.chor@example.de",
-        "lat": 52.1205,
-        "lng": 11.6276,
-        "address": "Magdeburg, Hasselbachplatz, 39104",
-        "tags": [
-            "Singen",
-            "Vernetzungstreffen",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0035-0035-0035-000000000035",
-        "status": "approved",
-        "category": "institution",
-        "title": "Senioren-Musik-Netzwerk NRW",
-        "description": "Förderung von Musikangeboten für Hochbetagte und in Pflegeheimen.",
-        "selfDesc": "Musik ist Lebensqualität, bis zum Schluss.",
-        "email": "nrw-senioren@example.de",
-        "lat": 51.4556,
-        "lng": 7.0116,
-        "address": "Essen, Kennedyplatz, 45127",
-        "tags": [
-            "Gesundheit & Wohlbefinden",
-            "Vernetzungstreffen",
-            "Weiterbildung"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0036-0036-0036-000000000036",
-        "status": "approved",
-        "category": "event",
-        "title": "Umsonst & Draußen – Jam",
-        "description": "Offenes Musikfest für alle lokalen Amateurbands. Jeder darf 20 Minuten auf die Bühne.",
-        "selfDesc": "Bühne frei für den Stadtteil.",
-        "email": "jam-wuerzburg@example.de",
-        "lat": 49.7913,
-        "lng": 9.9312,
-        "address": "Würzburg, Mainwiesen, 97082",
-        "tags": [
-            "Instrumentalmusik",
-            "Vernetzungstreffen",
-            "Sonstiges"
-        ],
-        "links": [],
-        "date": "2026-06-20",
-        "time": "12:00",
-        "regularity": "once"
-    },
-    {
-        "id": "c3d4e5f6-0037-0037-0037-000000000037",
-        "status": "approved",
-        "category": "person",
-        "title": "Uwe Kröger – Barrierefreies Band-Coaching",
-        "description": "Ich arbeite mit Eye-Tracking-Instrumenten für Menschen mit schweren körperlichen Behinderungen.",
-        "selfDesc": "Musik machen mit den Augen.",
-        "email": "uwe.kroeger@example.de",
-        "lat": 53.1435,
-        "lng": 8.2146,
-        "address": "Oldenburg, Schlossplatz, 26122",
-        "tags": [
-            "Instrumentalmusik",
-            "Gesundheit & Wohlbefinden",
-            "Weiterbildung"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0038-0038-0038-000000000038",
-        "status": "approved",
-        "category": "institution",
-        "title": "Bodden-Klang Greifswald",
-        "description": "Verein für experimentelle Musik und Klangkunst im ländlichen Vorpommern.",
-        "selfDesc": "Neue Klänge für den Osten.",
-        "email": "info@boddenklang.example.de",
-        "lat": 54.0924,
-        "lng": 13.381,
-        "address": "Greifswald, Markt, 17489",
-        "tags": [
-            "Improvisation",
-            "Vernetzungstreffen",
-            "Sonstiges"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "id": "c3d4e5f6-0039-0039-0039-000000000039",
-        "status": "approved",
-        "category": "event",
-        "title": "Advents-Singen im Stadion",
-        "description": "Tausende Menschen singen gemeinsam Weihnachtslieder auf den Tribünen.",
-        "selfDesc": "Gänsehaut durch Gemeinschaft.",
-        "email": "stadion-singen@example.de",
-        "lat": 51.2217,
-        "lng": 6.7762,
-        "address": "Düsseldorf, Merkur Spiel-Arena, 40474",
-        "tags": [
-            "Singen",
-            "Für Kinder",
-            "Für Erwachsene"
-        ],
-        "links": [],
-        "date": "2026-12-20",
-        "time": "17:00",
-        "regularity": "once"
-    },
-    {
-        "id": "c3d4e5f6-0040-0040-0040-000000000040",
-        "status": "approved",
-        "category": "person",
-        "title": "Mira Lorenz – Body Music",
-        "description": "Workshops für Rhythmus ohne Instrumente in Schulen und Firmen im Allgäu.",
-        "selfDesc": "Du bist der Beat.",
-        "email": "mira.body@example.de",
-        "lat": 47.7286,
-        "lng": 10.3158,
-        "address": "Kempten, Rathausplatz, 87435",
-        "tags": [
-            "Percussion/Trommeln",
-            "Bewegung/Tanz",
-            "Weiterbildung"
-        ],
-        "links": [],
-        "date": null,
-        "time": null,
-        "regularity": null
-    },
-    {
-        "category": "person",
-        "title": "Björn Björnsen",
-        "description": "Lorem Ipsum",
-        "selfDesc": "Eigentlich gar nicht",
-        "email": "jasper.fertig@outlook.de",
-        "lat": 56.17002298293205,
-        "lng": 9.294433593750002,
-        "address": "Bording, Møllebjergvej 13A, 7441",
+        "title": "Bernd Fuchs",
+        "description": "Ehemaliger Orchester-Geiger, nun Leiter eines Streicher-Ensembles für Späteinsteiger.",
+        "selfDesc": "Es ist nie zu spät für die Violine.",
+        "email": "b.fuchs@example.de",
+        "lat": 50.315,
+        "lng": 11.9189,
+        "address": "Hof, 95028",
         "date": null,
         "time": null,
         "regularity": null,
         "tags": [
-            "Improvisation",
-            "Für Kinder",
-            "Für Erwachsene",
+            "Instrumentalmusik",
+            "Für Erwachsene"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000157",
+        "status": "approved",
+        "category": "event",
+        "title": "Kalender-Abgleich Kulturvereine",
+        "description": "Planungstreffen, um Terminüberschneidungen im Stadtgebiet zu vermeiden.",
+        "selfDesc": "Gemeinsam planen hilft allen.",
+        "email": "kalender@plauen-kultur.de",
+        "lat": 50.495,
+        "lng": 12.1383,
+        "address": "Plauen, 08523",
+        "date": "2026-10-15",
+        "time": "18:00",
+        "regularity": "single",
+        "tags": [
+            "Vernetzungstreffen"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000158",
+        "status": "approved",
+        "category": "institution",
+        "title": "Rhythmus-Zentrum Zwickau",
+        "description": "Spezialisierte Einrichtung für Schlagzeug, Percussion und Body-Percussion.",
+        "selfDesc": "Der Puls der Stadt.",
+        "email": "info@rhythmus-zwickau.de",
+        "lat": 50.7189,
+        "lng": 12.4925,
+        "address": "Zwickau, 08056",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Percussion/Trommeln",
+            "Bewegung/Tanz"
+        ],
+        "links": [],
+        "pinIcon": 1
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000159",
+        "status": "approved",
+        "category": "event",
+        "title": "Impro-Tanz Nachmittag",
+        "description": "Freie Bewegung zu Live-Improvisation. Barfuß und ohne Spiegel.",
+        "selfDesc": "Lass dich vom Klang bewegen.",
+        "email": "tanz@dessau.de",
+        "lat": 51.8329,
+        "lng": 12.2354,
+        "address": "Dessau-Roßlau, 06844",
+        "date": "2026-04-12",
+        "time": "16:00",
+        "regularity": "weekly",
+        "tags": [
+            "Bewegung/Tanz",
+            "Improvisation"
+        ],
+        "links": [],
+        "pinIcon": 8
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000160",
+        "status": "approved",
+        "category": "person",
+        "title": "Claudia Lehmann",
+        "description": "Musikpädagogin und Expertin für Inklusion am Arbeitsplatz durch Chorprojekte.",
+        "selfDesc": "Zusammen singen, besser arbeiten.",
+        "email": "c.lehmann@example.de",
+        "lat": 51.8667,
+        "lng": 12.65,
+        "address": "Wittenberg, 06886",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Singen",
+            "Weiterbildung"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000161",
+        "status": "approved",
+        "category": "event",
+        "title": "Theorie an der Tafel",
+        "description": "Kompaktkurs Harmonielehre. Verstehen, warum Akkorde zueinander passen.",
+        "selfDesc": "Musiktheorie ohne Angst.",
+        "email": "theorie@halberstadt.de",
+        "lat": 51.8953,
+        "lng": 11.0461,
+        "address": "Halberstadt, 38820",
+        "date": "2026-05-06",
+        "time": "18:00",
+        "regularity": "weekly",
+        "tags": [
+            "Weiterbildung",
             "Songwriting"
         ],
+        "links": [],
+        "pinIcon": 9
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000162",
+        "status": "approved",
+        "category": "institution",
+        "title": "Kulturhof Altmark",
+        "description": "Alter Bauernhof umgebaut zum Kulturzentrum mit Seminarräumen und Scheunenbühne.",
+        "selfDesc": "Kultur auf dem Land.",
+        "email": "hof@stendal-kultur.de",
+        "lat": 52.6017,
+        "lng": 11.8584,
+        "address": "Stendal, 39576",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Vernetzungstreffen",
+            "Instrumentalmusik"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000163",
+        "status": "approved",
+        "category": "person",
+        "title": "Ste\"phan Groß",
+        "description": "Experte für digitale Synthesizer und Musikapps auf Tablets für Senioren.",
+        "selfDesc": "Ein iPad ist das leichteste Instrument.",
+        "email": "s.gross@example.de",
+        "lat": 53.892,
+        "lng": 11.4651,
+        "address": "Wismar, 23966",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000164",
+        "status": "approved",
+        "category": "event",
+        "title": "Kinder-Konzert Open Air",
+        "description": "Konzert von Kindern für Kinder auf dem Marktplatz.",
+        "selfDesc": "Kleine Menschen, große Töne.",
+        "email": "kinderkonzert@neubrandenburg.de",
+        "lat": 53.5569,
+        "lng": 13.2612,
+        "address": "Neubrandenburg, 17033",
+        "date": "2026-06-14",
+        "time": "14:00",
+        "regularity": "single",
+        "tags": [
+            "Für Kinder",
+            "Singen"
+        ],
+        "links": [],
+        "pinIcon": 6
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000165",
+        "status": "approved",
+        "category": "person",
+        "title": "Julia Wagner",
+        "description": "Harfenistin, spielt und improvisiert im Hospiz.",
+        "selfDesc": "Klänge für den Übergang.",
+        "email": "j.wagner@example.de",
+        "lat": 50.6094,
+        "lng": 10.6865,
+        "address": "Suhl, 98527",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Gesundheit & Wohlbefinden",
+            "Instrumentalmusik"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000166",
+        "status": "approved",
+        "category": "event",
+        "title": "Abendliedersingen in der Kapelle",
+        "description": "Gemeinsames Singen zur blauen Stunde – meditativ und ruhig.",
+        "selfDesc": "Der Tag geht, das Lied bleibt.",
+        "email": "abend@husum-musik.de",
+        "lat": 54.4764,
+        "lng": 9.0505,
+        "address": "Husum, 25813",
+        "date": "2026-03-22",
+        "time": "21:00",
+        "regularity": "monthly",
+        "tags": [
+            "Singen",
+            "Gesundheit & Wohlbefinden"
+        ],
+        "links": [],
+        "pinIcon": 13
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000167",
+        "status": "approved",
+        "category": "person",
+        "title": "Bastian Graf",
+        "description": "Pädagoge für elektronische Klangerzeugung und Modulare Synthesizer.",
+        "selfDesc": "Patchen als gemeinschaftliches Erlebnis.",
+        "email": "b.graf@example.de",
+        "lat": 52.4284,
+        "lng": 10.7848,
+        "address": "Wolfsburg, 38440",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Instrumentalmusik",
+            "Weiterbildung"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000168",
+        "status": "approved",
+        "category": "institution",
+        "title": "Musikschule Dreiländereck",
+        "description": "Zentrum für grenzübergreifenden Musikunterricht (DE/PL/CZ).",
+        "selfDesc": "Drei Länder, eine Harmonie.",
+        "email": "info@ms-dreilaender.de",
+        "lat": 51.15,
+        "lng": 14.7333,
+        "address": "Zittau, 02763",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Für Kinder",
+            "Vernetzungstreffen"
+        ],
+        "links": [],
+        "pinIcon": 1
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000169",
+        "status": "approved",
+        "category": "event",
+        "title": "Band-Coaching für Quereinsteiger",
+        "description": "Du spielst ein Instrument, hast aber nie in einer Band gespielt? Hier lernst du es.",
+        "selfDesc": "Vom Solo zum Zusammenspiel.",
+        "email": "band@itsehoe-musik.de",
+        "lat": 53.9218,
+        "lng": 9.5161,
+        "address": "Itzehoe, 25524",
+        "date": "2026-04-14",
+        "time": "19:00",
+        "regularity": "weekly",
+        "tags": [
+            "Instrumentalmusik",
+            "Für Erwachsene"
+        ],
+        "links": [],
+        "pinIcon": 1
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000170",
+        "status": "approved",
+        "category": "person",
+        "title": "Elena Petrova",
+        "description": "Konzertpianistin, die 'Wohnzimmer-Konzerte' für Nachbarschaften organisiert.",
+        "selfDesc": "Hochkultur für den Kiez.",
+        "email": "elena.p@example.de",
+        "lat": 51.5413,
+        "lng": 9.9147,
+        "address": "Göttingen, 37081",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Vernetzungstreffen",
+            "Instrumentalmusik"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000171",
+        "status": "approved",
+        "category": "event",
+        "title": "Beat-Labor: Tablet-Musik",
+        "description": "Kinder und Jugendliche produzieren eigene Tracks nur mit dem iPad.",
+        "selfDesc": "Das Studio in deiner Hand.",
+        "email": "beatlabor@braunschweig.de",
+        "lat": 52.2688,
+        "lng": 10.5267,
+        "address": "Braunschweig, 38100",
+        "date": "2026-05-02",
+        "time": "15:30",
+        "regularity": "monthly",
+        "tags": [
+            "Für Kinder",
+            "Instrumentalmusik"
+        ],
+        "links": [],
+        "pinIcon": 3
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000172",
+        "status": "approved",
+        "category": "institution",
+        "title": "Klangraum Eifel",
+        "description": "Ein Rückzugsort für Chor-Freizeiten und intensive Probenphasen im Grünen.",
+        "selfDesc": "Ruhe finden, Resonanz geben.",
+        "email": "info@klangraum-eifel.de",
+        "lat": 50.5524,
+        "lng": 6.6432,
+        "address": "Euskirchen, 53879",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Singen",
+            "Gesundheit & Wohlbefinden"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000173",
+        "status": "approved",
+        "category": "event",
+        "title": "Gitarren-Ensemble 50+",
+        "description": "Zusammen musizieren ohne Leistungsdruck für die reifere Generation.",
+        "selfDesc": "Saitenweise Lebensfreude.",
+        "email": "gitarre@siegen.de",
+        "lat": 50.8748,
+        "lng": 8.0243,
+        "address": "Siegen, 57072",
+        "date": "2026-03-26",
+        "time": "10:30",
+        "regularity": "weekly",
+        "tags": [
+            "Instrumentalmusik",
+            "Für Erwachsene"
+        ],
+        "links": [],
+        "pinIcon": 2
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000174",
+        "status": "approved",
+        "category": "person",
+        "title": "Tobias Mendel",
+        "description": "Experte für integrative Percussion in Behindertenwerkstätten.",
+        "selfDesc": "Jeder Schlag zählt.",
+        "email": "t.mendel@example.de",
+        "lat": 49.3988,
+        "lng": 8.6724,
+        "address": "Heidelberg, 69115",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Percussion/Trommeln",
+            "Gesundheit & Wohlbefinden"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000175",
+        "status": "approved",
+        "category": "event",
+        "title": "Yoga & Gongs",
+        "description": "Tiefenentspannung durch massive Gongs und sanfte Asanas.",
+        "selfDesc": "Vibrationen spüren.",
+        "email": "gong@pforzheim-yoga.de",
+        "lat": 48.8909,
+        "lng": 8.703,
+        "address": "Pforzheim, 75172",
+        "date": "2026-04-01",
+        "time": "19:00",
+        "regularity": "monthly",
+        "tags": [
+            "Gesundheit & Wohlbefinden",
+            "Bewegung/Tanz"
+        ],
+        "links": [],
+        "pinIcon": 11
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000176",
+        "status": "approved",
+        "category": "institution",
+        "title": "Städtische Galerie & Klangforum",
+        "description": "Kombination aus Kunstausstellung und experimentellen CM-Workshops.",
+        "selfDesc": "Sehen und Hören verbinden.",
+        "email": "klang@galerie-baden.de",
+        "lat": 48.7619,
+        "lng": 8.2408,
+        "address": "Baden-Baden, 76530",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Vernetzungstreffen",
+            "Weiterbildung"
+        ],
+        "links": [],
+        "pinIcon": 2
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000177",
+        "status": "approved",
+        "category": "event",
+        "title": "CM-Diplomfeier Nord",
+        "description": "Feierliche Übergabe der Zertifikate für CM-Facilitatoren.",
+        "selfDesc": "Neue Botschafter der Musik.",
+        "email": "feier@kiel-musik.de",
+        "lat": 54.3233,
+        "lng": 10.1394,
+        "address": "Kiel, 24103",
+        "date": "2026-11-15",
+        "time": "17:00",
+        "regularity": "single",
+        "tags": [
+            "Weiterbildung"
+        ],
+        "links": [],
+        "pinIcon": 10
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000178",
+        "status": "approved",
+        "category": "person",
+        "title": "Svenja Holtz",
+        "description": "Spezialistin für 'Body Percussion' in Schulen.",
+        "selfDesc": "Dein Körper ist das Schlagzeug.",
+        "email": "s.holtz@example.de",
+        "lat": 53.3591,
+        "lng": 9.8458,
+        "address": "Buchholz, 21244",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Für Kinder",
+            "Bewegung/Tanz"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000179",
+        "status": "approved",
+        "category": "event",
+        "title": "Trommel-Frühstück",
+        "description": "Gemeinsam Brunchen und danach eine lockere Drum-Session.",
+        "selfDesc": "Energiegeladen in den Sonntag.",
+        "email": "breakfast@drumming.de",
+        "lat": 53.67,
+        "lng": 12.42,
+        "address": "Waren (Müritz), 17192",
+        "date": "2026-05-10",
+        "time": "10:00",
+        "regularity": "monthly",
+        "tags": [
+            "Percussion/Trommeln",
+            "Vernetzungstreffen"
+        ],
+        "links": [],
+        "pinIcon": 4
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000180",
+        "status": "approved",
+        "category": "institution",
+        "title": "Musikgymnasium Ostritz",
+        "description": "Schule mit starkem Fokus auf Community-Building durch Musik.",
+        "selfDesc": "Lernen durch Klingen.",
+        "email": "sekretariat@gym-ostritz.de",
+        "lat": 51.0136,
+        "lng": 14.9314,
+        "address": "Ostritz, 02899",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Weiterbildung",
+            "Für Kinder"
+        ],
+        "links": [],
+        "pinIcon": 1
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000181",
+        "status": "approved",
+        "category": "event",
+        "title": "Stille und Klang im Wald",
+        "description": "Geführte Wanderung mit Naturbeobachtung und kleinen Musikeinlagen.",
+        "selfDesc": "Den Wald hören.",
+        "email": "wald@bayern-forst.de",
+        "lat": 48.9467,
+        "lng": 13.3886,
+        "address": "Bayerisch Eisenstein, 94252",
+        "date": "2026-06-12",
+        "time": "14:00",
+        "regularity": "single",
+        "tags": [
+            "Gesundheit & Wohlbefinden",
+            "Improvisation"
+        ],
+        "links": [],
+        "pinIcon": 11
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000182",
+        "status": "approved",
+        "category": "person",
+        "title": "Christian Weber",
+        "description": "Gitarrist und Coach für 'Street Music' und Busking-Projekte.",
+        "selfDesc": "Die Straße ist unsere Bühne.",
+        "email": "c.weber@example.de",
+        "lat": 48.3705,
+        "lng": 10.8978,
+        "address": "Augsburg, 86150",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Instrumentalmusik",
+            "Vernetzungstreffen"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000183",
+        "status": "approved",
+        "category": "event",
+        "title": "Offenes Klavier am Bahnhof",
+        "description": "Wir betreuen das öffentliche Klavier und geben kurze Gratis-Workshops.",
+        "selfDesc": "Musik für Passanten.",
+        "email": "klavier@freiburg-hbf.de",
+        "lat": 47.9977,
+        "lng": 7.8426,
+        "address": "Freiburg, 79106",
+        "date": "2026-03-30",
+        "time": "12:00",
+        "regularity": "daily",
+        "tags": [
+            "Instrumentalmusik",
+            "Improvisation"
+        ],
+        "links": [],
+        "pinIcon": 5
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000184",
+        "status": "approved",
+        "category": "institution",
+        "title": "Kulturzentrum Lagerhaus",
+        "description": "Ein bunter Ort für interkulturelle Musikprojekte im Bremer Viertel.",
+        "selfDesc": "Vielfalt als Standard.",
+        "email": "info@lagerhaus-bremen.de",
+        "lat": 53.0735,
+        "lng": 8.8258,
+        "address": "Bremen, 28203",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Vernetzungstreffen",
+            "Bewegung/Tanz"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000185",
+        "status": "approved",
+        "category": "event",
+        "title": "Songwriting für Senioren",
+        "description": "Erinnerungen in Musik fassen. Wir schreiben Texte über das Leben.",
+        "selfDesc": "Deine Geschichte als Lied.",
+        "email": "songwriting@ulm.de",
+        "lat": 48.3996,
+        "lng": 9.9915,
+        "address": "Ulm, 89073",
+        "date": "2026-04-22",
+        "time": "15:00",
+        "regularity": "biweekly",
+        "tags": [
+            "Songwriting",
+            "Für Erwachsene"
+        ],
+        "links": [],
+        "pinIcon": 1
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000186",
+        "status": "approved",
+        "category": "person",
+        "title": "Maren Seehof",
+        "description": "Musikpädagogin und Flötistin. Spezialisiert auf 'Play-by-Ear'.",
+        "selfDesc": "Hören ist wichtiger als Lesen.",
+        "email": "m.seehof@example.de",
+        "lat": 49.3175,
+        "lng": 8.4322,
+        "address": "Speyer, 67346",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Instrumentalmusik",
+            "Weiterbildung"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000187",
+        "status": "approved",
+        "category": "event",
+        "title": "Rhythmus & Tanz im Quartier",
+        "description": "Eine offene Session für alle Nachbarn auf dem Marktplatz.",
+        "selfDesc": "Beweg dich, wie du dich fühlst.",
+        "email": "quartier@saarbruecken.de",
+        "lat": 49.2325,
+        "lng": 7.0003,
+        "address": "Saarbrücken, 66117",
+        "date": "2026-06-01",
+        "time": "17:00",
+        "regularity": "monthly",
+        "tags": [
+            "Bewegung/Tanz",
+            "Percussion/Trommeln"
+        ],
+        "links": [],
+        "pinIcon": 8
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000188",
+        "status": "approved",
+        "category": "institution",
+        "title": "Saarländisches CM-Institut",
+        "description": "Dachverband zur Unterstützung lokaler Musikinitiativen.",
+        "selfDesc": "Vernetzung schafft Stärke.",
+        "email": "info@cmi-saar.de",
+        "lat": 49.2355,
+        "lng": 6.996,
+        "address": "Saarbrücken, 66111",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Vernetzungstreffen",
+            "Weiterbildung"
+        ],
+        "links": [],
+        "pinIcon": 1
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000189",
+        "status": "approved",
+        "category": "event",
+        "title": "Netzwerk-Lunch",
+        "description": "Mittagessen und Austausch für Kulturschaffende in der Pfalz.",
+        "selfDesc": "Gemeinsam essen, gemeinsam planen.",
+        "email": "lunch@landau-kultur.de",
+        "lat": 49.1984,
+        "lng": 8.1147,
+        "address": "Landau, 76829",
+        "date": "2026-04-15",
+        "time": "12:30",
+        "regularity": "monthly",
+        "tags": [
+            "Vernetzungstreffen"
+        ],
+        "links": [],
+        "pinIcon": 14
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000190",
+        "status": "approved",
+        "category": "person",
+        "title": "Johannes Abt",
+        "description": "Posaunist und Initiator von 'Blech im Park'.",
+        "selfDesc": "Blasmusik muss nicht steif sein.",
+        "email": "j.abt@example.de",
+        "lat": 49.4447,
+        "lng": 7.769,
+        "address": "Kaiserslautern, 67655",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Instrumentalmusik",
+            "Für Erwachsene"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000191",
+        "status": "approved",
+        "category": "event",
+        "title": "Ukulele am Lagerfeuer",
+        "description": "Wir lernen drei Akkorde und singen die ganze Nacht.",
+        "selfDesc": "Lagerfeuer-Romantik pur.",
+        "email": "uke@lagerfeuer.de",
+        "lat": 51.2,
+        "lng": 10.3,
+        "address": "Mühlhausen, 99974",
+        "date": "2026-07-15",
+        "time": "20:00",
+        "regularity": "single",
+        "tags": [
+            "Instrumentalmusik",
+            "Singen"
+        ],
+        "links": [],
+        "pinIcon": 2
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000192",
+        "status": "approved",
+        "category": "institution",
+        "title": "Sound-Atelier Heilbronn",
+        "description": "Offenes Studio für elektronische Musik und Sound-Art.",
+        "selfDesc": "Experimentieren erlaubt.",
+        "email": "atelier@heilbronn-musik.de",
+        "lat": 49.1427,
+        "lng": 9.2109,
+        "address": "Heilbronn, 74072",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Instrumentalmusik",
+            "Weiterbildung"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000193",
+        "status": "approved",
+        "category": "event",
+        "title": "Loop-Station Workshop",
+        "description": "Wie man alleine wie ein ganzes Orchester klingt.",
+        "selfDesc": "Die Kunst der Schichten.",
+        "email": "loop@reutlingen.de",
+        "lat": 48.4914,
+        "lng": 9.2103,
+        "address": "Reutlingen, 72764",
+        "date": "2026-03-29",
+        "time": "14:00",
+        "regularity": "monthly",
+        "tags": [
+            "Instrumentalmusik",
+            "Songwriting"
+        ],
+        "links": [],
+        "pinIcon": 3
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000194",
+        "status": "approved",
+        "category": "person",
+        "title": "Carla Diez",
+        "description": "Expertin für Chormusik aus Lateinamerika und deren soziale Wurzeln.",
+        "selfDesc": "Rhythmus im Blut, Lied im Herz.",
+        "email": "c.diez@example.de",
+        "lat": 48.7423,
+        "lng": 9.3082,
+        "address": "Esslingen, 73728",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Singen",
+            "Vernetzungstreffen"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000195",
+        "status": "approved",
+        "category": "event",
+        "title": "Klangmeditation zur Tagundnachtgleiche",
+        "description": "Ein besonderes Event zum Frühlingsbeginn.",
+        "selfDesc": "Balance finden.",
+        "email": "balance@tuebingen.de",
+        "lat": 48.5216,
+        "lng": 9.0576,
+        "address": "Tübingen, 72070",
+        "date": "2026-03-20",
+        "time": "18:00",
+        "regularity": "single",
+        "tags": [
+            "Gesundheit & Wohlbefinden",
+            "Singen"
+        ],
+        "links": [],
+        "pinIcon": 11
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000196",
+        "status": "approved",
+        "category": "institution",
+        "title": "Museum für Mechanische Musik",
+        "description": "Ein interaktives Museum, das historische Musikautomaten zeigt.",
+        "selfDesc": "Wie Musik früher 'programmiert' wurde.",
+        "email": "info@mechanic-music.de",
+        "lat": 49.9786,
+        "lng": 7.9221,
+        "address": "Rüdesheim, 65385",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Instrumentalmusik",
+            "Weiterbildung"
+        ],
+        "links": [],
+        "pinIcon": 2
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000197",
+        "status": "approved",
+        "category": "event",
+        "title": "Viertel-Gespräche: Musik & Stadtplanung",
+        "description": "Wie viel Lärm darf Kultur machen? Eine Diskussionsrunde.",
+        "selfDesc": "Soundscapes gestalten.",
+        "email": "stadt@karlsruhe.de",
+        "lat": 49.0069,
+        "lng": 8.4037,
+        "address": "Karlsruhe, 76131",
+        "date": "2026-04-30",
+        "time": "19:30",
+        "regularity": "single",
+        "tags": [
+            "Vernetzungstreffen"
+        ],
+        "links": [],
+        "pinIcon": 14
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000198",
+        "status": "approved",
+        "category": "person",
+        "title": "Markus Steiner",
+        "description": "Dozent für 'Inklusive Ensembleleitung' an der Musikhochschule.",
+        "selfDesc": "Dirigieren heißt zuhören.",
+        "email": "m.steiner@example.de",
+        "lat": 48.1351,
+        "lng": 11.582,
+        "address": "München, 80333",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Weiterbildung",
+            "Instrumentalmusik"
+        ],
+        "links": [],
+        "pinIcon": 0
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000199",
+        "status": "approved",
+        "category": "event",
+        "title": "Handpan-Schnupperkurs",
+        "description": "Lerne die Grundlagen dieses faszinierenden Instruments.",
+        "selfDesc": "Einstieg in die Welt der Obertöne.",
+        "email": "handpan@ludwigsburg.de",
+        "lat": 48.8975,
+        "lng": 9.1919,
+        "address": "Ludwigsburg, 71638",
+        "date": "2026-05-15",
+        "time": "18:00",
+        "regularity": "monthly",
+        "tags": [
+            "Instrumentalmusik",
+            "Gesundheit & Wohlbefinden"
+        ],
+        "links": [],
+        "pinIcon": 4
+    },
+    {
+        "id": "b2c3d4e5-0100-0000-0000-000000000200",
+        "status": "approved",
+        "category": "event",
+        "title": "Jahresabschluss-Singen",
+        "description": "Das große Finale für alle Teilnehmer des Netzwerks.",
+        "selfDesc": "Wir sind die Musik.",
+        "email": "finale@community-music.de",
+        "lat": 52.52,
+        "lng": 13.405,
+        "address": "Berlin, 10178",
+        "date": "2026-12-15",
+        "time": "19:00",
+        "regularity": "single",
+        "tags": [
+            "Singen",
+            "Vernetzungstreffen"
+        ],
+        "links": [],
+        "pinIcon": 5
+    },
+    {
+        "category": "person",
+        "title": "Dr. Johanna Borchert",
+        "description": "Leitung Musikvermittlung Kloster Michaelstein",
+        "selfDesc": "Lorem ipsum",
+        "email": "test@test.com",
+        "lat": 51.80549385414076,
+        "lng": 10.914638042449951,
+        "address": "Blankenburg, Michaelstein 15, 38889",
+        "date": null,
+        "time": null,
+        "regularity": null,
+        "tags": [
+            "Singen",
+            "Percussion/Trommeln",
+            "Improvisation",
+            "Instrumentalmusik",
+            "Für Kinder",
+            "Für Erwachsene",
+            "Weiterbildung",
+            "Vernetzungstreffen",
+            "Verifiziertes Mitglied"
+        ],
+        "pinIcon": 1,
         "links": [
             {
-                "title": "Homepage",
-                "url": "https://www.communitymusic.de"
+                "title": "CM-Netzwerk Profil",
+                "url": "https://forum.communitymusicnetzwerk.de/profil/user/idblabla"
             }
         ],
-        "id": "228dfb43-dc3c-450a-8359-fcad01e0b4c6",
-        "status": "approved"
+        "id": "8b87e3ea-591b-4315-a767-8899cebe297b",
+        "status": "approved",
+        "verified": true
+    },
+    {
+        "category": "event",
+        "title": "Offenes Singen",
+        "description": "\"Einfach mal singen\" - so hatte Michaelstein schon vor einigen Jahren alle eingeladen, die \"einfach mal singen\" wollten, aber es sich bislang entweder nicht zugetraut oder keinen passenden Rahmen (= Chor) gefunden haben. Alle, die im Urlaub im Harz sind oder auch nach der Arbeit eine Stunde lang ihre Stimme zusammen mit anderen in lockerer Runde klingen lassen wollen, sind an ersten Montag im Monat, im August, September und Oktober 2025 jeden Montag 19.00 Uhr eingeladen, im Harzer(&)Gästechor einfach mal zu singen. In dem Liederkoffer liegen Titel wie \"Heute hier, morgen dort\" oder \"Dat du min Leevsten büst\" oder auch \"Alt wie ein Baum\". Um beim Harzer(&)Gästechor mitzumachen, reicht Neugier auf gemeinsames Singen aus, weder Notenkenntnisse noch Chorerfahrung sind nötig. Und alleine Vorsingen - für viele ja eine nicht so angenehme Erinnerung an den Musikunterricht in der Schule - muss auch niemand. Die Teilnahme ist kostenfrei, der Mitsingabend beginnt um 19 Uhr, meist in der Schmiede im Kloster Michaelstein, ansonsten in einem der anderen Häuser im Kloster. Eine vorherige Anmeldung ist nicht nötig. ",
+        "selfDesc": "Lorem ipsum",
+        "email": "info@kst.de",
+        "lat": 51.80709233010317,
+        "lng": 10.912181138992311,
+        "address": "Michaelstein, 38889 Blankenburg",
+        "date": "2026-01-23",
+        "time": "19:00",
+        "regularity": "monthly",
+        "tags": [
+            "Singen",
+            "Für Erwachsene"
+        ],
+        "pinIcon": 0,
+        "links": [
+            {
+                "title": "",
+                "url": "https://www.kloster-michaelstein.de/musikakademie-sachsen-anhalt/einfach-mal-singen/"
+            }
+        ],
+        "id": "b25965f6-490f-4a21-8c80-0dbdad3a5973",
+        "status": "approved",
+        "verified": false
     }
 ]
