@@ -14,10 +14,17 @@ const CAT_FA = {
     event:       'fa-solid fa-calendar-days'
 };
 const CAT_COLOR = {
-    person:      '#16a34a',
-    institution: '#2563eb',
-    event:       '#dc2626'
+    person:      '#4ca626',
+    institution: '#2d40ab',
+    event:       '#c71c0a'
 };
+
+const DETAIL_COLOR = {
+    person:      '#2e6816',
+    institution: '#1e2a74',
+    event:       '#7c1307'
+};
+
 const CAT_GRADIENT = {
     person:      'linear-gradient(135deg, #0a3320 0%, #111827 60%)',
     institution: 'linear-gradient(135deg, #0c1f4a 0%, #111827 60%)',
@@ -1005,7 +1012,7 @@ function toggleSection(gridId, headerId) {
 
 function createPinCard(p, showDist=false) {
     const div   = document.createElement('div');
-    const color = CAT_COLOR[p.category] || '#6b7280';
+    const color = DETAIL_COLOR[p.category] || '#6b7280';
     const fa    = CAT_FA[p.category]    || '';
     const grad  = CAT_GRADIENT[p.category] || 'linear-gradient(135deg,#1f2937 0%,#111827 100%)';
     div.className = 'pin-card rounded-xl overflow-hidden flex flex-col border border-white/10 cursor-pointer';
@@ -1016,8 +1023,8 @@ function createPinCard(p, showDist=false) {
 
     // Icon: SVG wenn vorhanden, sonst FA
     const iconHtml = (p.pinIcon !== null && p.pinIcon !== undefined && p.pinIcon !== '')
-        ? `<img src="/static/pins/${p.category}/${p.pinIcon}.svg"
-               style="width:16px;height:16px;object-fit:contain;filter:brightness(0) invert(1);flex-shrink:0"
+        ? `<img class="pinCardIcon" src="/static/pins/${p.category}/${p.pinIcon}.svg"
+               style="object-fit:contain;filter:brightness(0) invert(1);flex-shrink:0"
                onerror="this.outerHTML='<i class=\'${fa}\' style=\'color:${color};font-size:13px;flex-shrink:0\'></i>'">`
         : `<i class="${fa}" style="color:${color};font-size:13px;flex-shrink:0"></i>`;
 
@@ -1036,10 +1043,10 @@ function createPinCard(p, showDist=false) {
         <div class="p-4 flex flex-col flex-grow">
             <div class="flex items-start gap-2 mb-2">
                 ${iconHtml}
-                <h4 class="font-bold text-sm text-white leading-tight flex-grow">${p.title}</h4>
+                <h4 class="leading-tight flex-grow pinCardTitle">${p.title}</h4>
             </div>
             ${meta}
-            <p class="text-white/60 text-xs mt-1 line-clamp-2 flex-grow leading-relaxed">${p.description || ''}</p>
+            <p style="margin-top: 10px; margin-bottom: 10px;" class="text-white text-s mt-1 line-clamp-2 flex-grow leading-relaxed">${p.description || ''}</p>
             ${tagsHtml ? `<div class="flex flex-wrap gap-1 mt-2">${tagsHtml}</div>` : ''}
             <div class="mt-3 pt-3 border-t border-white/10 flex justify-between items-center gap-2">
                 <span class="text-xs text-white/40 truncate">${p.address || ''}</span>

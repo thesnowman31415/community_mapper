@@ -1,4 +1,14 @@
 /* ---- Popup Gradienten nach Kategorie ---- */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+.font {
+  font-family: Roboto, sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
 .popup-person .leaflet-popup-content-wrapper {
     background: linear-gradient(135deg, #052e16 0%, #1f2937 100%) !important;
     border: 1px solid #166534 !important;
@@ -73,6 +83,12 @@ input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: none; b
     margin-bottom: 10px;
 }
 
+.logo_corner_mobile { 
+    height: clamp(60px, 8vw, 120px); 
+    width: auto; 
+    margin-bottom: 10px;
+}
+
 /* Tag chips in popups/details */
 .tag-chip {
     display: inline-flex; align-items: center; font-size: 10px;
@@ -127,13 +143,13 @@ input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: none; b
     cursor: pointer;
 }
 .pin-card:hover {
-    transform: scale(1.03);
+    transform: translateY(-4px)!important;
     box-shadow: 0 0 18px rgba(255,255,255,0.08), 0 8px 32px rgba(0,0,0,0.4);
 }
 
 .active-sort {
     background: #2563eb;
-    color: white;
+    color: rgb(255, 255, 255);
 }
 
 .view-switcher {
@@ -183,6 +199,17 @@ input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: none; b
     margin-left: 3px;
 }
 
+.pinCardTitle {
+    font-size: clamp(18px, 2vw, 25px);
+    font-weight: 600;
+    color: white;
+}
+
+.pinCardIcon {
+    width: clamp(24px, 4vw, 50px);
+    height: auto;
+}
+
 /* Karten-Einblend-Animation */
 @keyframes cardIn {
     from { opacity: 0; transform: translateY(12px) scale(0.97); }
@@ -197,5 +224,13 @@ input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: none; b
     .hidden { display: none !important; }
     .view-switcher { scale: 0.85 !important; z-index: 50;}
     .buttonLabel { display: none; }
+    .logo_corner { display: none; }
+    .logo_corner_mobile { display: block; }
 }
+
+@media (min-width: 769px) {
+    .logo_corner { display: block; }
+    .logo_corner_mobile { display: none; }
+}
+
 

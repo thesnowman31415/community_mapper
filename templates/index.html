@@ -22,6 +22,7 @@
     <nav class="bg-white dark:bg-gray-800 shadow-md px-4 py-3 md:px-6 md:py-4 flex justify-between items-center z-30 relative shrink-0 gap-2 navbar">
         <div class="flex items-center gap-2">
             <img class="logo_corner" src="/static/logo_white.png" alt="Logo Community Music Netzwerk Atlas">
+            <img class="logo_corner_mobile" src="/static/icon_typography.png" alt="Logo Community Music Netzwerk Atlas">
         </div>
         <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div class="view-switcher bg-gray-200 dark:bg-gray-700 rounded-full p-1 flex text-sm font-bold shadow-inner" style="position:relative">
@@ -40,12 +41,12 @@
         <div class="flex items-center gap-2">
             <button onclick="toggleSearch()" class="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
                 <i class="fa-solid fa-search text-base"></i>
-                <span class="buttonLabel">Suche</span>
+                <span class="buttonLabel font">Suche</span>
             </button>
             <button onclick="toggleFilters()" id="filterBtn" class="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 relative disabled:opacity-30 disabled:cursor-not-allowed">
                 <i class="fa-solid fa-sliders text-base"></i>
                 <span id="activeFilterDot" class="hidden absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full"></span>
-                <span class="buttonLabel">Filter</span>
+                <span class="buttonLabel font">Filter</span>
             </button>
             <button onclick="window.location.href='/hilfe'" class="hidden p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
                 <i class="fa-solid fa-question-circle text-base"></i>
@@ -175,7 +176,7 @@
                     <div>
 
                         <!-- Beschreibung -->
-                        <p id="detailDesc" class="text-gray-200 text-sm leading-relaxed whitespace-pre-line" style="margin-bottom: 20px; margin-top: 20px;"></p>
+                        <p id="detailDesc" class="text-white text-sm leading-relaxed whitespace-pre-line" style="margin-bottom: 20px; margin-top: 20px;"></p>
 
                         <!-- Event-Block -->
                         <div id="detailEventInfo" class="hidden mb-4 p-3 rounded-lg border border-red-800/50" style="background:rgba(127,29,29,0.3)">
