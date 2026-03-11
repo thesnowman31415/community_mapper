@@ -11,13 +11,17 @@
     <link rel="stylesheet" href="/static/style.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    <link rel="apple-touch-icon" sizes="180x180" href="static\apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="static\favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="static\favicon-16x16.png">
+    <link rel="manifest" href="static\site.webmanifest">
 </head>
 <body class="h-screen w-screen flex flex-col bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 overflow-hidden font">
 
     <!-- Navbar -->
-    <nav class="bg-white dark:bg-gray-800 shadow-md px-4 py-3 md:px-6 md:py-4 flex justify-between items-center z-30 relative shrink-0 gap-2">
+    <nav class="bg-white dark:bg-gray-800 shadow-md px-4 py-3 md:px-6 md:py-4 flex justify-between items-center z-30 relative shrink-0 gap-2 navbar">
         <div class="flex items-center gap-2">
-            <img class="logo_corner" src="/static/logo_white.png" alt="">
+            <img class="logo_corner" src="/static/logo_white.png" alt="Logo Community Music Netzwerk Atlas">
         </div>
         <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div class="view-switcher bg-gray-200 dark:bg-gray-700 rounded-full p-1 flex text-sm font-bold shadow-inner" style="position:relative">
@@ -36,10 +40,12 @@
         <div class="flex items-center gap-2">
             <button onclick="toggleSearch()" class="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
                 <i class="fa-solid fa-search text-base"></i>
+                <span class="buttonLabel">Suche</span>
             </button>
             <button onclick="toggleFilters()" id="filterBtn" class="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300 relative disabled:opacity-30 disabled:cursor-not-allowed">
                 <i class="fa-solid fa-sliders text-base"></i>
                 <span id="activeFilterDot" class="hidden absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full"></span>
+                <span class="buttonLabel">Filter</span>
             </button>
             <button onclick="window.location.href='/hilfe'" class="hidden p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
                 <i class="fa-solid fa-question-circle text-base"></i>

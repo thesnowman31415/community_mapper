@@ -67,7 +67,11 @@ input[type=range]::-webkit-slider-runnable-track {
 input[type=range]::-moz-range-track { width: 100%; height: 6px; background: transparent; border-radius: 3px; }
 input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: none; border-radius: 50%; background: #3b82f6; }
 
-.logo_corner { height: 70px; width: auto; }
+.logo_corner { 
+    height: clamp(85px, 12vw, 140px); 
+    width: auto; 
+    margin-bottom: 10px;
+}
 
 /* Tag chips in popups/details */
 .tag-chip {
@@ -171,6 +175,14 @@ input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: none; b
     z-index: 1;
 }
 
+.navbar {
+    height: 100px;
+}
+
+.buttonLabel {
+    margin-left: 3px;
+}
+
 /* Karten-Einblend-Animation */
 @keyframes cardIn {
     from { opacity: 0; transform: translateY(12px) scale(0.97); }
@@ -183,5 +195,7 @@ input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: none; b
 
 @media (max-width: 768px) {
     .hidden { display: none !important; }
+    .view-switcher { scale: 0.85 !important; z-index: 50;}
+    .buttonLabel { display: none; }
 }
 
