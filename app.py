@@ -136,7 +136,7 @@ def suggest_pin():
     if data.get('category') == 'person':
         links = data.get('links', [])
         is_verified = any(
-            re.match(r'https://forum\.communitymusicnetzwerk\.de/profil/user/', l.get('url', ''))
+            re.match(r'https://forum\.communitymusicnetzwerk\.de/user/', l.get('url', ''))
             for l in links
         )
         if is_verified:
