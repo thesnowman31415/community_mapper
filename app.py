@@ -4,6 +4,8 @@ import os
 import uuid
 from datetime import datetime
 import glob
+import database
+
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config['JSON_AS_ASCII'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'pIt%V-@#s9!zX7$L')
@@ -36,7 +38,6 @@ def next_occurrence(event_date_str, regularity, event_time_str=None):
         now = datetime.now()
         today = now.date()
 
-        # Wenn das Event heute stattfindet: Uhrzeit prüfen
         if event_date == today and event_time_str:
             try:
                 h, mi = map(int, event_time_str.split(':'))
@@ -78,12 +79,11 @@ def next_occurrence(event_date_str, regularity, event_time_str=None):
 
         current = event_date
 
-        # Wenn heute und Uhrzeit bereits vorbei: einmal vorwärts erzwingen
         today_passed = (event_date == today)
 
         while current < today or today_passed:
             current = add_interval(current)
-            today_passed = False  # nur einmal erzwingen
+            today_passed = False  
 
         return current.isoformat()
     except Exception:
@@ -92,7 +92,7 @@ def next_occurrence(event_date_str, regularity, event_time_str=None):
 def clean_expired_events():
     pass
 
-# --- öffentliche Route(n) ---
+# --- öffentliche Routes ---
 
 @app.route('/')
 def index():
@@ -106,24 +106,15 @@ def hilfe():
 def datenschutz():
     return render_template('datenschutz.html')
 
+
+# --- api --- #
 @app.route('/api/pins')
 def get_pins():
     today = datetime.now().strftime('%Y-%m-%d')
-    pins = load_json(APPROVED_FILE)
-    public_data = []
-    for p in pins:
-        if p.get('lat') is None or p.get('lng') is None:
-            continue
-        if p.get('category') == 'event':
-            reg = p.get('regularity', 'once')
-            if reg == 'once' and p.get('date') and p['date'] < today:
-                continue
-            p = p.copy()
-            p['date'] = next_occurrence(p.get('date'), reg, p.get('time'))
-        p_copy = p.copy()      # ← jetzt außerhalb des if-Blocks
-        p_copy.pop('email', None)
-        public_data.append(p_copy)
-    return jsonify(public_data)
+    pins = database.get_pins(today)
+    return pins
+
+
 
 @app.route('/api/suggest', methods=['POST'])
 def suggest_pin():
@@ -132,28 +123,22 @@ def suggest_pin():
     data['status'] = 'pending'
     if not data.get('address'): data['address'] = "Keine Adresse angegeben"
 
-    # Verifikation prüfen
+    # Verifikation prüfen via Link zum cmn-Netzwerk
     if data.get('category') == 'person':
         links = data.get('links', [])
         is_verified = any(
-            re.match(r'https://forum\.communitymusicnetzwerk\.de/profil/user/', l.get('url', ''))
+            re.match(r'https://forum\.communitymusicnetzwerk\.de/user/', l.get('url', ''))
             for l in links
         )
         if is_verified:
             data['verified'] = True
             data['pinIcon'] = 1
-            tags = data.get('tags', [])
-            if 'Verifiziertes Mitglied' not in tags:
-                tags.append('Verifiziertes Mitglied')
-            data['tags'] = tags
         else:
             data['verified'] = False
     else:
         data['verified'] = False
 
-    pending = load_json(PENDING_FILE)
-    pending.append(data)
-    save_json(PENDING_FILE, pending)
+    database.suggest_pin(data)
     return jsonify({"success": True, "message": "Vorschlag eingereicht!"})
 
 @app.route('/api/contact', methods=['POST'])
@@ -172,28 +157,23 @@ def contact_owner():
 
 @app.route('/api/contact_info/<pin_id>')
 def contact_info(pin_id):
-    pins = load_json(APPROVED_FILE)
-    target = next((p for p in pins if p['id'] == pin_id), None)
-    if target and target.get('email'):
-        return jsonify({"email": target['email']})
-    return jsonify({"error": "Nicht gefunden"}), 404
+    email = database.get_contact_info(pin_id)
+    return jsonify({"email": email})
 
 
-# --- Admin Routen ---
 
-ADMIN_CREDENTIALS = {"admin": "admin123"} ## Testaccount, ggf. Accountmanagementsystem
+# --- Admin Routes ---
+
+ADMIN_CREDENTIALS = {"admin": "admin123"} ## goofy ahh accountsystem
 
 @app.route('/admin')
 def admin_dashboard():
     if 'user' not in session: return render_template('admin.html', logged_in=False)
     
-    pending = load_json(PENDING_FILE)
-    approved = load_json(APPROVED_FILE)
-    
-    # Sortierlogik
-    approved_sorted = sorted(approved, key=lambda x: x['category'])
-    
-    return render_template('admin.html', logged_in=True, pending=pending, approved=approved_sorted)
+    pending = database.load_admin_pins(0)
+    approved = database.load_admin_pins(1)
+        
+    return render_template('admin.html', logged_in=True, pending=pending, approved=approved)
 
 
 # Management von Admin-Aktivitäten (Login, Genehmigen, Ablehnen, Löschen, Aktualisieren)
@@ -206,28 +186,19 @@ def login():
 @app.route('/admin/approve/<pin_id>')
 def approve(pin_id):
     if 'user' not in session: return redirect('/admin')
-    pending = load_json(PENDING_FILE)
-    approved = load_json(APPROVED_FILE)
-    target = next((p for p in pending if p['id'] == pin_id), None)
-    if target:
-        target['status'] = 'approved'
-        approved.append(target)
-        save_json(APPROVED_FILE, approved)
-        save_json(PENDING_FILE, [p for p in pending if p['id'] != pin_id])
+    database.approve(pin_id)
     return redirect('/admin')
 
 @app.route('/admin/reject/<pin_id>')
 def reject(pin_id):
     if 'user' not in session: return redirect('/admin')
-    pending = load_json(PENDING_FILE)
-    save_json(PENDING_FILE, [p for p in pending if p['id'] != pin_id])
+    database.delete(pin_id)
     return redirect('/admin')
 
 @app.route('/admin/delete_approved/<pin_id>')
 def delete_approved(pin_id):
     if 'user' not in session: return redirect('/admin')
-    approved = load_json(APPROVED_FILE)
-    save_json(APPROVED_FILE, [p for p in approved if p['id'] != pin_id])
+    database.delete(pin_id)
     return redirect('/admin')
 
 @app.route('/admin/update', methods=['POST'])
@@ -246,7 +217,6 @@ def update_pin():
             p['category']    = data.get('category')
             if data.get('date'): p['date'] = data.get('date')
             if data.get('time'): p['time'] = data.get('time')
-            # Tags (kommasepariert aus Textfeld im Admin-Formular)
             tags_raw = data.get('tags', '')
             if tags_raw is not None:
                 p['tags'] = [t.strip() for t in tags_raw.split(',') if t.strip()]
@@ -255,7 +225,7 @@ def update_pin():
     save_json(APPROVED_FILE, approved)
     return redirect('/admin')
 
-## Hilfsroute, um verfügbare Pin-Icons dynamisch zu laden
+## Dynamischer Iconloader
 
 @app.route('/api/pin_icons/<category>')
 def pin_icons(category):
@@ -271,6 +241,6 @@ def pin_icons(category):
 
 
 if __name__ == '__main__':
-    # Failsafe, dass Datenordner auch existiert. Ggf. durch Bucket ersetzen, wegen Performance und Persistenz
+    # hier später durch Bucket bzw. Datenbank ersetzen
     os.makedirs(DATA_DIR, exist_ok=True)
-    app.run(host='0.0.0.0', port=int(os.getenv("PORT", 5050)), debug=True)
+    app.run(host='0.0.0.0', port=int(os.getenv("PORT", 5050)), debug=True, threaded=False)

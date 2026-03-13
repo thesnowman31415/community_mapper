@@ -25,14 +25,14 @@
             <img class="logo_corner_mobile" src="/static/icon_typography.png" alt="Logo Community Music Netzwerk Atlas">
         </div>
         <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <div class="view-switcher bg-gray-200 dark:bg-gray-700 rounded-full p-1 flex text-sm font-bold shadow-inner" style="position:relative">
+        <div class="view-switcher bg-gray-700 rounded-full p-1 flex text-sm font-bold shadow-inner" style="position:relative">
             <div id="viewPill" class="view-switcher-pill"></div>
             <button onclick="switchView('map')" id="btnMap"
-                class="px-5 py-2 rounded-full transition-colors duration-200 text-blue-600 dark:text-blue-300 font-bold">
+                class="px-5 py-2 rounded-full transition-colors duration-200 text-gray-100 font-bold">
                 <i class="fa-solid fa-map mr-1"></i>Karte
             </button>
             <button onclick="switchView('list')" id="btnList"
-                class="px-5 py-2 rounded-full transition-colors duration-200 text-gray-500 dark:text-gray-400 font-bold">
+                class="px-5 py-2 rounded-full transition-colors duration-200 text-gray-400 font-bold">
                 <i class="fa-solid fa-list mr-1"></i>Liste
             </button>
         </div>
@@ -69,14 +69,14 @@
             <div>
                 <h3 class="font-bold mb-2 text-gray-500 uppercase text-xs">Kategorie</h3>
                 <div class="flex gap-2 flex-wrap">
-                    <button onclick="toggleFilterType('person')" id="filPerson" class="filter-chip px-3 py-1 rounded-full border border-green-500 bg-green-500 text-white text-xs">
-                        <i class="fa-solid fa-user mr-1"></i>Person
+                    <button onclick="toggleFilterType('event')" id="filEvent" class="filter-chip px-3 py-1 rounded-full border border-red-500 bg-red-500 text-white text-xs">
+                        <i class="fa-solid fa-calendar-days mr-1"></i>Veranstaltung
                     </button>
                     <button onclick="toggleFilterType('institution')" id="filInst" class="filter-chip px-3 py-1 rounded-full border border-blue-500 bg-blue-500 text-white text-xs">
                         <i class="fa-solid fa-building mr-1"></i>Institution
                     </button>
-                    <button onclick="toggleFilterType('event')" id="filEvent" class="filter-chip px-3 py-1 rounded-full border border-red-500 bg-red-500 text-white text-xs">
-                        <i class="fa-solid fa-calendar-days mr-1"></i>Veranstaltung
+                    <button onclick="toggleFilterType('person')" id="filPerson" class="filter-chip px-3 py-1 rounded-full border border-green-500 bg-green-500 text-white text-xs">
+                        <i class="fa-solid fa-user mr-1"></i>Person
                     </button>
                 </div>
             </div>
@@ -103,7 +103,7 @@
         <!-- Schlagwort-Filter -->
         <div class="px-4 pb-3 max-w-4xl mx-auto border-t border-gray-200 dark:border-gray-700 pt-3">
             <button onclick="toggleTagFilter()" class="flex items-center gap-2 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
-                <i class="fa-solid fa-tags"></i>
+                <i class="fa-solid fa-tags" style=""></i>
                 Nach Schlagwörtern filtern
                 <i id="tagFilterArrow" class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200"></i>
                 <span id="tagFilterCount" class="hidden bg-blue-500 text-white rounded-full px-1.5 text-[10px] font-bold">0</span>
@@ -114,8 +114,8 @@
 
 
     <!-- Platzierungsinfobanner -->
-    <div id="addModeBanner" class="hidden bg-blue-600 text-white p-2 text-center text-sm z-20 shadow-md animate-pulse cursor-pointer" onclick="toggleAddMode()">
-        Klicke auf die Karte zum Platzieren. <span class="underline font-bold ml-2">Abbrechen</span>
+    <div id="addModeBanner" class="hidden bg-green-900 text-white p-2 text-center text-sm z-20 shadow-md animate-pulse cursor-pointer" onclick="toggleAddMode()">
+        Klicke auf die Karte zum Platzieren des Pins. <span class="underline font-bold ml-2">Abbrechen</span>
     </div>
 
     <!-- Main content -->
@@ -147,12 +147,12 @@
         </a>
 
         <button id="fabAdd" onclick="toggleAddMode()"
-            class="absolute bottom-6 right-6 w-14 h-14 bg-blue-600 hover:bg-blue-500 text-white rounded-full shadow-2xl flex items-center justify-center z-40 transition-transform transform hover:scale-110 active:scale-90">
+            class="absolute bottom-6 right-6 w-14 h-14 bg-green-600 hover:bg-green-500 text-white rounded-full shadow-2xl flex items-center justify-center z-40 transition-transform transform hover:scale-110 active:scale-90">
             <i class="fa-solid fa-plus text-2xl"></i>
         </button>
     </div>
 
-    <!-- ===== DETAIL MODAL (kein X, Overlay-Klick schließt) ===== -->
+    <!-- Detail Modal -->
     <div id="detailModal" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex justify-center items-center p-4">
         <div id="detailModalInner" class="rounded-xl shadow-2xl w-full max-w-3xl border border-gray-700 overflow-hidden flex flex-col" style="max-height:90vh">
 
@@ -218,18 +218,20 @@
                 <button onclick="document.getElementById('detailModal').classList.add('hidden')" class="text-gray-400 hover:text-gray-200 text-sm">
                     Schließen
                 </button>
-                <button id="detailContactBtn" class="bg-blue-600 text-white px-5 py-2 rounded-lg text-sm font-semibold hover:bg-blue-700">
+                <button id="detailContactBtn" class="bg-gray-800 text-white text-sm font-semibold hover:bg-gray-600 pill" style="padding: 10px; width: clamp(190px, 30%, 220px);">
                     <i class="fa-solid fa-envelope mr-1"></i> Kontakt aufnehmen
                 </button>
             </div>
         </div>
     </div>
 
-    <!-- ===== HINZUFÜGEN MODAL ===== -->
+    
+
+    <!-- Add Modal -->
     <div id="addModal" class="fixed inset-0 bg-black bg-opacity-80 hidden z-50 flex justify-center items-end md:items-center p-0 md:p-4" onclick="if(event.target===this)closeModal('addModal')">
-        <div class="bg-white dark:bg-gray-800 p-6 rounded-t-2xl md:rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto border-t md:border border-gray-200 dark:border-gray-700">
+        <div id="addFormInner" class="p-6 rounded-t-2xl md:rounded-lg shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto border-t md:border border-gray-200 dark:border-gray-700" style="transition: 0.4s ease">
             <div class="flex justify-between items-center mb-4">
-                <h2 class="text-xl font-bold dark:text-white">Neuer Eintrag</h2>
+                <h2 class="text-xl font-bold dark:text-white">Neuen Pin vorschlagen</h2>
                 <button onclick="closeModal('addModal')" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-times text-xl"></i></button>
             </div>
 
@@ -245,15 +247,19 @@
                 <!-- Kategorie -->
                 <div class="mb-4">
                     <label class="text-xs font-bold text-gray-500 uppercase">Kategorie</label>
-                    <div class="flex rounded-md shadow-sm mt-1" role="group">
-                        <button type="button" onclick="setFormCat('person')" id="btnCatPerson" class="cat-btn rounded-l-lg border border-gray-200 dark:border-gray-600">
-                            <i class="fa-solid fa-user"></i><span>Person</span>
+                    <div class="cat-switcher bg-gray-200 dark:bg-gray-700 rounded-full p-1 flex mt-1 shadow-inner" style="position:relative">
+                        <div id="catPill" class="cat-pill-indicator"></div>
+                        <button type="button" onclick="setFormCat('event')" id="btnCatEvent"
+                            class="cat-btn flex-1 px-3 py-1.5 rounded-full text-xs font-semibold text-gray-500 dark:text-gray-400 z-10 relative transition-colors duration-200 flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-calendar-days"></i>Veranstaltung
                         </button>
-                        <button type="button" onclick="setFormCat('institution')" id="btnCatInst" class="cat-btn border-t border-b border-gray-200 dark:border-gray-600">
-                            <i class="fa-solid fa-building"></i><span>Institution</span>
+                        <button type="button" onclick="setFormCat('institution')" id="btnCatInst"
+                            class="cat-btn flex-1 px-3 py-1.5 rounded-full text-xs font-semibold text-gray-500 dark:text-gray-400 z-10 relative transition-colors duration-200 flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-building"></i>Institution
                         </button>
-                        <button type="button" onclick="setFormCat('event')" id="btnCatEvent" class="cat-btn rounded-r-lg border border-gray-200 dark:border-gray-600">
-                            <i class="fa-solid fa-calendar-days"></i><span>Veranstaltung</span>
+                        <button type="button" onclick="setFormCat('person')" id="btnCatPerson"
+                            class="cat-btn flex-1 px-3 py-1.5 rounded-full text-xs font-semibold text-gray-500 dark:text-gray-400 z-10 relative transition-colors duration-200 flex items-center justify-center gap-1.5">
+                            <i class="fa-solid fa-user"></i>Person
                         </button>
                     </div>
                 <input type="hidden" id="cat" value="person">
@@ -264,30 +270,30 @@
                 <div class="mb-4">
                     <label id="titleLabel" class="text-xs font-bold text-gray-500 uppercase">Titel</label>
                     <div class="flex gap-2 mt-1">
-                        <!-- Icon-Picker Quadrat (nur event/institution) -->
+                        <!-- Icon-Picker Quadrat -->
                         <div id="iconPickerBlock" class="hidden relative shrink-0">
                             <button type="button" onclick="document.getElementById('iconPickerTray').classList.toggle('hidden')"
-                                class="w-10 h-10 rounded border dark:border-gray-600 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 flex items-center justify-center transition-all">
+                                class="w-10 h-10 rounded border dark:border-gray-600 bg-gray-50 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 flex items-center justify-center transition-all" style="border-radius: 20px;">
                                 <img id="iconPickerPreview" src="" style="width:24px;height:24px;object-fit:contain;filter:brightness(0) invert(1)">
                             </button>
-                            <div id="iconPickerTray" class="hidden absolute top-11 left-0 z-50 p-2 rounded-lg border dark:border-gray-600 bg-white dark:bg-gray-800 shadow-xl">
-                                <div id="iconPickerGrid" class="grid gap-1" style="grid-template-columns: repeat(6, 40px)"></div>
+                            <div style="border-radius: 30px;" id="iconPickerTray" class="hidden absolute top-11 left-0 z-50 p-2 rounded-lg border dark:border-gray-600 bg-white dark:bg-gray-800 shadow-xl">
+                                <div id="iconPickerGrid" class="grid gap-1" style="grid-template-columns: repeat(6, 40px); border-radius: 20px;"></div>
                             </div>
                             <input type="hidden" id="pinIcon" value="">
                         </div>
-                        <input placeholder="z.B. Drum Circle" type="text" id="title" required
+                        <input placeholder="z.B. Drum Circle" type="text" id="title" required maxlength="80"
                             class="flex-grow border dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 dark:text-white">
                     </div>
                 </div>
 
                 <!-- Event-Felder -->
-                <div id="eventFields" class="hidden bg-red-50 dark:bg-red-900/20 p-3 rounded mb-4 border border-red-100 dark:border-red-900">
+                <div style="border-radius: 20px;" id="eventFields" class="hidden bg-red-50 dark:bg-red-900/20 p-3 rounded mb-4 border border-red-100 dark:border-red-900">
                     <div class="grid grid-cols-2 gap-2 mb-2">
                         <div><label class="text-xs font-bold dark:text-gray-300">Datum</label><input type="date" id="date" class="w-full border rounded px-2 py-1 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600"></div>
                         <div><label class="text-xs font-bold dark:text-gray-300">Zeit</label><input type="time" id="time" class="w-full border rounded px-2 py-1 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600"></div>
                     </div>
                     <label class="text-xs font-bold dark:text-gray-300">Wiederholung</label>
-                    <select id="regularity" class="w-full border rounded px-2 py-1 mb-2 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600" onchange="checkCustomReg()">
+                    <select id="regularity" class="pill w-full border rounded px-3 py-2 mb-2 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600" onchange="checkCustomReg()" style="min-height:2.4rem">
                         <option value="once">Einmalig</option>
                         <option value="daily">Täglich</option>
                         <option value="weekly">Wöchentlich</option>
@@ -298,10 +304,10 @@
                     <div id="regCustomFields" class="hidden mt-1">
                         <p class="text-xs font-bold dark:text-gray-300 mb-1">Wiederhole alle …</p>
                         <div class="flex gap-2">
-                            <input type="number" id="regCustomN" min="1" value="1"
-                                class="w-1/3 border dark:border-gray-600 rounded px-2 py-1 text-sm dark:bg-gray-700 dark:text-white">
-                            <select id="regCustomUnit"
-                                class="w-2/3 border dark:border-gray-600 rounded px-2 py-1 text-sm dark:bg-gray-700 dark:text-white">
+                                <input type="number" id="regCustomN" min="1" value="1"
+                                    class="w-1/3 border dark:border-gray-600 rounded px-3 py-2 text-sm dark:bg-gray-700 dark:text-white" style="min-height:2.4rem">
+                                <select id="regCustomUnit"
+                                    class="w-2/3 border dark:border-gray-600 rounded px-3 py-2 text-sm dark:bg-gray-700 dark:text-white" style="min-height:2.4rem">
                                 <option value="days">Tage</option>
                                 <option value="weeks">Wochen</option>
                                 <option value="months">Monate</option>
@@ -313,9 +319,34 @@
 
                 <!-- Beschreibung -->
                 <div class="mb-4">
-                    <label class="text-xs font-bold text-gray-500 uppercase">Beschreibung <span class="normal-case font-normal">(opt.)</span></label>
-                    <textarea id="desc" class="w-full border dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 dark:text-white mt-1" rows="3" placeholder="Inhalt, Ablauf oder Ziel des Angebots..."></textarea>
+                    <label class="pill text-xs font-bold text-gray-500 uppercase">Beschreibung <span class="normal-case font-normal">(opt.)</span></label>
+                    <textarea id="desc" maxlength="800" class="w-full border dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 dark:text-white mt-1 resize-none" placeholder="Wie läuft das Angebot ab? Was erwartet die Teilnehmenden? Muss man etwas mitbringen? An wen richtet sich das Angebot?" oninput='this.style.height = "";this.style.height = this.scrollHeight + "px"' rows="3"></textarea>                </div>
+
+                    <!-- Links -->
+                <div class="mb-4">
+                    <label class="text-xs font-bold text-gray-500 uppercase">
+                    <i class="fa-solid fa-globe mr-1"></i>Links <span class="normal-case font-normal">(opt.)</span>
+                    </label>
+                    <!-- Link 1 -->
+                    <div class="flex gap-2 mb-2">
+                        <input style="font-size: 12px;" type="text" id="link1_title" placeholder="Bezeichnung (z.B. Homepage)" class="w-2/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
+                        <input style="font-size: 12px;" type="url" id="link1_url" placeholder="www.communitymusicnetzwerk.de" class="w-3/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
+                    </div>
+                    <!-- Link 2 -->
+                    <div style="margin-top: 10px;" class="flex gap-2">
+                        <input style="font-size: 12px;" type="text" id="link2_title" placeholder="Bezeichnung (z.B. Instagram)" class="w-2/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
+                        <input style="font-size: 12px;" type="url" id="link2_url" placeholder="www.instagram.com/..." class="w-3/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
+                    </div>
                 </div>
+
+                 <!-- Schlagwörter -->
+                <div class="mb-4">
+                    <label class="text-xs font-bold text-gray-500 uppercase">
+                    <i class="fa-solid fa-tags mr-1"></i>Schlagwörter <span class="normal-case font-normal">(opt.)</span>
+                    </label>
+                    <div id="tagCheckboxContainer" class="grid grid-cols-2 gap-1"></div>
+                </div>
+
 
                 <!-- Selbstverortung -->
                 <div class="mb-4">
@@ -325,17 +356,11 @@
                     </div>
                     <textarea id="selfDesc" required maxlength="150"
                         oninput="document.getElementById('selfDescCount').textContent = this.value.length + '/150'"
-                        class="w-full border dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 dark:text-white" rows="3"
+                        class="resize-none w-full border dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 dark:text-white" rows="3"
                         placeholder="Inwiefern verortest du dich, deine Institution oder dein Angebot in der Community Music?"></textarea>
                 </div>
 
-                <!-- Schlagwörter -->
-                <div class="mb-4">
-                    <label class="text-xs font-bold text-gray-500 uppercase">
-                    <i class="fa-solid fa-tags mr-1"></i>Schlagwörter <span class="normal-case font-normal">(opt.)</span>
-                    </label>
-                    <div id="tagCheckboxContainer" class="grid grid-cols-2 gap-1"></div>
-                </div>
+            
 
                 <!-- Kontakt-Email (intern, nicht öffentlich angezeigt) -->
                 <div class="mb-4">
@@ -346,28 +371,13 @@
                     <input type="email" id="email" placeholder="maria.mustermann@icloud.com" required class="w-full border dark:border-gray-600 rounded px-3 py-2 bg-white dark:bg-gray-700 dark:text-white">
                 </div>
 
-                <!-- Links -->
-                <div class="mb-4">
-                    <label class="text-xs font-bold text-gray-500 uppercase">
-                    <i class="fa-solid fa-globe mr-1"></i>Links <span class="normal-case font-normal">(opt.)</span>
-                    </label>
-                    <!-- Link 1 -->
-                    <div class="flex gap-2 mb-2">
-                        <input type="text" id="link1_title" placeholder="Bezeichnung (z.B. Homepage)" class="w-2/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
-                        <input type="url" id="link1_url" placeholder="www.communitymusicnetzwerk.de" class="w-3/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
-                    </div>
-                    <!-- Link 2 -->
-                    <div class="flex gap-2">
-                        <input type="text" id="link2_title" placeholder="Bezeichnung (z.B. Instagram)" class="w-2/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
-                        <input type="url" id="link2_url" placeholder="www.instagram.com/..." class="w-3/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
-                    </div>
-                </div>
+            
 
                 <label class="flex items-start gap-2 mb-4 cursor-pointer">
                     <input type="checkbox" required class="mt-0.5 accent-blue-500 shrink-0">
                     <span class="text-xs text-gray-500 dark:text-gray-400">Ich habe die <a href="/datenschutz" target="_blank" class="text-blue-500 hover:underline">Datenschutzbestimmungen</a> gelesen und akzeptiere sie.</span>
                 </label>
-                <button type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 shadow-lg">Eintrag vorschlagen</button>
+                <button id="submitButton" type="submit" class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 shadow-lg">Eintrag vorschlagen</button>
             </form>
         </div>
     </div>

@@ -3,7 +3,7 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
 .font {
-  font-family: Roboto, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
   font-optical-sizing: auto;
   font-weight: 600;
   font-style: normal;
@@ -41,7 +41,6 @@
 #map { z-index: 0; }
 .suggestions-list { max-height: 200px; overflow-y: auto; }
 
-/* darkmode popups */
 .leaflet-popup-content-wrapper, .leaflet-popup-tip {
     background-color: #1f2937; color: white;
 }
@@ -107,7 +106,7 @@ input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: none; b
 
 #detailMap { z-index: 0; }
 
-/* Cluster-Pin (sieht aus wie normaler Leaflet-Pin, grau) */
+/* Cluster-Pin */
 .cm-cluster-pin {
     position: relative;
     width: 30px;
@@ -203,10 +202,11 @@ input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: none; b
     font-size: clamp(18px, 2vw, 25px);
     font-weight: 600;
     color: white;
+    hyphens: auto;
 }
 
 .pinCardIcon {
-    width: clamp(24px, 4vw, 50px);
+    width: clamp(24px, 4vw, 30px);
     height: auto;
 }
 
@@ -217,6 +217,41 @@ input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: none; b
 }
 .pin-card {
     animation: cardIn 0.5s ease both;
+}
+.cat-switcher {
+    position: relative;
+}
+.cat-pill-indicator {
+    position: absolute;
+    top: 4px; bottom: 4px;
+    transform: translateX(-50px);
+    border-radius: 9999px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 0.4s;
+    z-index: 0;
+}
+
+#submitButton {
+    background: #2563eb;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+#submitButton:hover {
+    background: #1d4ed8;
+}
+
+input {
+    border-radius: 20px!important;
+}
+
+.pill {
+    border-radius: 20px!important;
 }
 
 

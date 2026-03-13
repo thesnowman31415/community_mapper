@@ -9,7 +9,7 @@
         "email": "maria.schreiber@example.de",
         "lat": 52.52,
         "lng": 13.405,
-        "address": "Berlin, 10115",
+        "a": "Berlin, 10115",
         "date": null,
         "time": null,
         "regularity": null,
@@ -2433,8 +2433,7 @@
             "Für Kinder",
             "Für Erwachsene",
             "Weiterbildung",
-            "Vernetzungstreffen",
-            "Verifiziertes Mitglied"
+            "Vernetzungstreffen"
         ],
         "pinIcon": 1,
         "links": [
@@ -2444,8 +2443,7 @@
             }
         ],
         "id": "8b87e3ea-591b-4315-a767-8899cebe297b",
-        "status": "approved",
-        "verified": true
+        "status": "approved"
     },
     {
         "category": "event",

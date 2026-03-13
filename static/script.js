@@ -1,6 +1,4 @@
-// ============================================================
-//  KONFIGURATION & KONSTANTEN
-// ============================================================
+// config und constants
 
 const ALL_TAGS = [
     'Singen', 'Percussion/Trommeln', 'Improvisation', 'Instrumentalmusik',
@@ -32,6 +30,7 @@ const CAT_GRADIENT = {
 };
 const REG_LABELS = {
     once:      'Einmalig',
+    single:    'Einmalig',
     daily:     'Täglich',
     weekly:    'Wöchentlich',
     biweekly:  'Alle 2 Wochen',
@@ -46,8 +45,12 @@ function showToast(msg, success = true) {
     t.innerHTML = `<i class="fa-solid ${success ? 'fa-circle-check' : 'fa-circle-xmark'}"></i> ${msg}`;
     document.body.appendChild(t);
     requestAnimationFrame(() => {
-        t.style.opacity = '1';
-        t.style.transform = 'translateX(-50%) translateY(0)';
+    if (pill && btn) {
+        const container = pill.parentElement;
+        const offset = btn.getBoundingClientRect().left - container.getBoundingClientRect().left;
+        pill.style.width     = btn.offsetWidth + 'px';
+        pill.style.transform = `translateX(${offset}px)`;
+        }
     });
     setTimeout(() => {
         t.style.opacity = '0';
@@ -64,25 +67,21 @@ function setSortMode(mode) {
     const activeBtn = document.getElementById('sortBtn-' + mode);
 
     document.querySelectorAll('.sort-btn').forEach(b => {
-    b.classList.remove('text-blue-600', 'dark:text-blue-300');
+    b.classList.remove('text-gray-600', 'dark:text-gray-300');
     b.classList.add('text-gray-500', 'dark:text-gray-400');
     });
 
     if (activeBtn && pill) {
         activeBtn.classList.remove('text-gray-500', 'dark:text-gray-400');
-        activeBtn.classList.add('text-blue-600', 'dark:text-blue-300');
-        // Position relativ zum Container (dem flex-div mit position:relative)
+        activeBtn.classList.add('text-gray-600', 'dark:text-gray-300');
+
         pill.style.width = activeBtn.offsetWidth + 'px';
         pill.style.transform = `translateX(${activeBtn.offsetLeft - 8}px)`;
-        pill.style.width = btnRect.width + 'px';
-        pill.style.transform = `translateX(${btnRect.left - containerRect.left - 8}px)`;
     }
     renderList();
 }
 
-// ============================================================
-//  STATE
-// ============================================================
+// state
 
 let allPins = [];
 let filteredPins = [];
@@ -103,9 +102,7 @@ let detailMap = null;
 let detailMarker = null;
 let listSearchQuery = '';
 
-// ============================================================
-//  HILFSFUNKTIONEN
-// ============================================================
+// Hilfsfunktionen
 
 function formatDate(s) {
     if (!s) return '';
@@ -193,7 +190,7 @@ function nextNOccurrences(dateStr, regularity, n = 5, eventTime = null) {
         }
     };
 
-    // Zum ersten zukünftigen Termin vorspulen
+    // Zum ersten zukünftigen Termin vorspulen ---->
     const nowTime = new Date();
         while (current < today || (
             current.getTime() === today.getTime() &&
@@ -266,7 +263,7 @@ clusterGroup = L.markerClusterGroup({
     showCoverageOnHover: false,
     animate: true,
     maxClusterRadius: function(zoom) {
-        if (zoom >= 16) return 66; // nur noch exakt gleiche Koordinaten clustern → Spiderfy greift
+        if (zoom >= 16) return 66; // spiderfy
         const metersPerPx = (40075016 * Math.cos(51 * Math.PI / 180)) / (256 * Math.pow(2, zoom));
         const px = Math.round(5000 / metersPerPx);
         return Math.min(Math.max(px, 40), 100);
@@ -305,23 +302,22 @@ if (navigator.geolocation) {
     });
 }
 
-// ============================================================
-//  TAGS
-// ============================================================
+// Schlagwortlogik
+
 
 function buildTagCheckboxes() {
     const form = document.getElementById('tagCheckboxContainer');
     if (form) ALL_TAGS.forEach(tag => {
         const l = document.createElement('label');
         l.className = 'flex items-center gap-2 text-sm cursor-pointer p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200';
-        l.innerHTML = `<input type="checkbox" class="pin-tag accent-blue-500" value="${tag}"> ${tag}`;
+        l.innerHTML = `<input style="border-radius: 50%;" type="checkbox" class="pin-tag accent-blue-500" value="${tag}"> ${tag}`;
         form.appendChild(l);
     });
     const filter = document.getElementById('tagFilterPanel');
     if (filter) ALL_TAGS.forEach(tag => {
         const l = document.createElement('label');
         l.className = 'flex items-center gap-2 text-xs cursor-pointer p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-300';
-        l.innerHTML = `<input type="checkbox" class="filter-tag accent-blue-500" value="${tag}" onchange="onTagFilterChange()"> ${tag}`;
+        l.innerHTML = `<input style="border-radius: 50%;" type="checkbox" class="filter-tag accent-blue-500" value="${tag}" onchange="onTagFilterChange()"> ${tag}`;
         filter.appendChild(l);
     });
 }
@@ -341,9 +337,8 @@ function onTagFilterChange() {
     applyFilters();
 }
 
-// ============================================================
-//  VIEW SWITCH
-// ============================================================
+// Viewswitcher Karte und liste
+
 
 function switchView(mode) {
     currentView = mode;
@@ -355,7 +350,7 @@ function switchView(mode) {
     const btnList  = document.getElementById('btnList');
 
     if (mode === 'map') {
-        // Erst sichtbar machen, DANN invalidateSize
+
         listView.classList.add('hidden');
         mapView.classList.remove('hidden');
         sortBar.classList.add('hidden');
@@ -365,16 +360,16 @@ function switchView(mode) {
             : document.getElementById('btnList');
         pill.style.width = activeViewBtn.offsetWidth + 'px';
         pill.style.transform = `translateX(${activeViewBtn.offsetLeft - 4}px)`;
-        btnMap.classList.add('text-blue-600');
-        btnMap.classList.remove('text-gray-500');
-        btnList.classList.add('text-gray-500');
-        btnList.classList.remove('text-blue-600');
+        btnMap.classList.add('text-gray-100');
+        btnMap.classList.remove('text-gray-400');
+        btnList.classList.add('text-gray-400');
+        btnList.classList.remove('text-gray-100');
 
         document.getElementById('addrInput').placeholder = 'Adresse suchen...';
         document.getElementById('addrInput').value = '';
         document.getElementById('addrResults').classList.add('hidden');
 
-        // Mehrfach invalidieren um Resize-Edge-Cases abzufangen
+
         setTimeout(() => map.invalidateSize({ pan: false }), 50);
         setTimeout(() => map.invalidateSize({ pan: false }), 200);
         setTimeout(() => map.invalidateSize({ pan: false }), 500);
@@ -389,10 +384,10 @@ function switchView(mode) {
             : document.getElementById('btnList');
         pill.style.width = activeViewBtn.offsetWidth + 'px';
         pill.style.transform = `translateX(${activeViewBtn.offsetLeft - 4}px)`;
-        btnList.classList.add('text-blue-600');
-        btnList.classList.remove('text-gray-500');
-        btnMap.classList.add('text-gray-500');
-        btnMap.classList.remove('text-blue-600');
+        btnList.classList.add('text-gray-100');
+        btnList.classList.remove('text-gray-400');
+        btnMap.classList.add('text-gray-400');
+        btnMap.classList.remove('text-gray-100');
 
         document.getElementById('addrInput').placeholder = 'Suchen nach Titel, Beschreibung, Schlagwort…';
         document.getElementById('addrInput').value = listSearchQuery;
@@ -415,9 +410,8 @@ function toggleFilters() {
     document.getElementById('searchBar').classList.add('hidden');
 }
 
-// ============================================================
-//  TEXTSUCHE (Listenansicht)
-// ============================================================
+// Textsuche
+
 
 function scorePin(pin, terms) {
     const titleLower = (pin.title || '').toLowerCase();
@@ -443,9 +437,8 @@ function performListSearch(query) {
     renderList();
 }
 
-// ============================================================
-//  FILTER
-// ============================================================
+// Filterlogik
+
 
 function toggleFilterType(type) {
     const colorMap = { person: 'green', institution: 'blue', event: 'red' };
@@ -500,9 +493,7 @@ function applyFilters() {
     document.getElementById('activeFilterDot').classList.toggle('hidden', def);
 }
 
-// ============================================================
-//  KARTEN-MARKER
-// ============================================================
+// Markerlogik
 
 function updateMapMarkers() {
     clusterGroup.clearLayers();
@@ -528,28 +519,27 @@ function updateMapMarkers() {
   <div style="display:flex;align-items:flex-start;gap:8px;padding-right:28px;margin-bottom:6px">
     <i class="${fa}" style="color:${color};font-size:15px;margin-top:2px;flex-shrink:0"></i>
     <div style="flex:1;min-width:0">
-      <div style="color:white;font-weight:700;font-size:14px;line-height:1.3;word-break:break-word">${p.title}</div>
+      <div style="hyphens:auto;color:white;font-weight:700;font-size:14px;line-height:1.3;word-break:break-word">${p.title}</div>
       ${eventLine}
     </div>
   </div>
-  ${short ? `<p style="color:#9ca3af;font-size:12px;line-height:1.5;margin:0 0 8px">${short}</p>` : ''}
+  <hr style="margin-top: 10px; margin-bottom: 6px; border-color: rgba(255, 255, 255, 0.2);">
+  ${short ? `<p style="color:#ffffff;font-size:12px;line-height:1.5;margin:0 0 8px">${short}</p>` : ''}
   <button onclick="openDetails('${p.id}')"
-    style="width:100%;background:${color};color:white;border:none;padding:7px 0;border-radius:25px;font-size:12px;cursor:pointer;font-weight:600">
+    style="width:100%;background:${color};color:white;border:none;padding:7px 0;border-radius:25px;font-size:14px;cursor:pointer;font-weight:600">
     Details
   </button>
   <button onclick="window._cmap.closePopup()"
     style="position:absolute;top:-4px;right:-4px;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.15);border:none;color:rgba(255,255,255,0.8);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1">&times;</button>
 </div>`;
 
-        m.bindPopup(html, { minWidth: 214, maxWidth: 216, closeButton: false, className: `popup-${p.category}` });
+        m.bindPopup(html, { width: 180, closeButton: false, className: `popup-${p.category}` });
         markers.push(m);
         clusterGroup.addLayer(m);
     });
 }
 
-// ============================================================
-//  DETAIL MODAL
-// ============================================================
+// Detailansicht-Popup
 
 window.openDetails = function(id) {
     map.closePopup();
@@ -615,7 +605,7 @@ window.openDetails = function(id) {
                     <div class="space-y-1">
                         ${dates.map((ds, i) => `
                             <div class="flex items-center gap-2 text-xs ${i === 0 ? 'text-white font-bold' : 'text-gray-400'}">
-                                <i class="fa-solid fa-circle text-[5px] shrink-0 ${i === 0 ? 'text-blue-400' : 'text-gray-600'}"></i>
+                                <i class="fa-solid fa-circle text-[5px] shrink-0 ${i === 0 ? 'text-red-400' : 'text-gray-600'}"></i>
                                 ${formatDateWithWeekday(ds)}
                             </div>`).join('')}
                     </div>`;
@@ -655,7 +645,7 @@ window.openDetails = function(id) {
     contactBtn.onclick = async () => {
         const origHTML = contactBtn.innerHTML;
         contactBtn.disabled = true;
-        contactBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i>`;
+        contactBtn.innerHTML = `<img src="/static/utility/loading_spinner.svg" alt="" style="filter: invert(1)" class="w-5 h-5 mx-auto">`;
 
         try {
             const res  = await fetch(`/api/contact_info/${pin.id}`);
@@ -694,9 +684,7 @@ document.getElementById('detailModal').addEventListener('click', function(e) {
     if (e.target === this) this.classList.add('hidden');
 });
 
-// ============================================================
-//  HINZUFÜGEN MODUS
-// ============================================================
+// Pin hinzufügen
 
 function toggleAddMode() {
     isAddingMode = !isAddingMode;
@@ -709,7 +697,7 @@ function toggleAddMode() {
 
     if (isAddingMode) {
         switchView('map');
-        fab.classList.replace('bg-blue-600', 'bg-red-500');
+        fab.classList.replace('bg-green-600', 'bg-red-500');
         fab.innerHTML = '<i class="fa-solid fa-times text-2xl"></i>';
         banner.classList.remove('hidden');
         mapCont.classList.add('cursor-crosshair');
@@ -718,7 +706,7 @@ function toggleAddMode() {
         sb.classList.remove('hidden');
         document.getElementById('addrInput').focus();
     } else {
-        fab.classList.replace('bg-red-500', 'bg-blue-600');
+        fab.classList.replace('bg-red-500', 'bg-green-600');
         fab.innerHTML = '<i class="fa-solid fa-plus text-2xl"></i>';
         banner.classList.add('hidden');
         mapCont.classList.remove('cursor-crosshair');
@@ -743,29 +731,64 @@ map.on('click', async function(e) {
         document.getElementById('addressDisplay').value = lat.toFixed(4) + ', ' + lng.toFixed(4);
     }
     document.getElementById('addModal').classList.remove('hidden');
+    requestAnimationFrame(() => setFormCat(document.getElementById('cat').value));
 });
 
-// ============================================================
-//  FORMULAR
-// ============================================================
+// Formularlogik
+
+const CAT_FORM_GRADIENT = {
+    person:      'linear-gradient(135deg, #143525 0%, #1a2535 100%)',
+    institution: 'linear-gradient(135deg, #131b2e 0%, #1a2535 100%)',
+    event:       'linear-gradient(135deg, #291010 0%, #1a2535 100%)'
+};
+const CAT_PILL_COLOR = {
+    person:      '#16a34a',
+    institution: '#2563eb',
+    event:       '#dc2626'
+};
+
+function updateCatPill(cat) {
+    const pill = document.getElementById('catPill');
+    if (!pill) return;
+    const btn = document.getElementById(
+        cat === 'event' ? 'btnCatEvent' :
+        cat === 'institution' ? 'btnCatInst' : 'btnCatPerson'
+    );
+    if (!btn) return;
+    pill.style.width = btn.offsetWidth + 'px';
+    pill.style.transform = `translateX(${btn.offsetLeft - 4}px)`;
+    pill.style.background = CAT_PILL_COLOR[cat];
+}
+
+window.addEventListener('resize', () => {
+    updateCatPill(document.getElementById('cat').value);
+});
 
 function setFormCat(cat) {
     document.getElementById('cat').value = cat;
     updateFormFields();
-    ['Person', 'Inst', 'Event'].forEach(c => {
-        const b = document.getElementById('btnCat' + c);
-        b.className = 'cat-btn flex-1 px-2 py-3 md:py-2 text-sm font-medium border dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-900 flex flex-col md:flex-row items-center justify-center gap-1';
-        if (c === 'Person') b.classList.add('rounded-l-lg', 'border-r-0');
-        if (c === 'Inst')   b.classList.add('border-l-0', 'border-r-0');
-        if (c === 'Event')  b.classList.add('rounded-r-lg', 'border-l-0');
+
+    const allBtns = document.querySelectorAll('.cat-btn');
+    allBtns.forEach(b => {
+        b.classList.remove('text-white');
+        b.classList.add('text-gray-500', 'dark:text-gray-400');
     });
-    const k  = cat === 'person' ? 'Person' : cat === 'institution' ? 'Inst' : 'Event';
-    const ab = document.getElementById('btnCat' + k);
-    ab.classList.remove('bg-white', 'dark:bg-gray-700', 'text-gray-900', 'dark:text-white');
-    if (cat === 'person')      ab.classList.add('bg-green-500', 'text-white', 'hover:bg-green-600', 'border-green-600');
-    if (cat === 'institution') ab.classList.add('bg-blue-500',  'text-white', 'hover:bg-blue-600',  'border-blue-600');
-    if (cat === 'event')       ab.classList.add('bg-red-500',   'text-white', 'hover:bg-red-600',   'border-red-600');
-        // Icon-Picker
+    const btn = document.getElementById(
+        cat === 'event' ? 'btnCatEvent' :
+        cat === 'institution' ? 'btnCatInst' : 'btnCatPerson'
+    );
+    btn.classList.remove('text-gray-500', 'dark:text-gray-400');
+    btn.classList.add('text-white');
+
+    updateCatPill(cat);
+    requestAnimationFrame(() => updateCatPill(cat));
+
+    const formInner = document.getElementById('addFormInner');
+    if (formInner) formInner.style.background = CAT_FORM_GRADIENT[cat];
+
+    const submitBtn = document.getElementById('submitButton');
+    if (submitBtn) submitBtn.style.background = CAT_PILL_COLOR[cat];
+
     const pickerBlock = document.getElementById('iconPickerBlock');
     if (cat === 'event' || cat === 'institution') {
         pickerBlock.classList.remove('hidden');
@@ -774,12 +797,9 @@ function setFormCat(cat) {
         pickerBlock.classList.add('hidden');
         document.getElementById('pinIcon').value = '';
     }
-        const titleLabel = document.getElementById('titleLabel');
-    if (cat === 'event' || cat === 'institution') {
-        titleLabel.textContent = 'Titel & Icon';
-    } else {
-        titleLabel.textContent = 'Titel';
-    }
+
+    document.getElementById('titleLabel').textContent =
+        (cat === 'event' || cat === 'institution') ? 'Titel & Icon' : 'Titel';
 
     const placeholders = {
         person:      'z.B. Maria Mustermann',
@@ -877,9 +897,7 @@ function submitPin() {
         });
 }
 
-// ============================================================
-//  LISTENANSICHT
-// ============================================================
+// =Listenanzeige
 
 function getDistance(lat1, lon1, lat2, lon2) {
     if (!lat1 || !lat2) return 0;
@@ -939,8 +957,8 @@ function renderList() {
         const groups = { event:[], person:[], institution:[] };
         listData.forEach(p => { if (groups[p.category]) groups[p.category].push(p); });
         renderSection(container, 'Veranstaltungen', groups.event,       'border-red-500',   'fa-solid fa-calendar-days', '#f87171', 'events');
-        renderSection(container, 'Personen',        groups.person,      'border-green-500', 'fa-solid fa-user',          '#4ade80', 'persons');
         renderSection(container, 'Institutionen',   groups.institution, 'border-blue-500',  'fa-solid fa-building',      '#60a5fa', 'institutions');
+        renderSection(container, 'Personen',        groups.person,      'border-green-500', 'fa-solid fa-user',          '#4ade80', 'persons');
     }
 }
 
@@ -988,7 +1006,7 @@ function renderDateSection(container, title, icon, items, sectionId) {
     sec.innerHTML = `
         <button onclick="toggleSection('${gridId}', '${headerId}')"
             class="w-full text-left font-bold text-gray-500 uppercase text-xs mb-3 pl-2 border-l-4 border-blue-500 flex items-center gap-2">
-            <i class="${icon} text-blue-400"></i>
+            <i class="${icon} text-blue-100"></i>
             ${title}
             <span class="ml-auto text-gray-400 text-[10px] font-normal">${items.length} Einträge</span>
             <i id="${headerId}-arrow" class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-200 mr-1"></i>
@@ -1021,7 +1039,7 @@ function createPinCard(p, showDist=false) {
         if (!e.target.closest('button')) openDetails(p.id);
     };
 
-    // Icon: SVG wenn vorhanden, sonst FA
+    // Icon mit Fallback
     const iconHtml = (p.pinIcon !== null && p.pinIcon !== undefined && p.pinIcon !== '')
         ? `<img class="pinCardIcon" src="/static/pins/${p.category}/${p.pinIcon}.svg"
                style="object-fit:contain;filter:brightness(0) invert(1);flex-shrink:0"
@@ -1060,9 +1078,7 @@ function createPinCard(p, showDist=false) {
     return div;
 }
 
-// ============================================================
-//  SUCHEINGABE — dual-mode
-// ============================================================
+// Such- und Filterlogik für Listenansicht & Kartenansicht
 
 let searchTimeout = null;
 document.getElementById('addrInput').addEventListener('input', function(e) {
@@ -1134,7 +1150,8 @@ function loadIconPicker(cat) {
             const index = url.split('/').pop().replace('.svg', '');
             const btn = document.createElement('button');
             btn.type = 'button';
-            btn.className = `icon-pick-btn w-10 h-10 rounded border-2 ${index === '0' ? '!border-blue-500' : 'border-transparent'} bg-gray-700 flex items-center justify-center hover:border-blue-400 transition-all`;            btn.innerHTML = `<img src="${url}" style="width:24px;height:24px;object-fit:contain;filter:brightness(0) invert(1)">`;
+            btn.style.borderRadius = '20px';
+            btn.className = `icon-pick-btn w-10 h-10 border-2 ${index === '0' ? '!border-blue-500' : 'border-transparent'} bg-gray-700 flex items-center justify-center hover:border-blue-400 transition-all`;            btn.innerHTML = `<img src="${url}" style="width:24px;height:24px;object-fit:contain;filter:brightness(0) invert(1)">`;
             btn.onclick = () => {
                 document.querySelectorAll('.icon-pick-btn').forEach(b => b.classList.remove('!border-blue-500'));
                 btn.classList.add('!border-blue-500');
@@ -1155,9 +1172,7 @@ document.getElementById('pinForm').addEventListener('click', function(e) {
     }
 });
 
-// ============================================================
-//  INIT
-// ============================================================
+// Init
 
 fetch('/api/pins').then(r => r.json()).then(pins => {
     allPins = pins;
@@ -1166,5 +1181,5 @@ fetch('/api/pins').then(r => r.json()).then(pins => {
 });
 
 buildTagCheckboxes();
-setFormCat('person');
+setFormCat('event');
 updateRadiusLabel();
