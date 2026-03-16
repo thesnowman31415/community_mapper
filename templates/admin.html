@@ -11,6 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="static\apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="static\favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="static\favicon-16x16.png">
+    <link rel="stylesheet" href="static\style.css">
     <link rel="manifest" href="static\site.webmanifest">
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
@@ -242,7 +243,7 @@
                     <textarea name="selfDesc" id="editSelfDesc" rows="2" class="w-full border dark:border-gray-600 rounded-lg px-3 py-2 mt-1 bg-white dark:bg-gray-700 dark:text-white"></textarea>
                 </div>
                 <div>
-                    <label class="text-xs font-bold text-gray-500 uppercase">E-Mail (intern)</label>
+                    <label class="text-xs font-bold text-gray-500 uppercase">E-Mail</label>
                     <input type="text" name="email" id="editEmail" class="w-full border dark:border-gray-600 rounded-lg px-3 py-2 mt-1 bg-white dark:bg-gray-700 dark:text-white">
                 </div>
                 <div class="grid grid-cols-2 gap-3">
@@ -259,6 +260,31 @@
                     <label class="text-xs font-bold text-gray-500 uppercase">Wiederholung</label>
                     <input type="text" name="regularity" id="editReg" placeholder="z.B. weekly, monthly, once" class="w-full border dark:border-gray-600 rounded-lg px-3 py-2 mt-1 bg-white dark:bg-gray-700 dark:text-white">
                 </div>
+
+                <div class="mb-4">
+                    <label class="text-xs font-bold text-gray-500 uppercase">
+                    <i class="fa-solid fa-tags mr-1"></i>Schlagwörter</span>
+                    </label>
+                    <div id="tagCheckboxContainer" class="grid grid-cols-2 gap-1"></div>
+                </div>
+
+
+                 <div class="mb-4">
+                    <label class="text-xs font-bold text-gray-500 uppercase">
+                    <i class="fa-solid fa-globe mr-1"></i>Links</span>
+                    </label>
+                    <!-- Link 1 -->
+                    <div class="flex gap-2 mb-2">
+                        <input style="font-size: 12px;" type="text" id="link1_title" placeholder="Bezeichnung 1" class="w-2/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
+                        <input style="font-size: 12px;" type="url" id="link1_url" placeholder="URL 1" class="w-3/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
+                    </div>
+                    <!-- Link 2 -->
+                    <div style="margin-top: 10px;" class="flex gap-2">
+                        <input style="font-size: 12px;" type="text" id="link2_title" placeholder="Bezeichnung 2" class="w-2/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
+                        <input style="font-size: 12px;" type="url" id="link2_url" placeholder="URL 2" class="w-3/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
+                    </div>
+                </div>
+
                 <div class="flex justify-end gap-3 border-t dark:border-gray-700 pt-4">
                     <button type="button" onclick="document.getElementById('editModal').classList.add('hidden')" class="text-gray-500 hover:text-gray-700 text-sm">Abbrechen</button>
                     <button type="submit" class="bg-blue-600 text-white px-5 py-2 rounded-lg font-bold hover:bg-blue-700 text-sm">Speichern</button>
@@ -267,7 +293,6 @@
         </div>
     </div>
 </div>
-
 <script>
     const CAT_COLOR = { person: '#16a34a', institution: '#2563eb', event: '#dc2626' };
     const CAT_FA    = { person: 'fa-solid fa-user', institution: 'fa-solid fa-building', event: 'fa-solid fa-calendar-days' };
@@ -359,8 +384,35 @@
         }, 200);
     }
 
-    function openEditModal(btn) {
+
+function buildTagCheckboxes(tags, pinTags) {
+    const form = document.getElementById('tagCheckboxContainer');
+    while (form.firstChild) {
+        form.firstChild.remove()
+    }
+    if (form) tags.forEach(tag => {
+        const l = document.createElement('label');
+        l.className = 'flex items-center gap-2 text-sm cursor-pointer p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200';
+        l.innerHTML = `<input name="tags-${tag}" style="border-radius: 50%;" type="checkbox" class="pin-tag accent-blue-500" id="${tag}" value="${tag}"> ${tag}`;
+        form.appendChild(l);
+    });
+
+    
+    pinTags.forEach(pin => {
+        console.log(pin)
+        document.getElementById(pin).checked = true
+    })
+
+}
+
+    async function fetchTags() {
+        const res = await fetch('/api/getTags');
+        return await res.json();
+    }
+
+    async function openEditModal(btn) {
         const pin = JSON.parse(btn.getAttribute('data-pin'));
+
         document.getElementById('editId').value       = pin.id;
         document.getElementById('editTitle').value    = pin.title;
         document.getElementById('editCat').value      = pin.category;
@@ -371,6 +423,10 @@
         document.getElementById('editDate').value     = pin.date       || '';
         document.getElementById('editTime').value     = pin.time       || '';
         document.getElementById('editReg').value      = pin.regularity || '';
+        
+        buildTagCheckboxes(await fetchTags(), pin.tags || []);
+
+        
         document.getElementById('editModal').classList.remove('hidden');
     }
 
@@ -378,6 +434,9 @@
         const p = s.split('-');
         return p.length === 3 ? `${p[2]}.${p[1]}.${p[0]}` : s;
     }
+
+
+    
 </script>
 </body>
 </html>

@@ -112,7 +112,7 @@ def migrate_from_json():
 
         db.commit()
 
-migrate_from_json()
+#migrate_from_json()
 
 def get_pins(today):
     db, cursor = get_db_connection()
@@ -187,13 +187,24 @@ def suggest_pin(p):
 def load_admin_pins(approved):
     (db, cursor) = get_db_connection()
     pending_pins = cursor.execute("""
-        SELECT * FROM pins
+        SELECT pins.*, (
+            SELECT json_group_array(tagName) 
+            FROM (SELECT DISTINCT tagName FROM pinHasTag WHERE pinId = pins.id)
+        ) as tags
+        FROM pins
         WHERE approved = ?
         ORDER BY proposalTime ASC
     """, (approved,))
     rows =  pending_pins.fetchall()
     db.close()
-    return [dict(row) for row in rows]
+    results = []
+    for row in rows:
+        pin = dict(row)
+        pin['tags'] = json.loads(pin['tags']) if pin['tags'] else []
+        results.append(pin)
+        
+    
+    return results
 
 
 def get_contact_info(pin_id):
@@ -204,7 +215,15 @@ def get_contact_info(pin_id):
     db.close()
     return result['email'] if result else None
     
-    
+def get_tags():
+    (db, cursor) = get_db_connection(False)
+    sqltags = cursor.execute("""SELECT DISTINCT value FROM tags""").fetchall()
+    db.close()
+    tags = []
+    for tag in sqltags:
+        tags.append(tag[0])
+    return tags
+
     
 def approve(pinID):
     (db, cursor) = get_db_connection()
@@ -214,5 +233,57 @@ def approve(pinID):
 def delete(pinID):
     (db, cursor) = get_db_connection()
     cursor.execute("DELETE FROM pins WHERE id = ?", (pinID, ))
+    db.commit()
+
+def update(pin):
+    id = pin.get('id')
+    title = pin.get('title')
+    description = pin.get('description')
+    email = pin.get('email')
+    address = pin.get('address')
+    category = pin.get('category')
+    regularity = pin.get('regularity')
+    links = []
+    tags = []
+    
+    if pin.get('date'): date = pin.get('date')
+    if pin.get('time'): time = pin.get('time')
+
+    tagList = pin.items()
+    for tag_raw in tagList:
+        if (tag_raw[0].startswith("tags")):
+            tags.append(tag_raw[1])
+
+    links_raw = pin.get('links', '')
+    if links_raw is not None:
+        links = [t.strip() for t in links_raw.split(',') if t.strip()]
+        print(tags)
+
+  
+    (db, cursor) = get_db_connection()
+    cursor.execute("""UPDATE pins 
+                    SET title = ?,
+                        category = ?,
+                        date = ?,
+                        time = ?,
+                        regularity = ?,
+                        description = ?,
+                        address = ?,
+                        email = ?
+                    WHERE id = ?
+                   """, (title, category, date, time, regularity, description, address, email, id))
+    
+
+
+    cursor.execute("DELETE FROM pinHasLink WHERE pinId = ?", (id, ))
+    for link in links:
+        cursor.execute("INSERT INTO pinHasLink VALUES(?,?)", (id, link))
+
+    cursor.execute("DELETE FROM pinHasTag WHERE pinId = ?", (id, ))
+    for tag in tags:
+        cursor.execute("INSERT INTO pinHasTag VALUES(?,?)", (id, tag))
+
+
+
     db.commit()
 

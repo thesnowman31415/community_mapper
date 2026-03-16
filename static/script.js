@@ -1,10 +1,14 @@
 // config und constants
 
-const ALL_TAGS = [
-    'Singen', 'Percussion/Trommeln', 'Improvisation', 'Instrumentalmusik',
-    'Gesundheit & Wohlbefinden', 'Für Kinder', 'Für Erwachsene',
-    'Songwriting', 'Weiterbildung', 'Bewegung/Tanz', 'Vernetzungstreffen', 'Sonstiges'
-];
+let ALL_TAGS = []
+
+async function init_tags() {
+    const response = await fetch('/api/getTags');
+    ALL_TAGS = await response.json();
+    buildTagCheckboxes(ALL_TAGS);
+}
+
+init_tags();
 
 const CAT_FA = {
     person:      'fa-solid fa-user',
@@ -305,16 +309,16 @@ if (navigator.geolocation) {
 // Schlagwortlogik
 
 
-function buildTagCheckboxes() {
+function buildTagCheckboxes(tags) {
     const form = document.getElementById('tagCheckboxContainer');
-    if (form) ALL_TAGS.forEach(tag => {
+    if (form) tags.forEach(tag => {
         const l = document.createElement('label');
         l.className = 'flex items-center gap-2 text-sm cursor-pointer p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-200';
         l.innerHTML = `<input style="border-radius: 50%;" type="checkbox" class="pin-tag accent-blue-500" value="${tag}"> ${tag}`;
         form.appendChild(l);
     });
     const filter = document.getElementById('tagFilterPanel');
-    if (filter) ALL_TAGS.forEach(tag => {
+    if (filter) tags.forEach(tag => {
         const l = document.createElement('label');
         l.className = 'flex items-center gap-2 text-xs cursor-pointer p-1.5 rounded hover:bg-gray-100 dark:hover:bg-gray-700 dark:text-gray-300';
         l.innerHTML = `<input style="border-radius: 50%;" type="checkbox" class="filter-tag accent-blue-500" value="${tag}" onchange="onTagFilterChange()"> ${tag}`;
@@ -625,6 +629,7 @@ window.openDetails = function(id) {
         a.href   = link.url;
         a.target = '_blank';
         a.rel    = 'noopener noreferrer';
+        a.classList = "pill";
         a.style.cssText = 'display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:6px;font-size:12px;font-weight:600;color:white;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);text-decoration:none;margin-right:6px;margin-top:6px';
         a.innerHTML = `<i class="fa-solid fa-globe"></i> ${label}`;
         linksEl.appendChild(a);
@@ -736,10 +741,10 @@ map.on('click', async function(e) {
 
 // Formularlogik
 
-const CAT_FORM_GRADIENT = {
-    person:      'linear-gradient(135deg, #143525 0%, #1a2535 100%)',
-    institution: 'linear-gradient(135deg, #131b2e 0%, #1a2535 100%)',
-    event:       'linear-gradient(135deg, #291010 0%, #1a2535 100%)'
+const CAT_FORM_COLOR = {
+    person:      '#143525',
+    institution: '#131b2e',
+    event:       '#291010'
 };
 const CAT_PILL_COLOR = {
     person:      '#16a34a',
@@ -784,7 +789,7 @@ function setFormCat(cat) {
     requestAnimationFrame(() => updateCatPill(cat));
 
     const formInner = document.getElementById('addFormInner');
-    if (formInner) formInner.style.background = CAT_FORM_GRADIENT[cat];
+    if (formInner) formInner.style.backgroundColor = CAT_FORM_COLOR[cat];
 
     const submitBtn = document.getElementById('submitButton');
     if (submitBtn) submitBtn.style.background = CAT_PILL_COLOR[cat];
@@ -820,6 +825,7 @@ function setFormCat(cat) {
 
 function updateFormFields() {
     document.getElementById('eventFields').classList.toggle('hidden', document.getElementById('cat').value !== 'event');
+    document.getElementById('addressPin').style.color =  CAT_PILL_COLOR[document.getElementById('cat').value]
 }
 function checkCustomReg() {
     const isCustom = document.getElementById('regularity').value === 'custom';
@@ -842,6 +848,7 @@ function closeModal(id) {
 }
 
 function submitPin() {
+    console.log("ey")
     let reg = document.getElementById('regularity').value;
         if (reg === 'custom') {
             const n    = parseInt(document.getElementById('regCustomN').value) || 1;
@@ -850,9 +857,13 @@ function submitPin() {
         }
     const tags    = [...document.querySelectorAll('.pin-tag:checked')].map(el => el.value);
     const l1url   = document.getElementById('link1_url').value.trim();
+    console.log("l1url")
     const l1title = document.getElementById('link1_title').value.trim();
+    console.log("link1_title")
     const l2url   = document.getElementById('link2_url').value.trim();
+    console.log("l2url")
     const l2title = document.getElementById('link2_title').value.trim();
+    console.log("l2title")
     const normalizeUrl = url => {
         if (!url) return url;
         if (/^https?:\/\//i.test(url)) return url;
@@ -861,6 +872,7 @@ function submitPin() {
     const links = [];
     if (l1url) links.push({ title: l1title, url: normalizeUrl(l1url) });
     if (l2url) links.push({ title: l2title, url: normalizeUrl(l2url) });
+    console.log("links:" + links)
     const cat = document.getElementById('cat').value;
     const rawIcon = document.getElementById('pinIcon').value;
     const pinIcon = (cat === 'event' || cat === 'institution')
@@ -1180,6 +1192,5 @@ fetch('/api/pins').then(r => r.json()).then(pins => {
     updateMapMarkers();
 });
 
-buildTagCheckboxes();
 setFormCat('event');
 updateRadiusLabel();

@@ -9,6 +9,10 @@
   font-style: normal;
 }
 
+#fabAdd {
+    border-radius: 1000px!important;
+}
+
 .popup-person .leaflet-popup-content-wrapper {
     background: linear-gradient(135deg, #052e16 0%, #1f2937 100%) !important;
     border: 1px solid #166534 !important;
@@ -170,6 +174,7 @@ input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: none; b
 .view-switcher button {
     position: relative;
     z-index: 1;
+
 }
 
 /* Sort-Pill */
@@ -210,6 +215,26 @@ input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: none; b
     height: auto;
 }
 
+#addFormInner {
+    position: relative;
+    transition: background-color 0.8s ease;
+}
+
+#addFormInner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, transparent 0%, #1a2535 100%);
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+}
+
+#addFormInner > * {
+    position: relative;
+    z-index: 1;
+}
+
 /* Karten-Einblend-Animation */
 @keyframes cardIn {
     from { opacity: 0; transform: translateY(12px) scale(0.97); }
@@ -247,6 +272,10 @@ input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: none; b
 }
 
 input {
+    border-radius: 20px!important;
+}
+
+button {
     border-radius: 20px!important;
 }
 

@@ -141,17 +141,12 @@ def suggest_pin():
     database.suggest_pin(data)
     return jsonify({"success": True, "message": "Vorschlag eingereicht!"})
 
-@app.route('/api/contact', methods=['POST'])
-def contact_owner():
-    data = request.json
-    pins = load_json(APPROVED_FILE)
-    target = next((p for p in pins if p['id'] == data.get('pin_id')), None)
-    if target and target.get('email'):
-        print(f"MAIL an {target['email']}: {data.get('message')}")
-        return jsonify({"success": True, "message": "Nachricht versendet."})
-    return jsonify({"success": False, "message": "Fehler."}), 404
 
 
+@app.route('/api/getTags')
+def get_tags():
+    tags = database.get_tags()
+    return tags
 
 
 
@@ -205,24 +200,8 @@ def delete_approved(pin_id):
 def update_pin():
     if 'user' not in session: return redirect('/admin')
     data = request.form
-    approved = load_json(APPROVED_FILE)
-    
-
-    for p in approved:
-        if p['id'] == data.get('id'):
-            p['title']       = data.get('title')
-            p['description'] = data.get('description')
-            p['email']       = data.get('email')
-            p['address']     = data.get('address')
-            p['category']    = data.get('category')
-            if data.get('date'): p['date'] = data.get('date')
-            if data.get('time'): p['time'] = data.get('time')
-            tags_raw = data.get('tags', '')
-            if tags_raw is not None:
-                p['tags'] = [t.strip() for t in tags_raw.split(',') if t.strip()]
-            break
-            
-    save_json(APPROVED_FILE, approved)
+    print(data)
+    database.update(data)
     return redirect('/admin')
 
 ## Dynamischer Iconloader
