@@ -228,7 +228,7 @@ function formatNominatimAddress(data) {
     return parts.join(', ') || data.display_name || '';
 }
 
-function createPinIcon(category, iconIndex) {
+function createPinIcon(category, iconIndex, delay = 0) {
     const pinUrl = `/static/pins/${category}/pin.png`;
     const svgUrl = (iconIndex !== null && iconIndex !== undefined && iconIndex !== '')
         ? `/static/pins/${category}/${iconIndex}.svg`
@@ -237,7 +237,7 @@ function createPinIcon(category, iconIndex) {
         ? `<img src="${svgUrl}" style="position:absolute;width:22px;height:22px;top:7px;left:22%;filter:brightness(0) invert(1);pointer-events:none" onerror="this.src='/static/pins/${category}/0.svg'">`
         : '';
     return L.divIcon({
-        html: `<div style="position:relative;width:38px;height:54px">
+        html: `<div class="pin-pop-in" style="position:relative;width:38px;height:54px;animation-delay:${delay}ms">
                    <img src="${pinUrl}" style="width:38px;height:54px;position:absolute;top:0;left:0">
                    ${iconHtml}
                </div>`,
@@ -275,10 +275,10 @@ clusterGroup = L.markerClusterGroup({
     iconCreateFunction: function(cluster) {
         const count = cluster.getChildCount();
         return L.divIcon({
-            html: `<div style="position:relative;width:38px;height:48px">
-                     <img src="/static/pins/cluster.png" style="width:38px;height:48px;position:absolute;top:0;left:0">
-                     <span style="position:absolute;top:1px;left:50%;transform:translateX(-50%);color:white;font-weight:800;font-size:20px;font-family:system-ui,sans-serif;text-shadow:0 1px 3px rgba(0,0,0,0.6)">${count}</span>
-                   </div>`,
+            html: `<div class="pin-pop-in" style="position:relative;width:38px;height:48px">
+                    <img src="/static/pins/cluster.png" style="width:38px;height:48px;position:absolute;top:0;left:0">
+                    <span style="position:absolute;top:1px;left:50%;transform:translateX(-50%);color:white;font-weight:800;font-size:20px;font-family:system-ui,sans-serif;text-shadow:0 1px 3px rgba(0,0,0,0.6)">${count}</span>
+                </div>`,
             className: '',
             iconSize:   L.point(38, 48),
             iconAnchor: L.point(19, 48),
@@ -291,7 +291,6 @@ const mapResizeObserver = new ResizeObserver(() => {
     if (currentView === 'map') map.invalidateSize({ pan: false });
 });
 mapResizeObserver.observe(document.getElementById('map'));
-
 if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(pos => {
         userLocation = { lat: pos.coords.latitude, lng: pos.coords.longitude };
@@ -300,10 +299,26 @@ if (navigator.geolocation) {
         }).addTo(map);
         updateRadiusLabel();
         applyFilters();
+        if (currentView === 'list') {
+            if (currentSortMode === 'proximity') renderList();
+            hidGpsHint();
+        }
     }, () => {
         document.getElementById('gpsStatus').innerText = 'GPS nicht verfügbar. Umkreis deaktiviert.';
         document.getElementById('radiusRange').disabled = true;
+        if (currentView === 'list' && currentSortMode === 'proximity') {
+            setSortMode('group');
+        }
+    }, {
+        maximumAge: 300000,
+        timeout: 5000,
+        enableHighAccuracy: false
     });
+}
+
+function hidGpsHint() {
+    const hint = document.getElementById('gpsLoadingHint');
+    if (hint) hint.remove();
 }
 
 // Schlagwortlogik
@@ -393,7 +408,7 @@ function switchView(mode) {
         btnMap.classList.add('text-gray-400');
         btnMap.classList.remove('text-gray-100');
 
-        document.getElementById('addrInput').placeholder = 'Suchen nach Titel, Beschreibung, Schlagwort…';
+        document.getElementById('addrInput').placeholder = 'Suchbegriffe nach Komma getrennt...';
         document.getElementById('addrInput').value = listSearchQuery;
         document.getElementById('addrResults').classList.add('hidden');
         renderList();
@@ -461,14 +476,76 @@ function toggleFilterType(type) {
     applyFilters();
 }
 
+const RADIUS_STEPS = [
+    ...Array.from({length: 20}, (_, i) => i + 1),
+    ...Array.from({length: 6},  (_, i) => 25 + i * 5),
+    ...Array.from({length: 15}, (_, i) => 60 + i * 10),
+    ...Array.from({length: 6},  (_, i) => 250 + i * 50),
+    ...Array.from({length: 5},  (_, i) => 600 + i * 100),
+    999999
+];
+
+function sliderToKm(index) {
+    return RADIUS_STEPS[index] ?? 999999;
+}
+
+function kmToSlider(km) {
+    if (km >= 999999) return RADIUS_STEPS.length - 1;
+    for (let i = 0; i < RADIUS_STEPS.length; i++) {
+        if (RADIUS_STEPS[i] >= km) return i;
+    }
+    return RADIUS_STEPS.length - 1;
+}
+
+const RADIUS_THUMB = [
+    { max: 5,    img: '/static/pins/radius/1.png' },
+    { max: 20,   img: '/static/pins/radius/2.png' },
+    { max: 100,  img: '/static/pins/radius/3.png' },
+    { max: 9999, img: '/static/pins/radius/3.png' },
+];
+
+function getThumbImg(km) {
+    if (km >= 999999) return '/static/pins/radius/4.png';
+    for (const t of RADIUS_THUMB) {
+        if (km <= t.max) return t.img;
+    }
+    return '/static/pins/radius/4.png';
+}
+
 function updateRadiusLabel() {
     const range = document.getElementById('radiusRange');
-    const val   = range.value;
-    document.getElementById('radiusVal').innerText = (val == range.max) ? 'Alle' : val + ' km';
-    const pct = ((val - range.min) * 100) / (range.max - range.min);
+    const idx   = parseInt(range.value);
+    const km    = sliderToKm(idx);
+
+    document.getElementById('radiusVal').innerText = km >= 999999 ? 'Alle' : km + ' km';
+
+    const pct = (idx * 100) / (RADIUS_STEPS.length - 1);
     range.style.background = `linear-gradient(to right,#3b82f6 0%,#3b82f6 ${pct}%,#4b5563 ${pct}%,#4b5563 100%)`;
-    activeFilters.radius = (val == range.max) ? 999999 : parseInt(val);
+
+    activeFilters.radius = km >= 999999 ? 999999 : km;
     if (userLocation) document.getElementById('gpsStatus').innerText = 'GPS aktiv.';
+
+    const img = getThumbImg(km);
+    document.getElementById('thumbStyle').textContent = `
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 32px; width: 22px;
+            transform:scale(1.8);
+            background: url('${img}') no-repeat center center;
+            background-size: contain;
+            margin-top: -13px;
+            box-shadow: none; border-radius: 0; cursor: grab;
+            filter:hue-rotate(${pct * 1.6 + 200}deg);
+        }
+        input[type=range]::-moz-range-thumb {
+            height: 32px; width: 22px;
+            transform:scale(1.8);
+            background: url('${img}') no-repeat center center;
+            background-size: contain;
+            border: none; border-radius: 0; cursor: grab;
+            filter:hue-rotate(${pct * 1.6 + 200}deg);
+        }
+    `;
 }
 
 function applyFilters() {
@@ -497,13 +574,41 @@ function applyFilters() {
     document.getElementById('activeFilterDot').classList.toggle('hidden', def);
 }
 
+function resetFilters() {
+    // Kategorien
+    activeFilters.types = new Set(['person', 'institution', 'event']);
+    ['filPerson', 'filInst', 'filEvent'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (id === 'filPerson') { btn.classList.add('bg-green-500', 'text-white'); btn.classList.remove('bg-transparent', 'text-gray-500', 'border-gray-300'); }
+        if (id === 'filInst')   { btn.classList.add('bg-blue-500',  'text-white'); btn.classList.remove('bg-transparent', 'text-gray-500', 'border-gray-300'); }
+        if (id === 'filEvent')  { btn.classList.add('bg-red-500',   'text-white'); btn.classList.remove('bg-transparent', 'text-gray-500', 'border-gray-300'); }
+    });
+
+    // Radius
+    const range = document.getElementById('radiusRange');
+    range.value = 52;
+    updateRadiusLabel();
+
+    // Datum
+    document.getElementById('dateFrom').value = '';
+    document.getElementById('dateTo').value   = '';
+
+    // Tags
+    document.querySelectorAll('.filter-tag').forEach(cb => cb.checked = false);
+    activeFilters.tags = new Set();
+    document.getElementById('tagFilterCount').classList.add('hidden');
+
+    applyFilters();
+}
+
 // Markerlogik
 
 function updateMapMarkers() {
     clusterGroup.clearLayers();
     markers = [];
-    filteredPins.forEach(p => {
-    const markerIcon = createPinIcon(p.category, p.pinIcon ?? null);
+    filteredPins.forEach((p, i) => {
+        const delay = Math.floor(Math.random() * 400);
+        const markerIcon = createPinIcon(p.category, p.pinIcon ?? null, delay);
         const m = L.marker([p.lat, p.lng], { icon: markerIcon });
         const color = CAT_COLOR[p.category] || '#6b7280';
         const fa    = CAT_FA[p.category]    || '';
@@ -925,45 +1030,100 @@ function renderList() {
 
     // Textsuche hat Vorrang
     const rawQuery = listSearchQuery.trim();
-    if (rawQuery) {
-        const terms = rawQuery.split(',').map(s => s.trim()).filter(Boolean);
-        listData = listData
-            .map(p => ({ pin: p, score: scorePin(p, terms) }))
-            .filter(e => e.score > 0)
-            .sort((a, b) => b.score - a.score)
-            .map(e => e.pin);
+if (rawQuery) {
+    // SortBar verstecken:
+    document.getElementById('sortBar').classList.add('hidden');
 
-        if (!listData.length) {
-            container.innerHTML = `<p class="text-center text-gray-500 mt-10"><i class="fa-solid fa-magnifying-glass mr-2"></i>Keine Treffer für &bdquo;${rawQuery}&ldquo;</p>`;
-            return;
-        }
-        renderSimpleGrid(container, listData, !!userLocation);
+    const terms = rawQuery.split(',').map(s => s.trim()).filter(Boolean);
+    listData = listData
+        .map(p => ({ pin: p, score: scorePin(p, terms) }))
+        .filter(e => e.score > 0)
+        .sort((a, b) => b.score - a.score)
+        .map(e => e.pin);
+
+    if (!listData.length) {
+        container.innerHTML = `<p class="text-center text-gray-500 mt-10"><i class="fa-solid fa-magnifying-glass mr-2"></i>Keine Treffer für &bdquo;${rawQuery}&ldquo;</p>`;
         return;
     }
 
+
+    const resultBar = document.createElement('div');
+    resultBar.className = 'w-full mb-3 flex items-center justify-center';
+    resultBar.innerHTML = `<span class="text-xs px-4 py-1.5 rounded-full text-gray-300 font-semibold" style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12)">
+        <i class="fa-solid fa-magnifying-glass mr-2 text-gray-400"></i>${listData.length} Ergebnis${listData.length !== 1 ? 'se' : ''}
+    </span>`;
+    container.appendChild(resultBar);
+
+    renderSimpleGrid(container, listData, !!userLocation);
+    return;
+}
+
+
+document.getElementById('sortBar').classList.remove('hidden');
+
     // Kein Suchtext: nach Sortmode
     const mode = currentSortMode;
-    if (mode === 'proximity' && userLocation) {
+    if (mode === 'proximity') {
+        if (!userLocation) {
+            container.innerHTML = `
+                <div id="gpsLoadingHint" class="flex flex-col items-center justify-center mt-16 gap-4 text-gray-400">
+                <img id="gpsLoadingHint" src="/static/utility/loading_spinner.svg" alt="" style="filter: invert(1); scale: 1.8;"" class="w-5 h-5 mx-auto">
+                    <p class="text-sm font-semibold">Standort wird ermittelt…</p>
+                    <p class="text-xs text-gray-500">Die Einträge werden nach Nähe sortiert sobald GPS verfügbar ist.</p>
+                    <button onclick="setSortMode('group')" class="mt-2 text-xs px-4 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+                        Jetzt nach Kategorie anzeigen
+                    </button>
+                </div>`;
+            return;
+        }
+
         listData.forEach(p => p.distance = getDistance(userLocation.lat, userLocation.lng, p.lat, p.lng));
         listData.sort((a, b) => a.distance - b.distance);
-        renderSimpleGrid(container, listData, true);
+
+        const d5    = listData.filter(p => p.distance <= 5);
+        const d20   = listData.filter(p => p.distance > 5   && p.distance <= 20);
+        const d50   = listData.filter(p => p.distance > 20  && p.distance <= 50);
+        const d100  = listData.filter(p => p.distance > 50  && p.distance <= 100);
+        const d500  = listData.filter(p => p.distance > 100 && p.distance <= 500);
+        const dFar  = listData.filter(p => p.distance > 500);
+
+        renderProximitySection(container, '5 km oder weniger',  'fa-solid fa-location-dot',     d5,   'prox5');
+        renderProximitySection(container, '5 bis 20 km',        'fa-solid fa-location-arrow',    d20,  'prox20');
+        renderProximitySection(container, '20 bis 50 km',       'fa-solid fa-map-location-dot',  d50,  'prox50');
+        renderProximitySection(container, '50 bis 100 km',      'fa-solid fa-map',               d100, 'prox100');
+        renderProximitySection(container, '100 bis 500 km',     'fa-solid fa-earth-europe',      d500, 'prox500');
+        renderProximitySection(container, '500 km oder mehr',   'fa-solid fa-globe',             dFar, 'proxfar');
     } else if (mode === 'date_asc') {
-    const today = new Date(); today.setHours(0,0,0,0);
-    const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
-    const in7  = new Date(today); in7.setDate(today.getDate() + 7);
-    const in14 = new Date(today); in14.setDate(today.getDate() + 14);
+        const now   = new Date();
+        const today = new Date(); today.setHours(0,0,0,0);
+        const tomorrow = new Date(today); tomorrow.setDate(today.getDate() + 1);
+        const in7   = new Date(today); in7.setDate(today.getDate() + 7);
 
-    const toDate = s => s ? new Date(s.split('-').join('-')) : null;
+        const thisMonthEnd  = new Date(today.getFullYear(), today.getMonth() + 1, 0);
+        const nextMonthEnd  = new Date(today.getFullYear(), today.getMonth() + 2, 0);
+        const thisYearEnd   = new Date(today.getFullYear(), 11, 31);
+        const nextYearEnd   = new Date(today.getFullYear() + 1, 11, 31);
 
-    const soonToday    = listData.filter(p => { const d = toDate(p.date); return d && d <= tomorrow; });
-    const soon7        = listData.filter(p => { const d = toDate(p.date); return d && d > tomorrow && d <= in7; });
-    const soon14       = listData.filter(p => { const d = toDate(p.date); return d && d > in7 && d <= in14; });
-    const later        = listData.filter(p => { const d = toDate(p.date); return !d || d > in14; });
+        const toDate = s => s ? new Date(s) : null;
 
-        renderDateSection(container, 'Heute & Morgen',                  'fa-solid fa-sun',           soonToday, 'today');
-        renderDateSection(container, 'Kommende 7 Tage',                 'fa-solid fa-calendar-week', soon7,     'week');
-        renderDateSection(container, 'Innerhalb der nächsten 2 Wochen', 'fa-solid fa-calendar',      soon14,    'twoweeks');
-        renderDateSection(container, 'Später',                          'fa-solid fa-clock',         later,     'later');
+        // Nur Events
+        const events = listData.filter(p => p.category === 'event');
+
+        const secHeute     = events.filter(p => { const d = toDate(p.date); return d && d >= today && d < tomorrow; });
+        const secMorgen    = events.filter(p => { const d = toDate(p.date); return d && d >= tomorrow && d < new Date(tomorrow.getTime() + 86400000); });
+        const sec7         = events.filter(p => { const d = toDate(p.date); return d && d >= new Date(tomorrow.getTime() + 86400000) && d <= in7; });
+        const secMonat     = events.filter(p => { const d = toDate(p.date); return d && d > in7 && d <= thisMonthEnd; });
+        const secNaechster = events.filter(p => { const d = toDate(p.date); return d && d > thisMonthEnd && d <= nextMonthEnd; });
+        const secJahr      = events.filter(p => { const d = toDate(p.date); return d && d > nextMonthEnd && d <= thisYearEnd; });
+        const secSpaeter   = events.filter(p => { const d = toDate(p.date); return !d || d > thisYearEnd; });
+
+        renderDateSection(container, 'Heute',                      'fa-solid fa-check text-red-500',           secHeute,     'heute');
+        renderDateSection(container, 'Morgen',                     'fa-solid fa-cloud-sun text-red-500',      secMorgen,    'morgen');
+        renderDateSection(container, 'Kommende 7 Tage',            'fa-solid fa-calendar-week text-red-500',  sec7,         'week');
+        renderDateSection(container, 'In diesem Monat',            'fa-solid fa-calendar text-red-500',       secMonat,     'thismonth');
+        renderDateSection(container, 'Im kommenden Monat',         'fa-solid fa-calendar-plus text-red-500',  secNaechster, 'nextmonth');
+        renderDateSection(container, 'In diesem Jahr',             'fa-solid fa-calendar-days text-red-500',  secJahr,      'thisyear');
+        renderDateSection(container, 'Im nächsten Jahr oder später','fa-solid fa-clock text-red-500',          secSpaeter,   'later');
 
     } else {
         const groups = { event:[], person:[], institution:[] };
@@ -988,18 +1148,21 @@ function renderSimpleGrid(container, items, showDist=false) {
 function renderSection(container, title, items, colorClass, faClass, iconColor, sectionId) {
     if (!items.length) return;
     const sec = document.createElement('div');
-    sec.className = 'mb-6';
+    sec.className = 'mb-4';
     const headerId = 'sec-' + sectionId;
     const gridId   = 'grid-' + sectionId;
     sec.innerHTML = `
         <button onclick="toggleSection('${gridId}', '${headerId}')"
-            class="w-full text-left font-bold text-gray-500 uppercase text-xs mb-3 pl-2 border-l-4 ${colorClass} flex items-center gap-2 group">
-            <i class="${faClass}" style="color:${iconColor}"></i>
-            ${title}
-            <span class="ml-auto text-gray-400 text-[10px] font-normal">${items.length} Einträge</span>
-            <i id="${headerId}-arrow" class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-200 mr-1"></i>
+            class="w-full text-left mb-4 px-4 py-3 flex items-center gap-3"
+            style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12); border-radius:1000px!important;">
+            <div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style="background:rgba(255,255,255,0.1)">
+                <i class="${faClass} text-sm" style="color:${iconColor}"></i>
+            </div>
+            <span class="font-bold text-white text-sm uppercase tracking-wide">${title}</span>
+            <span class="ml-auto text-xs px-2 py-0.5 rounded-full text-gray-300" style="background:rgba(255,255,255,0.1)">${items.length}</span>
+            <i id="${headerId}-arrow" class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-200 text-xs"></i>
         </button>
-        <div id="${gridId}" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full"></div>`;
+        <div id="${gridId}" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full mb-2"></div>`;
     const grid = sec.querySelector('#' + gridId);
     items.forEach((p, i) => {
         const card = createPinCard(p);
@@ -1012,21 +1175,51 @@ function renderSection(container, title, items, colorClass, faClass, iconColor, 
 function renderDateSection(container, title, icon, items, sectionId) {
     if (!items.length) return;
     const sec = document.createElement('div');
-    sec.className = 'mb-6';
+    sec.className = 'mb-4';
     const headerId = 'sec-' + sectionId;
     const gridId   = 'grid-' + sectionId;
     sec.innerHTML = `
         <button onclick="toggleSection('${gridId}', '${headerId}')"
-            class="w-full text-left font-bold text-gray-500 uppercase text-xs mb-3 pl-2 border-l-4 border-blue-500 flex items-center gap-2">
-            <i class="${icon} text-blue-100"></i>
-            ${title}
-            <span class="ml-auto text-gray-400 text-[10px] font-normal">${items.length} Einträge</span>
-            <i id="${headerId}-arrow" class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-200 mr-1"></i>
+            class="w-full text-left mb-4 px-4 py-3 rounded-full flex items-center gap-3"
+            style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12); border-radius:1000px!important;">
+            <div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style="background:rgba(255,255,255,0.1)">
+                <i class="${icon} text-blue-300 text-sm"></i>
+            </div>
+            <span class="font-bold text-white text-sm uppercase tracking-wide">${title}</span>
+            <span class="ml-auto text-xs px-2 py-0.5 rounded-full text-gray-300" style="background:rgba(255,255,255,0.1)">${items.length}</span>
+            <i id="${headerId}-arrow" class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-200 text-xs"></i>
         </button>
-        <div id="${gridId}" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full"></div>`;
+        <div id="${gridId}" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full mb-2"></div>`;
     const grid = sec.querySelector('#' + gridId);
     items.forEach((p, i) => {
         const card = createPinCard(p);
+        card.style.animationDelay = `${i * 40}ms`;
+        grid.appendChild(card);
+    });
+    container.appendChild(sec);
+}
+
+function renderProximitySection(container, title, icon, items, sectionId, showDist=true) {
+    if (!items.length) return;
+    const sec = document.createElement('div');
+    sec.className = 'mb-4';
+    const headerId = 'sec-' + sectionId;
+    const gridId   = 'grid-' + sectionId;
+    sec.innerHTML = `
+        <button onclick="toggleSection('${gridId}', '${headerId}')"
+            class="w-full text-left mb-4 px-4 py-3 rounded-full flex items-center gap-3"
+            style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12); border-radius:1000px!important;">
+            <div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style="background:rgba(255,255,255,0.1)">
+                <i class="${icon} text-green-300 text-sm"></i>
+            </div>
+            <span class="font-bold text-white text-sm uppercase tracking-wide">${title}</span>
+            <span class="ml-auto text-xs px-2 py-0.5 rounded-full text-gray-300" style="background:rgba(255,255,255,0.1)">${items.length}</span>
+            <i id="${headerId}-arrow" class="fa-solid fa-chevron-down text-gray-400 transition-transform duration-200 text-xs"></i>
+        </button>
+        <div id="${gridId}" class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-4 w-full mb-2"></div>`;
+    const grid = sec.querySelector('#' + gridId);
+    items.forEach((p, i) => {
+        const card = createPinCard(p, showDist);
         card.style.animationDelay = `${i * 40}ms`;
         grid.appendChild(card);
     });

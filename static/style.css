@@ -177,6 +177,7 @@ input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: none; b
 
 }
 
+
 /* Sort-Pill */
 .sort-pill-indicator {
     position: absolute;
@@ -283,6 +284,20 @@ button {
     border-radius: 20px!important;
 }
 
+@keyframes pinPopIn {
+    0%   { transform: scale(0) translateY(20px); opacity: 0;}
+    70%  { transform: scale(1.2) translateY(-4px); opacity: 1;}
+    100% { transform: scale(1) translateY(0); opacity: 1; rotate: 0deg;}
+}
+
+@keyframes pinPopOut {
+    0%   { transform: scale(1) translateY(0); opacity: 1; }
+    100% { transform: scale(0) translateY(20px); opacity: 0; }
+}
+
+.pin-pop-in {
+    animation: pinPopIn 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
 
 @media (max-width: 768px) {
     .hidden { display: none !important; }

@@ -112,7 +112,10 @@ def datenschutz():
 def get_pins():
     today = datetime.now().strftime('%Y-%m-%d')
     pins = database.get_pins(today)
-    return pins
+    for p in pins:
+        if p.get('category') == 'event':
+            p['date'] = next_occurrence(p.get('date'), p.get('regularity'), p.get('time'))
+    return jsonify(pins)
 
 
 

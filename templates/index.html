@@ -15,6 +15,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="static\favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="static\favicon-16x16.png">
     <link rel="manifest" href="static\site.webmanifest">
+    <style id="thumbStyle"></style>
 </head>
 <body class="h-screen w-screen flex flex-col bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 overflow-hidden font">
 
@@ -59,7 +60,7 @@
         <div class="relative max-w-md mx-auto">
             <input type="text" id="addrInput" placeholder="Adresse suchen..." class="w-full pl-8 pr-4 py-2 rounded-lg border dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-sm focus:ring-2 focus:ring-blue-500 outline-none dark:text-white">
             <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
-            <div id="addrResults" class="hidden absolute top-full left-0 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 shadow-lg rounded-b mt-1 z-30 suggestions-list"></div>
+            <div id="addrResults" class="hidden absolute top-full left-0 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 shadow-lg rounded-b mt-1 z-30 suggestions-list" style="z-index:99999;"></div>
         </div>
     </div>
 
@@ -82,16 +83,15 @@
             </div>
             <div>
                 <div class="flex justify-between mb-2">
-                    <h3 class="font-bold text-gray-500 uppercase text-xs">Umkreis (zu mir)</h3>
+                    <h3 class="font-bold text-gray-500 uppercase text-xs">Umkreis zu deinem Standort</h3>
                     <span id="radiusVal" class="text-xs font-mono text-blue-500 font-bold">Alle</span>
                 </div>
                 <div class="relative w-full h-6 flex items-center">
-                    <input type="range" id="radiusRange" min="1" max="1201" value="1201" step="5" oninput="updateRadiusLabel()" onchange="applyFilters()">
-                </div>
+                    <input type="range" id="radiusRange" min="0" max="52" value="52" step="1" oninput="updateRadiusLabel(), applyFilters()"></div>
                 <p class="text-[10px] text-gray-400 mt-1" id="gpsStatus">GPS wird benötigt.</p>
             </div>
             <div>
-                <h3 class="font-bold mb-2 text-gray-500 uppercase text-xs">Zeitraum (Events)</h3>
+                <h3 class="font-bold mb-2 text-gray-500 uppercase text-xs">Zeitraum (Veranstaltungen)</h3>
                 <div class="flex gap-2 items-center">
                     <input type="date" id="dateFrom" onchange="applyFilters()" class="w-1/2 p-1 rounded border dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-xs dark:text-white">
                     <span class="text-gray-400">–</span>
@@ -101,7 +101,7 @@
         </div>
 
         <!-- Schlagwort-Filter -->
-        <div class="px-4 pb-3 max-w-4xl mx-auto border-t border-gray-200 dark:border-gray-700 pt-3">
+        <div class="px-4 pb-3 max-w-4xl mx-auto border-t border-gray-200 dark:border-gray-700 pt-3 justify-center flex">
             <button onclick="toggleTagFilter()" class="flex items-center gap-2 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
                 <i class="fa-solid fa-tags" style=""></i>
                 Nach Schlagwörtern filtern
@@ -109,6 +109,12 @@
                 <span id="tagFilterCount" class="hidden bg-blue-500 text-white rounded-full px-1.5 text-[10px] font-bold">0</span>
             </button>
             <div id="tagFilterPanel" class="hidden mt-2 grid grid-cols-2 md:grid-cols-3 gap-1"></div>
+        </div>
+
+        <div class="px-4 pb-3 max-w-4xl mx-auto pt-2 border-t border-gray-200 dark:border-gray-700 flex justify-center">
+            <button onclick="resetFilters()" class="text-xs text-gray-400 hover:text-gray-200 transition-colors flex items-center gap-1">
+                <i class="fa-solid fa-rotate-left"></i> Filter zurücksetzen
+            </button>
         </div>
     </div>
 
@@ -134,7 +140,7 @@
                             <i class="fa-solid fa-calendar-days mr-1"></i>Datum
                         </button>
                         <button onclick="setSortMode('group')" id="sortBtn-group" class="sort-btn px-3 py-1 rounded-full text-xs font-semibold text-white">
-                            <i class="fa-solid fa-layer-group mr-1"></i>Gruppe
+                            <i class="fa-solid fa-layer-group mr-1"></i>Kategorie
                         </button>
                     </div>
                 </div>
