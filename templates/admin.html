@@ -43,11 +43,23 @@
                 <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Passwort</label>
                 <input type="password" name="password" class="w-full border dark:border-gray-600 p-2 rounded bg-gray-50 dark:bg-gray-700 dark:text-white">
             </div>
+            <p class="text-red-400 hidden" id="login-failed">Nutzername oder Passwort falsch</p>
             <button class="w-full bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700">Einloggen</button>
         </form>
     </div>
 
     {% else %}
+
+    <!-- Logout und Admins hinzufügen -->
+    <div class="w-fit mb-5 ml-auto bg-white dark:bg-gray-800 p-3 rounded-xl shadow-md border dark:border-gray-700">
+        <button class="bg-gray-500 hover:bg-gray-600 text-white px-5 py-3 rounded-lg text-xs font-bold">
+            <i class="fa-solid fa-add"></i> Admin hinzufügen
+        </button>
+
+        <button onclick="logOut()" class="bg-red-500 hover:bg-gray-600 text-white px-5 py-3 rounded-lg text-xs font-bold">
+            <i class="fa-solid fa-right-from-bracket fa-red"></i> Ausloggen
+        </button>
+    </div>
 
     <!-- Ausstehende Vorschläge -->
     <div class="bg-white dark:bg-gray-800 shadow rounded-xl overflow-hidden mb-10 border dark:border-gray-700">
@@ -299,6 +311,22 @@
     const REG_LABELS = { once: 'Einmalig', weekly: 'Wöchentlich', biweekly: 'Alle 2 Wochen', monthly: 'Monatlich' };
 
     let adminMap = null, adminMarker = null;
+
+
+    async function logOut() {
+        console.log("logging out")
+        await fetch("/logout", { method: "POST", credentials: "include" });
+        location.reload();
+    }
+
+    function didLoginAttemptFail() {
+        let params = new URLSearchParams(document.location.search);
+        let login = params.get("login");
+        if (login === "invalid") {
+            document.getElementById("login-failed").classList.remove("hidden");
+        }
+    }
+    didLoginAttemptFail()
 
     function openCheckModal(btn) {
         const pin = JSON.parse(btn.getAttribute('data-pin'));

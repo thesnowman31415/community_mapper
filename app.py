@@ -182,18 +182,23 @@ def admin_dashboard():
 def login():
     user_name = request.form.get('username') or ""
     password = request.form.get('password') or ""
-
     db_hash = database.get_password_hash(user_name)
-    print(db_hash)
+
     if db_hash is None:
         print("not registered")
-        return redirect('/admin')
+        return redirect('/admin?login=invalid')
     try:
         if ph.verify(db_hash, password):
             session['user'] = user_name
     except (argon2.exceptions.VerifyMismatchError,  argon2.exceptions.InvalidHashError):
-        print("not authenticated")
+        return redirect('/admin?login=invalid')
+
     return redirect('/admin')
+
+@app.route("/logout", methods=['POST'])
+def logout():
+    session.clear()
+    return "", 204
 
 @app.route('/admin/register', methods=['POST'])
 def register():
