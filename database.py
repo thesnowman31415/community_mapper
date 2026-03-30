@@ -259,7 +259,6 @@ def update(pin):
         links = [t.strip() for t in links_raw.split(',') if t.strip()]
         print(tags)
 
-  
     (db, cursor) = get_db_connection()
     cursor.execute("""UPDATE pins 
                     SET title = ?,
@@ -272,8 +271,6 @@ def update(pin):
                         email = ?
                     WHERE id = ?
                    """, (title, category, date, time, regularity, description, address, email, id))
-    
-
 
     cursor.execute("DELETE FROM pinHasLink WHERE pinId = ?", (id, ))
     for link in links:
@@ -284,6 +281,24 @@ def update(pin):
         cursor.execute("INSERT INTO pinHasTag VALUES(?,?)", (id, tag))
 
 
-
     db.commit()
 
+
+def get_password_hash(user_name):
+    (db, cursor) = get_db_connection(False)
+    password_hash = cursor.execute("""
+        SELECT DISTINCT password FROM admins
+        WHERE username = ?
+    """, (user_name, )).fetchone()
+    db.close()
+    if password_hash is not None:
+        return password_hash[0]
+    else:
+        return None
+
+
+def register(user_name, password):
+    (db, cursor) = get_db_connection(False)
+    print(user_name, password)
+    cursor.execute("INSERT OR REPLACE INTO admins VALUES (?, ?)", (user_name, password))
+    db.commit()

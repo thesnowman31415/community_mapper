@@ -3,3 +3,4 @@ werkzeug
 holidays
 pypdf
 reportlab
+argon2-cffi

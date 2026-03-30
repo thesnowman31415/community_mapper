@@ -1,10 +1,12 @@
-from flask import Flask, render_template, request, jsonify, session, redirect, url_for
+import argon2
+from flask import Flask, render_template, request, jsonify, session, redirect
 import json
 import os
 import uuid
 from datetime import datetime
 import glob
 import database
+from argon2 import PasswordHasher
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config['JSON_AS_ASCII'] = False
@@ -13,6 +15,9 @@ app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'pIt%V-@#s9!zX7$L')
 DATA_DIR = 'data'
 APPROVED_FILE = os.path.join(DATA_DIR, 'approved_pins.json')
 PENDING_FILE = os.path.join(DATA_DIR, 'pending_pins.json')
+
+ph = PasswordHasher()
+
 
 def load_json(filepath):
     if not os.path.exists(filepath): return []
@@ -162,8 +167,6 @@ def contact_info(pin_id):
 
 # --- Admin Routes ---
 
-ADMIN_CREDENTIALS = {"admin": "admin123"} ## goofy ahh accountsystem
-
 @app.route('/admin')
 def admin_dashboard():
     if 'user' not in session: return render_template('admin.html', logged_in=False)
@@ -177,9 +180,29 @@ def admin_dashboard():
 # Management von Admin-Aktivitäten (Login, Genehmigen, Ablehnen, Löschen, Aktualisieren)
 @app.route('/admin/login', methods=['POST'])
 def login():
-    if ADMIN_CREDENTIALS.get(request.form.get('username')) == request.form.get('password'):
-        session['user'] = request.form.get('username')
+    user_name = request.form.get('username') or ""
+    password = request.form.get('password') or ""
+
+    db_hash = database.get_password_hash(user_name)
+    print(db_hash)
+    if db_hash is None:
+        print("not registered")
+        return redirect('/admin')
+    try:
+        if ph.verify(db_hash, password):
+            session['user'] = user_name
+    except (argon2.exceptions.VerifyMismatchError,  argon2.exceptions.InvalidHashError):
+        print("not authenticated")
     return redirect('/admin')
+
+@app.route('/admin/register', methods=['POST'])
+def register():
+    if 'user' not in session: return redirect('/admin') # probably only admins should be able to add new admins?
+    user_name = request.form.get('username') or ""
+    password = request.form.get('password') or ""
+    database.register(user_name, ph.hash(password))
+    return redirect('/admin')
+
 
 @app.route('/admin/approve/<pin_id>')
 def approve(pin_id):
