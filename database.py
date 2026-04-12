@@ -2,6 +2,7 @@ import sqlite3
 import json
 import os
 import uuid
+from datetime import datetime
 
 def get_db_connection(row_factory = True):
     db = sqlite3.connect("data/database.db")
@@ -42,6 +43,12 @@ def create_table():
         )
         """
     )
+
+    existing_columns = [row[1] for row in cursor.execute("PRAGMA table_info(pins)").fetchall()]
+    if 'approvedBy' not in existing_columns:
+        cursor.execute("ALTER TABLE pins ADD COLUMN approvedBy TEXT")
+    if 'approvedAt' not in existing_columns:
+        cursor.execute("ALTER TABLE pins ADD COLUMN approvedAt TEXT")
 
     cursor.execute(
         "CREATE TABLE IF NOT EXISTS admins (username TEXT PRIMARY KEY, password TEXT NOT NULL)"
@@ -186,14 +193,23 @@ def suggest_pin(p):
 
 def load_admin_pins(approved):
     (db, cursor) = get_db_connection()
+    order_by = 'approvedAt DESC' if approved == 1 else 'proposalTime ASC'
     pending_pins = cursor.execute("""
         SELECT pins.*, (
             SELECT json_group_array(tagName) 
             FROM (SELECT DISTINCT tagName FROM pinHasTag WHERE pinId = pins.id)
-        ) as tags
+        ) as tags,
+        (
+            SELECT json_group_array(
+                json_object('title', l.title, 'url', l.url)
+            )
+            FROM pinHasLink phl
+            JOIN links l ON phl.linkId = l.id
+            WHERE phl.pinId = pins.id
+        ) as links
         FROM pins
         WHERE approved = ?
-        ORDER BY proposalTime ASC
+        ORDER BY """ + order_by + """
     """, (approved,))
     rows =  pending_pins.fetchall()
     db.close()
@@ -201,6 +217,7 @@ def load_admin_pins(approved):
     for row in rows:
         pin = dict(row)
         pin['tags'] = json.loads(pin['tags']) if pin['tags'] else []
+        pin['links'] = json.loads(pin['links']) if pin['links'] else []
         results.append(pin)
         
     
@@ -224,10 +241,45 @@ def get_tags():
         tags.append(tag[0])
     return tags
 
-    
-def approve(pinID):
+
+def get_all_pins_for_export():
     (db, cursor) = get_db_connection()
-    cursor.execute("UPDATE pins SET approved = 1 WHERE id = ?", (pinID, ))
+    cursor.execute("""
+    SELECT pins.*,
+        (
+            SELECT json_group_array(tagName)
+            FROM (SELECT DISTINCT tagName FROM pinHasTag WHERE pinId = pins.id)
+        ) as tags,
+        (
+            SELECT json_group_array(
+                json_object('title', l.title, 'url', l.url)
+            )
+            FROM pinHasLink phl
+            JOIN links l ON phl.linkId = l.id
+            WHERE phl.pinId = pins.id
+        ) as links
+    FROM pins
+    GROUP BY pins.id
+    """)
+    rows = cursor.fetchall()
+    db.close()
+
+    results = []
+    for row in rows:
+        pin = dict(row)
+        pin['tags'] = json.loads(pin['tags']) if pin['tags'] else []
+        pin['links'] = json.loads(pin['links']) if pin['links'] else []
+        results.append(pin)
+    return results
+
+    
+def approve(pinID, approved_by=None):
+    (db, cursor) = get_db_connection()
+    approvedAt = datetime.now().isoformat()
+    cursor.execute(
+        "UPDATE pins SET approved = 1, approvedBy = ?, approvedAt = ? WHERE id = ?",
+        (approved_by, approvedAt, pinID)
+    )
     db.commit()
 
 def delete(pinID):
@@ -301,4 +353,17 @@ def register(user_name, password):
     (db, cursor) = get_db_connection(False)
     print(user_name, password)
     cursor.execute("INSERT OR REPLACE INTO admins VALUES (?, ?)", (user_name, password))
+    db.commit()
+
+
+def get_admins():
+    (db, cursor) = get_db_connection(False)
+    rows = cursor.execute("SELECT username FROM admins ORDER BY username").fetchall()
+    db.close()
+    return [row[0] for row in rows]
+
+
+def delete_admin(user_name):
+    (db, cursor) = get_db_connection(False)
+    cursor.execute("DELETE FROM admins WHERE username = ?", (user_name,))
     db.commit()

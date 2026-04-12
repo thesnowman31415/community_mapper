@@ -12,202 +12,266 @@
     <link rel="icon" type="image/png" sizes="32x32" href="static\favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="static\favicon-16x16.png">
     <link rel="manifest" href="static\site.webmanifest">
+    <style>
+        body { font-family: 'Roboto', sans-serif; }
+        .prose-block { text-align: justify; hyphens: auto; font-size: 0.95rem; line-height: 1.8; }
+        .card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+        .step-num {
+            width: 2.2rem; height: 2.2rem;
+            background: #2563eb;
+            color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 0.9rem; flex-shrink: 0;
+        }
+        details summary::-webkit-details-marker { display: none; }
+        details[open] .chevron { transform: rotate(180deg); }
+        .chevron { transition: transform 0.2s ease; }
+        .section-title {
+            font-size: 1.25rem; font-weight: 800; color: white;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 0.6rem; margin-bottom: 1.25rem;
+        }
+        .img-placeholder {
+            border-radius: 0.75rem; height: 10rem;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            border: 2px dashed rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.02); margin-top: 0.75rem;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
+<body class="bg-gray-900 text-gray-300 min-h-screen">
 
-    <nav class="bg-white dark:bg-gray-800 shadow-md px-4 py-3 md:px-6 md:py-4 flex items-center gap-4 sticky top-0 z-30">
-        <a href="/" class="flex items-center gap-2 text-blue-500 hover:text-blue-400 text-sm font-bold">
+    <nav class="bg-gray-800 border-b border-white/10 px-4 py-3 md:px-6 md:py-4 flex items-center gap-4 sticky top-0 z-30">
+        <a href="/" class="flex items-center gap-2 text-red-400 hover:text-red-300 text-sm font-bold transition-colors">
             <i class="fa-solid fa-arrow-left"></i> Zurück zur Karte
         </a>
         <img class="logo_corner ml-auto" src="/static/logo_white.png" alt="">
     </nav>
 
-    <div class="max-w-3xl mx-auto px-4 py-10 space-y-12">
+    <div class="max-w-5xl mx-auto px-4 py-10 space-y-12">
 
         <div>
-            <h1 class="text-3xl font-bold mb-2 dark:text-white">
-                <i class="fa-solid fa-circle-question mr-2 text-blue-500"></i>Hilfe & FAQ
+            <h1 class="text-4xl font-black text-white mb-3">
+                <i class="fa-solid fa-circle-question mr-3 text-red-400"></i>Hilfe & FAQ
             </h1>
-            <p class="text-gray-500 dark:text-gray-400">Hier findest du Antworten auf häufige Fragen und eine Schritt-für-Schritt-Anleitung zur Nutzung der Community Map.</p>
+            <p class="prose-block text-gray-400 max-w-2xl">
+                Hier findest du Antworten auf häufige Fragen und eine Schritt-für-Schritt-Anleitung zur Nutzung der Community Map.
+            </p>
         </div>
 
         <!-- Inhaltsverzeichnis -->
-        <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-5">
-            <h2 class="font-bold text-sm uppercase text-gray-500 dark:text-gray-400 mb-3">
-                <i class="fa-solid fa-list mr-2"></i>Überblick
+        <div class="card">
+            <h2 class="text-xs font-bold uppercase text-gray-500 mb-4 tracking-widest">
+                <i class="fa-solid fa-list mr-2 text-red-400"></i>Überblick
             </h2>
-            <ol class="space-y-1 text-sm text-blue-500">
-                <li><a href="#eintrag" class="hover:underline">1. Wie füge ich einen Eintrag hinzu?</a></li>
-                <li><a href="#suche" class="hover:underline">2. Wie suche ich nach Angeboten?</a></li>
-                <li><a href="#filter" class="hover:underline">3. Filter und Kategorien</a></li>
-                <li><a href="#kontakt" class="hover:underline">4. Wie nehme ich Kontakt auf?</a></li>
-                <li><a href="#faq" class="hover:underline">5. Häufige Fragen</a></li>
+            <ol class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+                <li><a href="#eintrag" class="flex items-center gap-2 text-red-400 hover:text-red-300 transition-colors"><span class="w-5 h-5 rounded-full bg-red-600/30 text-red-300 flex items-center justify-center text-xs font-bold shrink-0 fa-solid fa-plus"></span>Wie füge ich einen Eintrag hinzu?</a></li>
+                <li><a href="#suche" class="flex items-center gap-2 text-red-400 hover:text-red-300 transition-colors"><span class="w-5 h-5 rounded-full bg-red-600/30 text-red-300 flex items-center justify-center text-xs font-bold shrink-0 fa-solid fa-search"></span>Wie suche ich nach Angeboten?</a></li>
+                <li><a href="#filter" class="flex items-center gap-2 text-red-400 hover:text-red-300 transition-colors"><span class="w-5 h-5 rounded-full bg-red-600/30 text-red-300 flex items-center justify-center text-xs font-bold shrink-0 fa-solid fa-sliders"></span>Filter und Kategorien</a></li>
+                <li><a href="#kontakt" class="flex items-center gap-2 text-red-400 hover:text-red-300 transition-colors"><span class="w-5 h-5 rounded-full bg-red-600/30 text-red-300 flex items-center justify-center text-xs font-bold shrink-0 fa-solid fa-handshake"></span>Angebot wahrnehmen</a></li>
+                <li><a href="#faq" class="flex items-center gap-2 text-red-400 hover:text-red-300 transition-colors"><span class="w-5 h-5 rounded-full bg-red-600/30 text-red-300 flex items-center justify-center text-xs font-bold shrink-0 fa-solid fa-question-circle"></span>Häufige Fragen</a></li>
+                <li><a href="#datenschutz" class="flex items-center gap-2 text-red-400 hover:text-red-300 transition-colors"><span class="w-5 h-5 rounded-full bg-red-600/30 text-red-300 flex items-center justify-center text-xs font-bold shrink-0 fa-solid fa-shield-alt"></span>Datenschutzerklärung</a></li>
             </ol>
         </div>
 
-        <!-- 1. Eintrag hinzufügen -->
-        <section id="eintrag" class="space-y-6">
-            <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
-                <span class="text-blue-500 mr-2">1.</span>Wie füge ich einen Eintrag hinzu?
-            </h2>
-            <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Einträge werden von der Community vorgeschlagen und nach Prüfung durch die Administrator*innen freigeschaltet.</p>
-
-            <!-- Schritt 1 -->
-            <div class="flex gap-4 items-start">
-                <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">1</div>
-                <div class="flex-grow">
-                    <h3 class="font-bold dark:text-white mb-1">Plus-Button drücken</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Klicke auf den blauen <i class="fa-solid fa-plus w-10 h-10 rounded-full bg-blue-600 text-white inline items-center justify-center font-bold text-sm mt-2"></i>-Button unten rechts auf der Karte. Die Karte wechselt in den Platzierungsmodus, angezeigt durch das blaue Banner oben. Du kanst den Platzierungsmodus durch den selben Button wieder verlassen.</p>
-                    <div class="mt-3 rounded-lg h-44 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800/50">
-                        <i class="fa-solid fa-image text-3xl text-gray-300 dark:text-gray-600 mb-2"></i>
-                        <span class="text-gray-400 dark:text-gray-500 text-xs">Screenshot: Plus-Button auf der Karte</span>
+        <!-- 1. Eintrag -->
+        <section id="eintrag" class="space-y-5">
+            <h2 class="section-title"><span class="text-red-400 mr-2 fa-solid fa-plus"></span>Wie füge ich einen Eintrag hinzu?</h2>
+            <p class="prose-block text-gray-400">Einträge werden von der Community vorgeschlagen und nach Prüfung durch die Administrator*innen freigeschaltet.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="card flex gap-4 items-start">
+                    <div class="fa-solid fa-1 text-red-400"></div>
+                    <div>
+                        <h3 class="font-bold text-white mb-2">Plus-Button drücken</h3>
+                        <p class="prose-block text-gray-400">Klicke auf den grünen <i class="fa-solid fa-plus text-green-400"></i>-Button unten rechts auf der Karte. Die Karte wechselt in den Platzierungsmodus, angezeigt durch das Banner oben. Du kannst den Modus durch denselben Button wieder verlassen.</p>
+                        <div class="img-placeholder">
+                            <i class="fa-solid fa-image text-2xl text-gray-600 mb-2"></i>
+                            <span class="text-gray-600 text-xs">Screenshot: Plus-Button</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Schritt 2 -->
-            <div class="flex gap-4 items-start">
-                <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">2</div>
-                <div class="flex-grow">
-                    <h3 class="font-bold dark:text-white mb-1">Ort auf der Karte wählen</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Klicke auf die Karte an dem Ort, wo das Angebot stattfindet. Dazu kannst du in der Suchleiste eine Adresse eingeben und ein Suchergebnis auswählen. Der Ort auf den du klickst oder tippst wird genau der sein, an dem später dein Pin erscheinen wird. Wähle ihn also mit bedacht.</p>
-                    <div class="mt-3 rounded-lg h-44 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800/50">
-                        <i class="fa-solid fa-image text-3xl text-gray-300 dark:text-gray-600 mb-2"></i>
-                        <span class="text-gray-400 dark:text-gray-500 text-xs">Screenshot: Karte im Platzierungsmodus</span>
+                <div class="card flex gap-4 items-start">
+                    <div class="fa-solid fa-2 text-red-400"></div>
+                    <div>
+                        <h3 class="font-bold text-white mb-2">Ort auf der Karte wählen</h3>
+                        <p class="prose-block text-gray-400">Klicke auf die Karte an dem Ort, wo das Angebot stattfindet. Du kannst auch die Suchleiste nutzen, um direkt eine Adresse einzugeben. Der gewählte Punkt wird exakt der sein, an dem dein Pin erscheint — wähle ihn also mit Bedacht.</p>
+                        <div class="img-placeholder">
+                            <i class="fa-solid fa-image text-2xl text-gray-600 mb-2"></i>
+                            <span class="text-gray-600 text-xs">Screenshot: Platzierungsmodus</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Schritt 3 -->
-            <div class="flex gap-4 items-start">
-                <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">3</div>
-                <div class="flex-grow">
-                    <h3 class="font-bold dark:text-white mb-1">Formular ausfüllen</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mb-2">Es öffnet sich ein Popup mit einem Formular. Gib hier Kategorie, Titel, Beschreibung und passende Schlagwörter an. Bei Veranstaltungen kannst du Datum, Uhrzeit und Wiederholungsrhythmus angeben. Du wirst außerdem aufgefordert, dich selbst im Bereich der Community Music zu verorten und eine Kontakt-Mailadresse azugeben. Beide Angaben helfen den Admins deinen Pin zu prüfen und sind deshalb verpflichtend. Die Mailadresse ist außerdem die Kontaktmöglichkeit für Nutzer*innen. Zuletzt hast du die Möglichkeit, eigene Links anzugeben.</p>
-                    <div class="rounded-lg h-44 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800/50">
-                        <i class="fa-solid fa-image text-3xl text-gray-300 dark:text-gray-600 mb-2"></i>
-                        <span class="text-gray-400 dark:text-gray-500 text-xs">Screenshot: Ausgefülltes Formular</span>
+                <div class="card flex gap-4 items-start">
+                    <div class="fa-solid fa-3 text-red-400"></div>
+                    <div>
+                        <h3 class="font-bold text-white mb-2">Formular ausfüllen</h3>
+                        <p class="prose-block text-gray-400">Es öffnet sich ein Popup mit einem Formular. Gib Kategorie, Titel, Beschreibung und passende Schlagwörter an. Bei Veranstaltungen kannst du Datum, Uhrzeit und Wiederholungsrhythmus angeben. Selbstverortung und Kontakt-Mailadresse sind verpflichtend.</p>
+                        <div class="img-placeholder">
+                            <i class="fa-solid fa-image text-2xl text-gray-600 mb-2"></i>
+                            <span class="text-gray-600 text-xs">Screenshot: Formular</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Schritt 4 -->
-            <div class="flex gap-4 items-start">
-                <div class="w-8 h-8 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm shrink-0 mt-0.5">4</div>
-                <div class="flex-grow">
-                    <h3 class="font-bold dark:text-white mb-1">Absenden und warten</h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Klicke auf "Eintrag vorschlagen" um deine Angaben abzusenden. Nach dem Absenden wird dein Vorschlag von den Admins geprüft und in der Regel zeitnah freigeschaltet. Sobald dies geschehen ist, sehen du und aller Nutzer*innen deinen Pin auf der Karte. Herzlichen Glückwunsch!</p>
+                <div class="card flex gap-4 items-start">
+                    <div class="fa-solid fa-4 text-red-400"></div>
+                    <div>
+                        <h3 class="font-bold text-white mb-2">Absenden und warten</h3>
+                        <p class="prose-block text-gray-400">Klicke auf „Eintrag vorschlagen" um deine Angaben abzusenden. Dein Vorschlag wird von den Admins geprüft und in der Regel zeitnah freigeschaltet. Sobald dies geschehen ist, sehen alle Nutzer*innen deinen Pin auf der Karte.</p>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- 2. Suche -->
         <section id="suche" class="space-y-4">
-            <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
-                <span class="text-blue-500 mr-2">2.</span>Wie suche ich nach Angeboten?
-            </h2>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Das Suchfeld oben verhält sich je nach Ansicht unterschiedlich – öffne es mit dem <i class="fa-solid fa-search mx-1 text-gray-400"></i>-Symbol in der Navbar.</p>
+            <h2 class="section-title"><span class="text-red-400 mr-2 fa-solid fa-search"></span>Wie suche ich nach Angeboten?</h2>
+            <p class="prose-block text-gray-400">Das Suchfeld verhält sich je nach Ansicht unterschiedlich — öffne es mit dem <i class="fa-solid fa-search mx-1 text-gray-400"></i>-Symbol in der Navbar.</p>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4">
-                    <h3 class="font-bold dark:text-white mb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-map text-blue-500"></i>Kartenansicht
+                <div class="card">
+                    <h3 class="font-bold text-white mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-map text-red-400"></i>Kartenansicht
                     </h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Adresssuche: Die Karte springt zum gesuchten Ort. </p>
+                    <p class="prose-block text-gray-400">Adresssuche: Die Karte springt zum gesuchten Ort. Im Platzierungsmodus wird die gefundene Adresse direkt als Pin-Standort übernommen.</p>
                 </div>
-                <div class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4">
-                    <h3 class="font-bold dark:text-white mb-2 flex items-center gap-2">
-                        <i class="fa-solid fa-list text-green-500"></i>Listenansicht
+                <div class="card">
+                    <h3 class="font-bold text-white mb-2 flex items-center gap-2">
+                        <i class="fa-solid fa-list text-red-400"></i>Listenansicht
                     </h3>
-                    <p class="text-sm text-gray-500 dark:text-gray-400">Volltextsuche in Titel, Beschreibung und Schlagwörtern. Mehrere Begriffe mit Komma trennen:<br><code class="mt-1 inline-block bg-gray-100 dark:bg-gray-700 px-2 py-0.5 rounded text-xs">Singen, Blankenburg</code></p>
+                    <p class="prose-block text-gray-400">Volltextsuche in Titel, Beschreibung und Schlagwörtern. Mehrere Begriffe mit Komma trennen:</p>
+                    <code class="mt-2 inline-block bg-black/30 border border-white/10 px-3 py-1 rounded-full text-xs text-red-300">Singen, Für Erwachsene, Michaelstein...</code>
                 </div>
             </div>
-            <div class="rounded-lg h-44 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800/50">
-                <i class="fa-solid fa-image text-3xl text-gray-300 dark:text-gray-600 mb-2"></i>
-                <span class="text-gray-400 dark:text-gray-500 text-xs">Screenshot: Suchleiste in der Listenansicht</span>
+            <div class="img-placeholder">
+                <i class="fa-solid fa-image text-2xl text-gray-600 mb-2"></i>
+                <span class="text-gray-600 text-xs">Screenshot: Suchleiste in der Listenansicht</span>
             </div>
         </section>
 
         <!-- 3. Filter -->
         <section id="filter" class="space-y-4">
-            <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
-                <span class="text-blue-500 mr-2">3.</span>Filter und Kategorien
-            </h2>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Über das <i class="fa-solid fa-sliders mx-1 text-gray-400"></i>-Symbol öffnet sich das Filterpanel:</p>
-            <ul class="space-y-2 text-sm">
-                <li class="flex items-start gap-2"><i class="fa-solid  text-green-500 mt-0.5 shrink-0"></i><span class="dark:text-gray-300"><strong class="dark:text-white">Kategorien</strong> - <span class="text-green-500">Personen</span>, <span class="text-blue-500">Institutionen</span>, <span class="text-red-500">Veranstaltungen</span> ein-/ausblenden.</span></li>
-                <li class="flex items-start gap-2"><i class="fa-solid text-green-500 mt-0.5 shrink-0"></i><span class="dark:text-gray-300"><strong class="dark:text-white">Umkreis</strong> - nur Angebote im gewählten Radius anzeigen (GPS erforderlich).</span></li>
-                <li class="flex items-start gap-2"><i class="fa-solid text-green-500 mt-0.5 shrink-0"></i><span class="dark:text-gray-300"><strong class="dark:text-white">Zeitraum</strong> - Veranstaltungen auf einen Datumsbereich einschränken.</span></li>
-                <li class="flex items-start gap-2"><i class="fa-solid text-green-500 mt-0.5 shrink-0"></i><span class="dark:text-gray-300"><strong class="dark:text-white">Schlagwörter</strong> - nur Einträge mit mindestens einem gewählten Schlagwort zeigen.</span></li>
-            </ul>
-            <div class="rounded-lg h-44 flex flex-col items-center justify-center border-2 border-dashed border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-800/50">
-                <i class="fa-solid fa-image text-3xl text-gray-300 dark:text-gray-600 mb-2"></i>
-                <span class="text-gray-400 dark:text-gray-500 text-xs">Screenshot: Filterpanel geöffnet</span>
+            <h2 class="section-title"><span class="text-red-400 mr-2 fa-solid fa-sliders"></span>Filter und Kategorien</h2>
+            <p class="prose-block text-gray-400">Über das <i class="fa-solid fa-sliders mx-1 text-gray-400"></i>-Symbol öffnet sich das Filterpanel:</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <div class="card text-center">
+                    <i class="fa-solid fa-layer-group text-2xl text-white-400 mb-2"></i>
+                    <h4 class="font-bold text-white text-sm mb-1">Kategorien</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed"><span class="text-green-400">Personen</span>, <span class="text-blue-400">Institutionen</span>, <span class="text-red-400">Veranstaltungen</span> ein-/ausblenden.</p>
+                </div>
+                <div class="card text-center">
+                    <i class="fa-solid fa-location-dot text-2xl text-blue-400 mb-2"></i>
+                    <h4 class="font-bold text-white text-sm mb-1">Umkreis</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">Nur Angebote im gewählten Radius anzeigen. GPS erforderlich.</p>
+                </div>
+                <div class="card text-center">
+                    <i class="fa-solid fa-calendar text-2xl text-red-400 mb-2"></i>
+                    <h4 class="font-bold text-white text-sm mb-1">Zeitraum</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">Veranstaltungen auf einen Datumsbereich einschränken.</p>
+                </div>
+                <div class="card text-center">
+                    <i class="fa-solid fa-tags text-2xl text-yellow-400 mb-2"></i>
+                    <h4 class="font-bold text-white text-sm mb-1">Schlagwörter</h4>
+                    <p class="text-xs text-gray-400 leading-relaxed">Nur Einträge mit mindestens einem gewählten Schlagwort zeigen.</p>
+                </div>
+            </div>
+            <div class="img-placeholder">
+                <i class="fa-solid fa-image text-2xl text-gray-600 mb-2"></i>
+                <span class="text-gray-600 text-xs">Screenshot: Filterpanel geöffnet</span>
             </div>
         </section>
 
         <!-- 4. Kontakt -->
         <section id="kontakt" class="space-y-4">
-            <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
-                <span class="text-blue-500 mr-2">4.</span>Angebot wahrnemen
-            </h2>
-            <p class="text-sm text-gray-500 dark:text-gray-400 leading-relaxed">Bei vielen Angeboten sind Links angegeben, die zu den spezifischen Internetauftritten der Anbietenden führen. Dort erhälst du mehr Informationen und kannst ggf. ein Angebot buchen. Wenn du den direkten Kontakt suchen möchtest, hast du immer die Möglicheit, dem oder der Anbieter*in direkt zu schreiben. Klicke in der Detailansicht eines Eintrags auf <strong class="dark:text-gray-200">„Kontakt aufnehmen"</strong>. Dein Mailprogramm öffnet sich mit einer vorausgefüllten E-Mail an die eintragende Person.</p>
+            <h2 class="section-title"><span class="text-red-400 mr-2 fa-solid fa-handshake"></span>Angebot wahrnehmen</h2>
+            <div class="card">
+                <p class="prose-block text-gray-400">Bei vielen Angeboten sind Links angegeben, die zu den spezifischen Internetauftritten der Anbietenden führen. Dort erhältst du mehr Informationen und kannst ggf. ein Angebot buchen. Wenn du den direkten Kontakt suchen möchtest, hast du immer die Möglichkeit, dem oder der Anbieter*in direkt zu schreiben. Klicke in der Detailansicht eines Eintrags auf <strong class="text-white">„Kontakt aufnehmen"</strong>. Dein Mailprogramm öffnet sich mit einer vorausgefüllten E-Mail an die eintragende Person.</p>
+            </div>
         </section>
 
         <!-- 5. FAQ -->
         <section id="faq" class="space-y-3">
-            <h2 class="text-xl font-bold dark:text-white border-b border-gray-200 dark:border-gray-700 pb-2">
-                <span class="text-blue-500 mr-2">5.</span>Häufige Fragen
-            </h2>
+            <h2 class="section-title"><span class="text-red-400 mr-2 fa-solid fa-question-circle"></span>Häufige Fragen</h2>
 
-            <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 group">
-                <summary class="cursor-pointer font-bold dark:text-white flex justify-between items-center list-none">
+            <details class="card cursor-pointer">
+                <summary class="font-bold text-white flex justify-between items-center list-none">
                     Wie lange dauert die Freischaltung?
-                    <i class="fa-solid fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform duration-200 shrink-0 ml-2"></i>
+                    <i class="fa-solid fa-chevron-down text-gray-400 chevron shrink-0 ml-2"></i>
                 </summary>
-                <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">Das ist abhängig vom Eintragungsuafkommen und der Verfügbarkeit von Admins. In der Regel sollte die Freigabe nicht länger als ein paar Tage dauern. Du erhältst <strong>keine</strong> automatische Benachrichtigung.</p>
+                <p class="mt-3 prose-block text-gray-400">Das ist abhängig vom Eintragungsaufkommen und der Verfügbarkeit von Admins. In der Regel sollte die Freigabe nicht länger als ein paar Tage dauern. Du erhältst <strong class="text-white">keine</strong> automatische Benachrichtigung.</p>
             </details>
 
-            <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 group">
-                <summary class="cursor-pointer font-bold dark:text-white flex justify-between items-center list-none">
+            <details class="card cursor-pointer">
+                <summary class="font-bold text-white flex justify-between items-center list-none">
                     Kann ich meinen Eintrag nachträglich ändern?
-                    <i class="fa-solid fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform duration-200 shrink-0 ml-2"></i>
+                    <i class="fa-solid fa-chevron-down text-gray-400 chevron shrink-0 ml-2"></i>
                 </summary>
-                <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">Direkt über die App ist das noch nicht möglich. Du kannst eingereichte Pins weder ändern noch löschen. Wende dich bitte direkt an die Admins und schreibe an "info@communitymusicnetzwerk.de".</p>
+                <p class="mt-3 prose-block text-gray-400">Direkt über die App ist das noch nicht möglich. Du kannst eingereichte Pins weder ändern noch löschen. Wende dich bitte direkt an die Admins unter <strong class="text-white">info@communitymusicnetzwerk.de</strong>.</p>
             </details>
 
-            <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 group">
-                <summary class="cursor-pointer font-bold dark:text-white flex justify-between items-center list-none">
+            <details class="card cursor-pointer">
+                <summary class="font-bold text-white flex justify-between items-center list-none">
                     Was ist der Unterschied zwischen den Kategorien?
-                    <i class="fa-solid fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform duration-200 shrink-0 ml-2"></i>
+                    <i class="fa-solid fa-chevron-down text-gray-400 chevron shrink-0 ml-2"></i>
                 </summary>
-                <div class="mt-3 text-sm text-gray-500 dark:text-gray-400 space-y-1.5">
-                    <p><span class="text-green-500 font-bold"><i class="fa-solid fa-user mr-1"></i>Person</span> – Einzelne Musiker*innen, Pädagog*innen etc. Menschen die im Netzwerk registriert sind oder eine Verbindung zur Community Music haben. Selbstverständlich darfst du dich in diesem Fall auch selbst eintragen.</p>
-                    <p><span class="text-blue-500 font-bold"><i class="fa-solid fa-building mr-1"></i>Institution</span> – Vereine, Schulen, Initiativen, Einrichtungen...</p>
-                    <p><span class="text-red-500 font-bold"><i class="fa-solid fa-calendar-days mr-1"></i>Veranstaltung</span> – Einmalige oder regelmäßige Angebote mit Datum und Uhrzeit. Veranstaltung in der Vergangenheit werden aus Platzgründen nicht mehr auf der Karte gezeigt.</p>
+                <div class="mt-3 space-y-3">
+                    <div class="flex items-start gap-3">
+                        <span class="w-7 h-7 rounded-full bg-green-900/50 border border-green-700/50 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-user text-green-400 text-xs"></i></span>
+                        <p class="prose-block text-gray-400"><strong class="text-green-400">Person</strong> – Einzelne Musiker*innen, Pädagog*innen etc. Menschen die im Netzwerk registriert sind oder eine Verbindung zur Community Music haben. Selbstverständlich darfst du dich in diesem Fall auch selbst eintragen.</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="w-7 h-7 rounded-full bg-blue-900/50 border border-blue-700/50 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-building text-blue-400 text-xs"></i></span>
+                        <p class="prose-block text-gray-400"><strong class="text-blue-400">Institution</strong> – Vereine, Schulen, Initiativen, Einrichtungen und andere Organisationen.</p>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="w-7 h-7 rounded-full bg-red-900/50 border border-red-700/50 flex items-center justify-center shrink-0 mt-0.5"><i class="fa-solid fa-calendar-days text-red-400 text-xs"></i></span>
+                        <p class="prose-block text-gray-400"><strong class="text-red-400">Veranstaltung</strong> – Einmalige oder regelmäßige Angebote mit Datum und Uhrzeit. Vergangene Veranstaltungen werden nicht mehr angezeigt.</p>
+                    </div>
                 </div>
             </details>
 
-            <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 group">
-                <summary class="cursor-pointer font-bold dark:text-white flex justify-between items-center list-none">
+            <details class="card cursor-pointer">
+                <summary class="font-bold text-white flex justify-between items-center list-none">
                     Warum sehe ich meinen Standort nicht?
-                    <i class="fa-solid fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform duration-200 shrink-0 ml-2"></i>
+                    <i class="fa-solid fa-chevron-down text-gray-400 chevron shrink-0 ml-2"></i>
                 </summary>
-                <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">Stelle sicher, dass du die Standortfreigabe im Browser erlaubt hast. Ohne GPS ist die Umkreissuche deaktiviert.</p>
+                <p class="mt-3 prose-block text-gray-400">Stelle sicher, dass du die Standortfreigabe im Browser erlaubt hast. Ohne GPS ist die Umkreissuche deaktiviert und die Sortierung nach Nähe nicht verfügbar.</p>
             </details>
 
-            <details class="bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-4 group">
-                <summary class="cursor-pointer font-bold dark:text-white flex justify-between items-center list-none">
+            <details class="card cursor-pointer">
+                <summary class="font-bold text-white flex justify-between items-center list-none">
                     Was bedeutet ein Pin mit einer Zahl?
-                    <i class="fa-solid fa-chevron-down text-gray-400 group-open:rotate-180 transition-transform duration-200 shrink-0 ml-2"></i>
+                    <i class="fa-solid fa-chevron-down text-gray-400 chevron shrink-0 ml-2"></i>
                 </summary>
-                <p class="mt-3 text-sm text-gray-500 dark:text-gray-400">Wenn mehrere Angebote eng beieinander liegen, werden sie zu einem Cluster zusammengefasst. Ein Klick darauf löst den Cluster auf, indem deine Karte herangezoomt wird oder die Pins aufgefächert angezeigt werden. Achte hierbei stets auf die genaue Adresse des Pins..</p>
+                <p class="mt-3 prose-block text-gray-400">Wenn mehrere Angebote eng beieinander liegen, werden sie zu einem Cluster zusammengefasst. Ein Klick darauf löst den Cluster auf, indem die Karte herangezoomt wird oder die Pins aufgefächert angezeigt werden. Achte stets auf die genaue Adresse des jeweiligen Pins.</p>
             </details>
         </section>
 
-        <div class="border-t border-gray-200 dark:border-gray-700 pt-6 text-xs text-gray-400 text-center space-x-4">
-            <a href="/" class="hover:text-blue-400">Karte</a>
-            <a href="/datenschutz" class="hover:text-blue-400">Datenschutz</a>
+        <section id="datenschutz">
+                <h2 class="section-title"><span class="text-red-400 mr-2 fa-solid fa-shield-alt"></span>Datenschutzerklärung</h2>
+                <p class="prose-block text-gray-400">Hier findest du unsere Datenschutzerklärung. Wir nehmen den Schutz deiner Daten ernst und möchten transparent darüber informieren, welche Daten wir erheben, wie wir sie verwenden und welche Rechte du hast.
+                    <a class="inline-flex items-center gap-2 text-red-400 hover:text-red-300 transition-colors" href="/datenschutz">
+                        <span class="fa-solid fa-link"></span>Zur Datenschutzerklärung
+                    </a>
+                </p>
+        </section>
+
+        <div class="border-t border-white/10 pt-6 text-xs text-gray-500 text-center space-x-4">
+            <a href="/" class="hover:text-red-400 transition-colors">Karte</a>
+            <a href="/datenschutz" class="hover:text-red-400 transition-colors">Datenschutz</a>
+            
         </div>
+
+                <p class="currentYear text-gray-500" style="text-align: center;">
+                <script>
+                    document.querySelectorAll('.currentYear').forEach(el => el.textContent = new Date().getFullYear());
+                </script>
+                | Community Music Netzwerk e.V.
+            </p>
     </div>
 </body>
 </html>

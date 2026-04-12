@@ -49,8 +49,9 @@
                 <span id="activeFilterDot" class="hidden absolute top-1 right-1 w-2 h-2 bg-blue-500 rounded-full"></span>
                 <span class="buttonLabel font">Filter</span>
             </button>
-            <button onclick="window.location.href='/hilfe'" class="hidden p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
+            <button onclick="window.location.href='/hilfe'" id="helpBtn" class="p-2.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-gray-600 dark:text-gray-300">
                 <i class="fa-solid fa-question-circle text-base"></i>
+                <span class="buttonLabel font">Hilfe</span>
             </button>
         </div>
     </nav>
@@ -60,8 +61,7 @@
         <div class="relative max-w-md mx-auto">
             <input type="text" id="addrInput" placeholder="Adresse suchen..." class="w-full pl-8 pr-4 py-2 rounded-lg border dark:border-gray-600 bg-gray-50 dark:bg-gray-700 text-sm focus:ring-2 focus:ring-blue-500 outline-none dark:text-white">
             <i class="fa-solid fa-search absolute left-3 top-3 text-gray-400"></i>
-            <div id="addrResults" class="hidden absolute top-full left-0 w-full bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 shadow-lg rounded-b mt-1 z-30 suggestions-list" style="z-index:99999;"></div>
-        </div>
+        <div id="addrResults" class="hidden fixed bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 shadow-lg rounded-xl mt-1 suggestions-list" style="z-index:9999"></div>        </div>
     </div>
 
     <!-- Filterpanel -->
@@ -87,7 +87,7 @@
                     <span id="radiusVal" class="text-xs font-mono text-blue-500 font-bold">Alle</span>
                 </div>
                 <div class="relative w-full h-6 flex items-center">
-                    <input type="range" id="radiusRange" min="0" max="52" value="52" step="1" oninput="updateRadiusLabel(), applyFilters()"></div>
+                    <input type="range" id="radiusRange" min="0" max="52" value="52" step="1" oninput="updateRadiusLabel(), debouncedApplyFilters()"></div>
                 <p class="text-[10px] text-gray-400 mt-1" id="gpsStatus">GPS wird benötigt.</p>
             </div>
             <div>
@@ -101,14 +101,14 @@
         </div>
 
         <!-- Schlagwort-Filter -->
-        <div class="px-4 pb-3 max-w-4xl mx-auto border-t border-gray-200 dark:border-gray-700 pt-3 justify-center flex">
-            <button onclick="toggleTagFilter()" class="flex items-center gap-2 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
+        <div class="px-4 pb-3 max-w-4xl mx-auto border-t border-gray-200 dark:border-gray-700 pt-3">
+            <button onclick="toggleTagFilter()" class="w-full flex items-center gap-2 text-xs font-bold text-gray-500 dark:text-gray-400 uppercase hover:text-gray-700 dark:hover:text-gray-200 transition-colors">
                 <i class="fa-solid fa-tags" style=""></i>
                 Nach Schlagwörtern filtern
                 <i id="tagFilterArrow" class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200"></i>
                 <span id="tagFilterCount" class="hidden bg-blue-500 text-white rounded-full px-1.5 text-[10px] font-bold">0</span>
             </button>
-            <div id="tagFilterPanel" class="hidden mt-2 grid grid-cols-2 md:grid-cols-3 gap-1"></div>
+            <div id="tagFilterPanel" class="hidden mt-2 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1"></div>
         </div>
 
         <div class="px-4 pb-3 max-w-4xl mx-auto pt-2 border-t border-gray-200 dark:border-gray-700 flex justify-center">
@@ -120,14 +120,43 @@
 
 
     <!-- Platzierungsinfobanner -->
-    <div id="addModeBanner" class="hidden bg-green-900 text-white p-2 text-center text-sm z-20 shadow-md animate-pulse cursor-pointer" onclick="toggleAddMode()">
-        Klicke auf die Karte zum Platzieren des Pins. <span class="underline font-bold ml-2">Abbrechen</span>
+    <div id="addModeBanner" style="z-index: -1;" class="hidden bg-red-900 text-white p-2 text-center text-sm z-20 shadow-md cursor-pointer" onclick="toggleAddMode()">
+        <span class="animate-pulse">Klicke auf die Karte zum Platzieren deines Pins oder suche erst eine Adresse.</span>
     </div>
 
     <!-- Main content -->
     <div class="flex-grow relative w-full h-full overflow-hidden">
         <div id="mapView" class="w-full h-full absolute top-0 left-0">
             <div id="map" class="w-full h-full"></div>
+            <!-- Legende -->
+        <div id="legendBox" class="absolute top-3 left-3 z-40">
+            <button onclick="toggleLegend()"
+                class="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-bold text-white shadow-lg"
+                style="background:rgba(30,30,40,0.85);border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(6px)">
+                <i class="fa-solid fa-circle-info"></i>
+                <span>Legende</span>
+                <i id="legendArrow" class="fa-solid fa-chevron-down text-[10px] transition-transform duration-200"></i>
+            </button>
+            <div id="legendPanel" class="hidden mt-2 px-3 py-2 rounded-2xl text-xs text-white shadow-lg space-y-2"
+                style="background:rgba(30,30,40,0.85);border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(6px)">
+                <div class="flex items-center gap-2">
+                    <img src="/static/pins/event/pin.png" style="height:20px;width:auto;filter:drop-shadow(0 0 3px rgba(255,255,255,0.5))">                    
+                    <span>Veranstaltung</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <img src="/static/pins/institution/pin.png" style="height:20px;width:auto;filter:drop-shadow(0 0 3px rgba(255,255,255,0.5))">
+                    <span>Institution</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <img src="/static/pins/person/pin.png" style="height:20px;width:auto;filter:drop-shadow(0 0 3px rgba(255,255,255,0.5))">
+                    <span>Person</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <img src="/static/pins/cluster.png" style="height:20px;width:auto;filter:drop-shadow(0 0 3px rgba(255,255,255,0.5))">
+                    <span>Mehrere Einträge</span>
+                </div>
+            </div>
+        </div>
         </div>
         <div id="listView" class="w-full h-full absolute top-0 left-0 bg-gray-100 dark:bg-gray-900 overflow-y-auto p-4 hidden z-10">
             <div class="hidden w-full mb-3 flex items-center justify-center gap-2" id="sortBar">
@@ -147,10 +176,11 @@
             <div id="listContainer" class="w-full px-4 space-y-6 pb-20"></div>
         </div>
         
-        <a href="/hilfe"
+        <a href="/hilfe" style="margin-right: 7px; margin-bottom: -7px;"
         class="md:hidden absolute bottom-24 right-6 w-10 h-10 bg-white dark:bg-gray-700 text-gray-600 dark:text-gray-300 rounded-full shadow-xl flex items-center justify-center z-40 border border-gray-200 dark:border-gray-600 hover:bg-gray-100">
             <i class="fa-solid fa-question text-base"></i>
         </a>
+
 
         <button id="fabAdd" onclick="toggleAddMode()"
             class="absolute bottom-6 right-6 w-14 h-14 bg-green-600 text-white rounded-full shadow-2xl flex items-center justify-center z-40 transition-transform transform hover:scale-110 active:scale-90">
@@ -203,8 +233,7 @@
                         <div class="mt-4 pt-3 border-t border-white/10">
                             <div class="flex items-start gap-2 text-xs text-gray-400">
                                 <i class="fa-solid fa-location-dot mt-0.5 shrink-0"></i>
-                                <span id="detailAddr" onclick="navigator.clipboard.writeText(this.textContent).then(()=>{const el=this;el.style.color='#4ade80';setTimeout(()=>el.style.color='',1500)})" class="cursor-pointer hover:text-white transition-colors" title="Klicken zum Kopieren"></span>
-                            </div>
+                                    <span id="detailAddr" class="cursor-pointer hover:text-white transition-colors" title="Klicken zum Kopieren"></span>                            </div>
                             <div id="detailDistRow" class="hidden flex items-center gap-2 text-xs text-blue-400 mt-1">
                                 <i class="fa-solid fa-location-arrow shrink-0"></i>
                                 <span id="detailDistVal"></span>
@@ -336,12 +365,12 @@
                     <!-- Link 1 -->
                     <div class="flex gap-2 mb-2">
                         <input style="font-size: 12px;" type="text" id="link1_title" placeholder="Bezeichnung (z.B. Homepage)" class="w-2/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
-                        <input style="font-size: 12px;" type="url" id="link1_url" placeholder="www.communitymusicnetzwerk.de" class="w-3/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
+                        <input style="font-size: 12px;" type="text" id="link1_url" placeholder="www.communitymusicnetzwerk.de" class="w-3/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
                     </div>
                     <!-- Link 2 -->
                     <div style="margin-top: 10px;" class="flex gap-2">
                         <input style="font-size: 12px;" type="text" id="link2_title" placeholder="Bezeichnung (z.B. Instagram)" class="w-2/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
-                        <input style="font-size: 12px;" type="url" id="link2_url" placeholder="www.instagram.com/..." class="w-3/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
+                        <input style="font-size: 12px;" type="text" id="link2_url" placeholder="www.instagram.com/..." class="w-3/5 border dark:border-gray-600 rounded px-2 py-1.5 text-sm bg-white dark:bg-gray-700 dark:text-white">
                     </div>
                 </div>
 

@@ -44,23 +44,31 @@ const REG_LABELS = {
 function showToast(msg, success = true) {
     const t = document.createElement('div');
     t.className = 'fixed bottom-24 left-1/2 z-[9999] px-5 py-3 rounded-full shadow-xl text-sm font-semibold text-white flex items-center gap-2 transition-all duration-300 opacity-0';
+    t.style.width = 'clamp(40vw, 500px, 80%)';4
+    t.style.hyphens = 'auto';
+    t.style.wordBreak = 'break-word';
+    t.style.textAlign = 'center';
+    t.lang = 'de';
     t.style.transform = 'translateX(-50%) translateY(10px)';
     t.style.background = success ? '#16a34a' : '#dc2626';
     t.innerHTML = `<i class="fa-solid ${success ? 'fa-circle-check' : 'fa-circle-xmark'}"></i> ${msg}`;
     document.body.appendChild(t);
     requestAnimationFrame(() => {
-    if (pill && btn) {
-        const container = pill.parentElement;
-        const offset = btn.getBoundingClientRect().left - container.getBoundingClientRect().left;
-        pill.style.width     = btn.offsetWidth + 'px';
-        pill.style.transform = `translateX(${offset}px)`;
-        }
+        t.style.opacity = '1';
+        t.style.transform = 'translateX(-50%) translateY(0)';
     });
+
     setTimeout(() => {
         t.style.opacity = '0';
         t.style.transform = 'translateX(-50%) translateY(10px)';
         setTimeout(() => t.remove(), 300);
     }, 3000);
+}
+
+let filterDebounceTimer = null;
+function debouncedApplyFilters() {
+    clearTimeout(filterDebounceTimer);
+    filterDebounceTimer = setTimeout(() => applyFilters(), 500);
 }
 
 let currentSortMode = 'proximity';
@@ -188,9 +196,10 @@ function nextNOccurrences(dateStr, regularity, n = 5, eventTime = null) {
             const finalMonth = nm % 12;
             const maxDay = new Date(ny, finalMonth + 1, 0).getDate();
             return new Date(ny, finalMonth, Math.min(dt.getDate(), maxDay));
-        } else {
-            try { return new Date(dt.getFullYear() + nYears, dt.getMonth(), dt.getDate()); }
-            catch { return new Date(dt.getFullYear() + nYears, dt.getMonth(), 28); }
+        } else if (nYears) {
+            const newYear  = dt.getFullYear() + nYears;
+            const maxDay   = new Date(newYear, dt.getMonth() + 1, 0).getDate();
+            return new Date(newYear, dt.getMonth(), Math.min(dt.getDate(), maxDay));
         }
     };
 
@@ -359,6 +368,7 @@ function onTagFilterChange() {
 // Viewswitcher Karte und liste
 
 
+
 function switchView(mode) {
     currentView = mode;
     const mapView  = document.getElementById('mapView');
@@ -417,6 +427,7 @@ function switchView(mode) {
 }
 
 function toggleSearch() {
+    toggleLegend(true);
     document.getElementById('searchBar').classList.toggle('hidden');
     document.getElementById('filterPanel').classList.add('hidden');
     if (!document.getElementById('searchBar').classList.contains('hidden'))
@@ -425,6 +436,7 @@ function toggleSearch() {
 
 function toggleFilters() {
     if (document.getElementById('filterBtn').disabled) return;
+    toggleLegend(true);
     document.getElementById('filterPanel').classList.toggle('hidden');
     document.getElementById('searchBar').classList.add('hidden');
 }
@@ -454,6 +466,17 @@ function scorePin(pin, terms) {
 function performListSearch(query) {
     listSearchQuery = query;
     renderList();
+}
+
+// Legende
+
+function toggleLegend(forceClose = false) {
+    const panel = document.getElementById('legendPanel');
+    const arrow = document.getElementById('legendArrow');
+    if (!panel) return;
+    const shouldHide = forceClose || !panel.classList.contains('hidden');
+    panel.classList.toggle('hidden', shouldHide);
+    arrow.style.transform = shouldHide ? '' : 'rotate(180deg)';
 }
 
 // Filterlogik
@@ -741,6 +764,11 @@ window.openDetails = function(id) {
     });
 
     document.getElementById('detailAddr').textContent = pin.address || 'Keine Adresse angegeben';
+    document.getElementById('detailAddr').onclick = function() {
+    navigator.clipboard.writeText(this.textContent).then(() => {
+        showToast('Adresse in Zwischenablage kopiert');
+    });
+};
 
     if (userLocation && pin.lat && pin.lng) {
         const dist = getDistance(userLocation.lat, userLocation.lng, pin.lat, pin.lng);
@@ -761,7 +789,7 @@ window.openDetails = function(id) {
             const res  = await fetch(`/api/contact_info/${pin.id}`);
             const data = await res.json();
             if (data.email) {
-                const subj = encodeURIComponent(`Community-Mapper | ${pin.title}`);
+                const subj = encodeURIComponent(`cmn Atlas | ${pin.title}`);
                 window.location.href = `mailto:${data.email}?subject=${subj}`;
             } else {
                 alert('Keine Kontaktadresse hinterlegt.');
@@ -960,30 +988,38 @@ function submitPin() {
             const unit = document.getElementById('regCustomUnit').value;
             reg = `${n}${unit}`;  // z.B. "3months", "4weeks"
         }
-    const tags    = [...document.querySelectorAll('.pin-tag:checked')].map(el => el.value);
+   const tags    = [...document.querySelectorAll('.pin-tag:checked')].map(el => el.value);
     const l1url   = document.getElementById('link1_url').value.trim();
-    console.log("l1url")
     const l1title = document.getElementById('link1_title').value.trim();
-    console.log("link1_title")
     const l2url   = document.getElementById('link2_url').value.trim();
-    console.log("l2url")
     const l2title = document.getElementById('link2_title').value.trim();
-    console.log("l2title")
+
     const normalizeUrl = url => {
         if (!url) return url;
         if (/^https?:\/\//i.test(url)) return url;
         return 'https://' + url;
     };
+
+    // NEU — Validierung:
+    const urlPattern = /^https?:\/\/.+\..+/;
+    if (l1url && !urlPattern.test(normalizeUrl(l1url))) {
+        showToast('Link 1 ist keine gültige URL.', false);
+        return;
+    }
+    if (l2url && !urlPattern.test(normalizeUrl(l2url))) {
+        showToast('Link 2 ist keine gültige URL.', false);
+        return;
+    }
+
     const links = [];
     if (l1url) links.push({ title: l1title, url: normalizeUrl(l1url) });
     if (l2url) links.push({ title: l2title, url: normalizeUrl(l2url) });
-    console.log("links:" + links)
+
     const cat = document.getElementById('cat').value;
     const rawIcon = document.getElementById('pinIcon').value;
     const pinIcon = (cat === 'event' || cat === 'institution')
         ? (rawIcon !== '' ? rawIcon : '0')
         : (rawIcon !== '' ? rawIcon : '0');
-
 
     const data = {
         category:    document.getElementById('cat').value,
@@ -1117,20 +1153,20 @@ document.getElementById('sortBar').classList.remove('hidden');
         const secJahr      = events.filter(p => { const d = toDate(p.date); return d && d > nextMonthEnd && d <= thisYearEnd; });
         const secSpaeter   = events.filter(p => { const d = toDate(p.date); return !d || d > thisYearEnd; });
 
-        renderDateSection(container, 'Heute',                      'fa-solid fa-check text-red-500',           secHeute,     'heute');
+        renderDateSection(container, 'Heute',                      'fa-solid fa-clock text-red-500',           secHeute,     'heute');
         renderDateSection(container, 'Morgen',                     'fa-solid fa-cloud-sun text-red-500',      secMorgen,    'morgen');
         renderDateSection(container, 'Kommende 7 Tage',            'fa-solid fa-calendar-week text-red-500',  sec7,         'week');
         renderDateSection(container, 'In diesem Monat',            'fa-solid fa-calendar text-red-500',       secMonat,     'thismonth');
         renderDateSection(container, 'Im kommenden Monat',         'fa-solid fa-calendar-plus text-red-500',  secNaechster, 'nextmonth');
         renderDateSection(container, 'In diesem Jahr',             'fa-solid fa-calendar-days text-red-500',  secJahr,      'thisyear');
-        renderDateSection(container, 'Im nächsten Jahr oder später','fa-solid fa-clock text-red-500',          secSpaeter,   'later');
+        renderDateSection(container, 'Im nächsten Jahr oder später','fa-solid fa-clock-rotate-left text-red-500',          secSpaeter,   'later');
 
     } else {
         const groups = { event:[], person:[], institution:[] };
         listData.forEach(p => { if (groups[p.category]) groups[p.category].push(p); });
-        renderSection(container, 'Veranstaltungen', groups.event,       'border-red-500',   'fa-solid fa-calendar-days', '#f87171', 'events');
-        renderSection(container, 'Institutionen',   groups.institution, 'border-blue-500',  'fa-solid fa-building',      '#60a5fa', 'institutions');
-        renderSection(container, 'Personen',        groups.person,      'border-green-500', 'fa-solid fa-user',          '#4ade80', 'persons');
+        renderSection(container, 'Veranstaltungen', groups.event,       'border-red-500',   'fa-solid fa-calendar-days', '#ff0000', 'events');
+        renderSection(container, 'Institutionen',   groups.institution, 'border-blue-500',  'fa-solid fa-building',      '#2386ff', 'institutions');
+        renderSection(container, 'Personen',        groups.person,      'border-green-500', 'fa-solid fa-user',          '#36aa00', 'persons');
     }
 }
 
@@ -1210,7 +1246,7 @@ function renderProximitySection(container, title, icon, items, sectionId, showDi
             class="w-full text-left mb-4 px-4 py-3 rounded-full flex items-center gap-3"
             style="background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12); border-radius:1000px!important;">
             <div class="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style="background:rgba(255,255,255,0.1)">
-                <i class="${icon} text-green-300 text-sm"></i>
+                <i class="${icon} text-blue-300 text-sm"></i>
             </div>
             <span class="font-bold text-white text-sm uppercase tracking-wide">${title}</span>
             <span class="ml-auto text-xs px-2 py-0.5 rounded-full text-gray-300" style="background:rgba(255,255,255,0.1)">${items.length}</span>

@@ -50,10 +50,14 @@
 
     {% else %}
 
-    <!-- Logout und Admins hinzufügen -->
+    <!-- Logout und Admins verwalten -->
     <div class="w-fit mb-5 ml-auto bg-white dark:bg-gray-800 p-3 rounded-xl shadow-md border dark:border-gray-700">
-        <button class="bg-gray-500 hover:bg-gray-600 text-white px-5 py-3 rounded-lg text-xs font-bold">
-            <i class="fa-solid fa-add"></i> Admin hinzufügen
+        <button type="button" onclick="openAdminModal()" class="bg-gray-500 hover:bg-gray-600 text-white px-5 py-3 rounded-lg text-xs font-bold">
+            <i class="fa-solid fa-users"></i> Admins verwalten
+        </button>
+
+        <button type="button" onclick="window.location.href='/admin/export_csv'" class="bg-green-600 hover:bg-green-700 text-white px-5 py-3 rounded-lg text-xs font-bold">
+            <i class="fa-solid fa-file-csv mr-1"></i> CSV export
         </button>
 
         <button onclick="logOut()" class="bg-red-500 hover:bg-gray-600 text-white px-5 py-3 rounded-lg text-xs font-bold">
@@ -61,9 +65,77 @@
         </button>
     </div>
 
+    {% if toast_message %}
+    <div id="toast" class="fixed bottom-5 left-1/2 z-50 w-full max-w-md -translate-x-1/2 rounded-full border border-green-500 bg-green-600 px-5 py-3 text-white shadow-lg transition-opacity duration-300">
+        <div class="flex items-center justify-between gap-3">
+            <span class="text-sm font-medium">{{ toast_message }}</span>
+            <button type="button" onclick="hideToast()" class="text-white/80 hover:text-white">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+    </div>
+    {% endif %}
+
+    <div id="adminManagementModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4" onclick="if (event.target === this) closeAdminModal()">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl w-full max-w-3xl border dark:border-gray-700 overflow-hidden max-h-[90vh] flex flex-col">
+            <div class="flex items-center justify-between px-6 py-4 border-b dark:border-gray-700">
+                <div>
+                    <h2 class="text-xl font-bold dark:text-white">Admins verwalten</h2>
+                    <p class="text-sm text-gray-500 dark:text-gray-400">Vorhandene Admins ansehen, löschen oder neue hinzufügen.</p>
+                </div>
+                <button type="button" onclick="closeAdminModal()" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-300">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </div>
+            <div class="overflow-y-auto flex-grow p-6 space-y-6">
+                <div class="bg-gray-50 dark:bg-gray-900/40 rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="text-sm font-bold dark:text-white">Admin-Accounts</h3>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">Passwörter werden aus Sicherheitsgründennicht angezeigt</span>
+                    </div>
+                    <div class="space-y-2">
+                        {% for username in admins %}
+                        <div class="flex items-center justify-between gap-3 rounded-lg bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 px-4 py-3">
+                            <div class="flex items-center gap-3">
+                                <span class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-blue-500 text-white text-xs font-bold">{{ username[:1] | upper }}</span>
+                                <span class="font-semibold dark:text-white">{{ username }}</span>
+                            </div>
+                            <form action="/admin/delete_user" method="POST" onsubmit="return confirm('Admin wirklich löschen?')">
+                                <input type="hidden" name="username" value="{{ username }}">
+                                <button type="submit" class="text-red-500 hover:text-red-600 text-xs font-bold flex items-center gap-1">
+                                    <i class="fa-solid fa-trash"></i> Löschen
+                                </button>
+                            </form>
+                        </div>
+                        {% else %}
+                        <div class="text-sm text-gray-500 dark:text-gray-400">Keine Admins gefunden.</div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="bg-gray-50 dark:bg-gray-900/40 rounded-xl border border-gray-200 dark:border-gray-700 p-4">
+                    <h3 class="text-sm font-bold dark:text-white mb-3">Neuen Admin hinzufügen</h3>
+                    <form id="adminManagementForm" action="/admin/register" method="POST" class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Benutzername</label>
+                            <input type="text" name="username" class="w-full border dark:border-gray-600 p-2 rounded bg-gray-50 dark:bg-gray-700 dark:text-white" required>
+                        </div>
+                        <div>
+                            <label class="block text-xs font-bold text-gray-500 uppercase mb-1">Passwort</label>
+                            <input type="password" name="password" class="w-full border dark:border-gray-600 p-2 rounded bg-gray-50 dark:bg-gray-700 dark:text-white" required>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="flex justify-end gap-3 border-t dark:border-gray-700 px-5 py-4 bg-gray-50 dark:bg-gray-800/50">
+                <button type="button" onclick="closeAdminModal()" class="bg-gray-300 text-gray-800 font-bold py-2 rounded hover:bg-gray-400">Schließen</button>
+                <button type="submit" form="adminManagementForm" class="bg-blue-600 text-white font-bold py-2 rounded hover:bg-blue-700">Hinzufügen</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Ausstehende Vorschläge -->
     <div class="bg-white dark:bg-gray-800 shadow rounded-xl overflow-hidden mb-10 border dark:border-gray-700">
-        <div class="bg-blue-600 px-5 py-3 text-white font-bold flex justify-between items-center">
+        <div class="bg-gray-800 px-5 py-3 text-white font-bold flex justify-between items-center">
             <span><i class="fa-solid fa-clock mr-2"></i>Ausstehende Vorschläge</span>
             <span class="bg-white text-blue-700 px-2.5 py-0.5 rounded-full text-sm font-bold">{{ pending|length }}</span>
         </div>
@@ -107,47 +179,80 @@
     </div>
 
     <!-- Freigegebene Pins -->
-    <h2 class="text-xl font-bold mb-4 dark:text-white"><i class="fa-solid fa-database mr-2 text-gray-400"></i>Datenbank (Freigegeben)</h2>
-
-    {% for category, items in approved | groupby('category') %}
-    <div class="mb-6">
-        <h3 class="text-xs font-bold uppercase tracking-widest text-gray-400 mb-2 pl-1 border-l-4
-            {% if category == 'person' %}border-green-500
-            {% elif category == 'institution' %}border-blue-500
-            {% else %}border-red-500{% endif %} pl-3">
-            {{ category }}s ({{ items | list | length }})
-        </h3>
-        <div class="bg-white dark:bg-gray-800 shadow rounded-xl border dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700">
-            {% for p in items %}
-            <div class="flex justify-between items-center p-4 hover:bg-gray-50 dark:hover:bg-gray-700/40">
-                <div class="min-w-0 mr-4">
-                    <div class="font-bold dark:text-white truncate">{{ p.title }}</div>
-                    <div class="text-xs text-gray-500 mt-0.5">{{ p.address }}</div>
-                    {% if p.category == 'event' and p.date %}
-                    <div class="text-xs text-red-400 mt-0.5"><i class="fa-regular fa-calendar mr-1"></i>{{ p.date }}{% if p.time %} · {{ p.time }}{% endif %}</div>
-                    {% endif %}
-                    {% if p.tags %}
-                    <div class="mt-1 flex flex-wrap gap-1">
-                        {% for tag in p.tags[:4] %}<span class="tag-chip">{{ tag }}</span>{% endfor %}
-                        {% if p.tags|length > 4 %}<span class="text-xs text-gray-500">+{{ p.tags|length - 4 }}</span>{% endif %}
-                    </div>
-                    {% endif %}
-                </div>
-                <div class="flex gap-2 shrink-0">
-                    <button data-pin='{{ p | tojson }}' onclick="openEditModal(this)"
-                        class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold">
-                        <i class="fa-solid fa-pen mr-1"></i>Edit
-                    </button>
-                    <a href="/admin/delete_approved/{{ p.id }}" onclick="return confirm('Wirklich löschen?')"
-                        class="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold">
-                        <i class="fa-solid fa-trash mr-1"></i>
-                    </a>
-                </div>
+    <div class="flex flex-col gap-3 mb-4">
+        <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+            <div class="flex flex-wrap items-center gap-2">
+                <h2 class="text-xl font-bold dark:text-white"><i class="fa-solid fa-database mr-2 text-gray-400"></i>Datenbank (Freigegeben)</h2>
             </div>
+            <div class="w-full sm:w-auto">
+                <label class="sr-only" for="approvedSearch">Datenbank suchen</label>
+                <div class="relative text-gray-500 dark:text-gray-400">
+                    <i class="fa-solid fa-search absolute left-3 top-1/2 -translate-y-1/2"></i>
+                    <input id="approvedSearch" type="search" oninput="filterApprovedDatabase()"
+                        placeholder="Suche Titel, Beschreibung, Schlagwörter, Adresse"
+                        class="w-full sm:w-80 pl-10 pr-4 py-2 rounded-full border border-gray-300 dark:border-gray-700 bg-white dark:bg-gray-800 text-sm text-gray-800 dark:text-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500" />
+                </div>
+                <p id="approvedSearchCount" class="mt-2 text-xs text-gray-500 dark:text-gray-400 hidden"></p>
+            </div>
+        </div>
+        <div class="flex flex-wrap gap-2">
+            {% set categories = ['event', 'institution', 'person'] %}
+            {% for category in categories %}
+            {% set count = approved | selectattr('category', 'equalto', category) | list | length %}
+            <button id="categoryButton-{{ category }}" type="button" onclick="setApprovedCategory('{{ category }}')"
+                class="px-4 py-2 rounded-full border text-xs font-semibold transition-all {% if loop.first %}{% if category == 'event' %}bg-red-600 text-white border-gray-300 dark:border-gray-700{% elif category == 'institution' %}bg-blue-600 text-white border-gray-300 dark:border-gray-700{% else %}bg-green-600 text-white border-gray-300 dark:border-gray-700{% endif %}{% else %}bg-white dark:bg-gray-800 dark:text-gray-200 text-gray-700 border-gray-300 dark:border-gray-700{% endif %}">
+                {% if category == 'event' %}Veranstaltungen{% elif category == 'institution' %}Institutionen{% else %}Personen{% endif %} ({{ count }})
+            </button>
             {% endfor %}
         </div>
     </div>
-    {% endfor %}
+
+    <div id="approvedCategoryPanels">
+        {% for category in categories %}
+        {% set items = approved | selectattr('category', 'equalto', category) | list %}
+        <div id="approvedPanel-{{ category }}" class="{% if not loop.first %}hidden{% endif %} space-y-3">
+            {% if items | length == 0 %}
+            <div class="bg-white dark:bg-gray-800 rounded-2xl border dark:border-gray-700 shadow p-4 text-sm text-gray-500 dark:text-gray-400">
+                Keine Einträge in dieser Kategorie.
+            </div>
+            {% endif %}
+            {% for p in items %}
+            <div data-pin='{{ p | tojson }}' onclick="openDetailModal(this)" class="approved-item bg-white dark:bg-gray-800 rounded-3xl border dark:border-gray-700 shadow-sm p-4 hover:shadow-lg hover:border-gray-300 dark:hover:border-gray-600 transition cursor-pointer">
+                <div class="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+                    <div class="min-w-0">
+                        <div class="text-base font-semibold dark:text-white line-clamp-1">{{ p.title }}</div>
+                        <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">{{ p.address }}</div>
+                        {% if p.category == 'event' and p.date %}
+                        <div class="text-xs text-red-500 mt-2"><i class="fa-regular fa-calendar mr-1"></i>{{ p.date }}{% if p.time %} · {{ p.time }} Uhr{% endif %}</div>
+                        {% endif %}
+                    </div>
+                    <div class="flex flex-wrap items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+                        <span class="px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-700">Freigegeben am {{ p.approvedAt or '–' }}</span>
+                        <span class="px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-700">{{ p.tags | length }} Tags</span>
+                    </div>
+                </div>
+                {% if p.description %}
+                <p class="mt-3 text-sm text-gray-600 dark:text-gray-300 line-clamp-3">{{ p.description }}</p>
+                {% endif %}
+                <div class="mt-4 flex flex-wrap gap-2 items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                    <div class="flex flex-wrap gap-2">
+                        <button data-pin='{{ p | tojson }}' onclick="event.stopPropagation(); openEditModal(this)" class="bg-gray-500 hover:bg-gray-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold">
+                            <i class="fa-solid fa-pen mr-1"></i>Edit
+                        </button>
+                        <a href="/admin/delete_approved/{{ p.id }}" onclick="event.stopPropagation(); return confirm('Wirklich löschen?')" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1.5 rounded-lg text-xs font-bold">
+                            <i class="fa-solid fa-trash mr-1"></i> Löschen
+                        </a>
+                    </div>
+                    <span class="uppercase tracking-[0.18em] text-[10px] font-semibold">{{ p.category }}</span>
+                </div>
+            </div>
+            {% endfor %}
+            <div class="no-search-results hidden bg-white dark:bg-gray-800 rounded-2xl border dark:border-gray-700 shadow p-4 text-sm text-gray-500 dark:text-gray-400">
+                Keine passenden Einträge gefunden.
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 
     {% endif %}
 </div>
@@ -166,48 +271,65 @@
         <!-- Body -->
         <div class="overflow-y-auto flex-grow p-5 space-y-4">
 
-            <!-- Tags -->
+            <div class="rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 p-4 space-y-4">
+                <div class="grid gap-3 md:grid-cols-2">
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase mb-1">Kategorie</p>
+                        <p id="modalCategory" class="text-sm font-semibold dark:text-white"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase mb-1">Eingereicht am</p>
+                        <p id="modalSubmittedAt" class="text-sm dark:text-white"></p>
+                    </div>
+                </div>
+                <div class="grid gap-3 md:grid-cols-2">
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase mb-1">Adresse</p>
+                        <p id="modalAddr" class="text-sm dark:text-white"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase mb-1">E-Mail</p>
+                        <p id="modalEmail" class="text-sm text-blue-500"></p>
+                    </div>
+                </div>
+                <div id="modalSelfDescRow" class="hidden">
+                    <p class="text-xs text-gray-400 uppercase mb-1">Selbstverortung</p>
+                    <p id="modalSelfDesc" class="text-sm bg-white dark:bg-gray-800 rounded-lg p-3 dark:text-gray-200 leading-relaxed whitespace-pre-line"></p>
+                </div>
+                <div id="modalLinksRow" class="hidden">
+                    <p class="text-xs text-gray-400 uppercase mb-1">Links</p>
+                    <div id="modalLinks" class="space-y-1"></div>
+                </div>
+            </div>
+
             <div id="modalTagsRow" class="hidden">
                 <p class="text-xs font-bold text-gray-400 uppercase mb-1">Schlagwörter</p>
                 <div id="modalTags"></div>
             </div>
 
-            <!-- Event-Info -->
             <div id="modalEventBlock" class="hidden bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-3">
-                <div class="grid grid-cols-3 gap-3 text-sm">
-                    <div><p class="text-xs text-gray-400 uppercase mb-0.5">Datum</p><p id="modalDate" class="font-bold text-red-600 dark:text-red-400"></p></div>
-                    <div><p class="text-xs text-gray-400 uppercase mb-0.5">Zeit</p><p id="modalTime" class="dark:text-white"></p></div>
-                    <div><p class="text-xs text-gray-400 uppercase mb-0.5">Wiederholung</p><p id="modalReg" class="dark:text-white"></p></div>
+                <div class="grid gap-2 text-sm">
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase mb-0.5">Datum</p>
+                        <p id="modalDate" class="font-bold text-red-600 dark:text-red-400"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase mb-0.5">Zeit</p>
+                        <p id="modalTime" class="dark:text-white"></p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-400 uppercase mb-0.5">Wiederholung</p>
+                        <p id="modalReg" class="dark:text-white"></p>
+                    </div>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div class="space-y-3">
-                    <!-- Beschreibung -->
-                    <div>
-                        <p class="text-xs font-bold text-gray-400 uppercase mb-1">Beschreibung</p>
-                        <p id="modalDesc" class="text-sm bg-gray-50 dark:bg-gray-700 p-3 rounded-lg dark:text-gray-200 leading-relaxed whitespace-pre-line"></p>
-                    </div>
-                    <!-- Selbstverortung -->
-                    <div id="modalSelfDescRow" class="hidden">
-                        <p class="text-xs font-bold text-gray-400 uppercase mb-1">Selbstverortung</p>
-                        <p id="modalSelfDesc" class="text-sm bg-gray-50 dark:bg-gray-700 p-3 rounded-lg dark:text-gray-200 leading-relaxed italic"></p>
-                    </div>
-                    <!-- Links -->
-                    <div id="modalLinksRow" class="hidden">
-                        <p class="text-xs font-bold text-gray-400 uppercase mb-1">Links</p>
-                        <div id="modalLinks" class="space-y-1"></div>
-                    </div>
-                    <!-- Adresse & Email -->
-                    <div class="text-sm space-y-1">
-                        <p><i class="fa-solid fa-location-dot text-gray-400 mr-2 w-4"></i><span id="modalAddr" class="dark:text-gray-200"></span></p>
-                        <p><i class="fa-solid fa-envelope text-gray-400 mr-2 w-4"></i><span id="modalEmail" class="text-blue-500"></span></p>
-                    </div>
-                </div>
-                <!-- Mini-Karte -->
-                <div class="rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-700" style="min-height:180px">
-                    <div id="adminMap" class="w-full h-full" style="min-height:180px"></div>
-                </div>
+            <div>
+                <p class="text-xs font-bold text-gray-400 uppercase mb-1">Beschreibung</p>
+                <p id="modalDesc" class="text-sm bg-gray-50 dark:bg-gray-700 p-3 rounded-lg dark:text-gray-200 leading-relaxed whitespace-pre-line"></p>
+            </div>
+            <div class="rounded-lg overflow-hidden bg-gray-200 dark:bg-gray-700" style="min-height:180px">
+                <div id="adminMap" class="w-full h-full" style="min-height:180px"></div>
             </div>
         </div>
 
@@ -220,6 +342,56 @@
     </div>
 </div>
 
+<!-- Detail Modal -->
+<div id="detailModal" class="fixed inset-0 bg-black bg-opacity-75 hidden z-50 flex justify-center items-center p-4">
+    <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-2xl border dark:border-gray-700 overflow-hidden max-h-[90vh] flex flex-col">
+        <div class="px-5 py-4 border-b dark:border-gray-700 flex justify-between items-center">
+            <div>
+                <h3 id="detailTitle" class="text-lg font-bold dark:text-white"></h3>
+                <p id="detailCatLabel" class="text-xs text-gray-400 dark:text-gray-500 mt-1 uppercase"></p>
+            </div>
+            <button type="button" onclick="document.getElementById('detailModal').classList.add('hidden')" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-times"></i></button>
+        </div>
+        <div class="overflow-y-auto flex-grow p-5 space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-sm">
+                <div><p class="text-xs text-gray-400 uppercase mb-0.5">Datum</p><p id="detailDate" class="font-bold text-red-600 dark:text-red-400"></p></div>
+                <div><p class="text-xs text-gray-400 uppercase mb-0.5">Zeit</p><p id="detailTime" class="dark:text-white"></p></div>
+                <div><p class="text-xs text-gray-400 uppercase mb-0.5">Wiederholung</p><p id="detailReg" class="dark:text-white"></p></div>
+            </div>
+            <div id="detailTagsRow" class="hidden">
+                <p class="text-xs font-bold text-gray-400 uppercase mb-1">Schlagwörter</p>
+                <div id="detailTags"></div>
+            </div>
+            <div>
+                <p class="text-xs font-bold text-gray-400 uppercase mb-1">Beschreibung</p>
+                <p id="detailDesc" class="text-sm bg-gray-50 dark:bg-gray-700 p-3 rounded-lg dark:text-gray-200 leading-relaxed whitespace-pre-line"></p>
+            </div>
+            <div id="detailSelfDescRow" class="hidden">
+                <p class="text-xs font-bold text-gray-400 uppercase mb-1">Selbstverortung</p>
+                <p id="detailSelfDesc" class="text-sm bg-gray-50 dark:bg-gray-700 p-3 rounded-lg dark:text-gray-200 leading-relaxed italic"></p>
+            </div>
+            <div id="detailLinksRow" class="hidden">
+                <p class="text-xs font-bold text-gray-400 uppercase mb-1">Links</p>
+                <div id="detailLinks" class="space-y-1"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                <div><p class="text-xs text-gray-400 uppercase mb-0.5">Adresse</p><p id="detailAddr" class="dark:text-gray-200"></p></div>
+                <div><p class="text-xs text-gray-400 uppercase mb-0.5">E-Mail</p><p id="detailEmail" class="text-blue-500"></p></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-500 dark:text-gray-400">
+                <div><p class="text-xs uppercase mb-0.5">Eingereicht am</p><p id="detailSubmittedAt"></p></div>
+                <div><p class="text-xs uppercase mb-0.5">Freigegeben am</p><p id="detailApprovedAt"></p></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm text-gray-500 dark:text-gray-400">
+                <div><p class="text-xs uppercase mb-0.5">Freigegeben von</p><p id="detailApprovedBy"></p></div>
+            </div>
+        </div>
+        <div class="flex justify-end gap-3 border-t dark:border-gray-700 px-5 py-4 bg-gray-50 dark:bg-gray-800/50">
+            <button type="button" onclick="document.getElementById('detailModal').classList.add('hidden')" class="bg-gray-300 text-gray-800 font-bold py-2 rounded hover:bg-gray-400">Schließen</button>
+        </div>
+    </div>
+</div>
+
 <!-- Edit Modal -->
 <div id="editModal" class="fixed inset-0 bg-black bg-opacity-75 hidden z-50 flex justify-center items-center p-4">
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-2xl w-full max-w-lg border dark:border-gray-700 max-h-[90vh] flex flex-col">
@@ -228,7 +400,7 @@
             <button onclick="document.getElementById('editModal').classList.add('hidden')" class="text-gray-400 hover:text-gray-600"><i class="fa-solid fa-times"></i></button>
         </div>
         <div class="overflow-y-auto flex-grow p-6">
-            <form action="/admin/update" method="POST" class="space-y-3">
+            <form action="/admin/update" method="POST" class="space-y-3" onsubmit="prepareEditRegularity()">
                 <input type="hidden" name="id" id="editId">
                 <div>
                     <label class="text-xs font-bold text-gray-500 uppercase">Titel</label>
@@ -236,7 +408,7 @@
                 </div>
                 <div>
                     <label class="text-xs font-bold text-gray-500 uppercase">Kategorie</label>
-                    <select name="category" id="editCat" class="w-full border dark:border-gray-600 rounded-lg px-3 py-2 mt-1 bg-white dark:bg-gray-700 dark:text-white">
+                    <select name="category" id="editCat" onchange="updateEditEventFields()" class="w-full border dark:border-gray-600 rounded-lg px-3 py-2 mt-1 bg-white dark:bg-gray-700 dark:text-white">
                         <option value="person">Person</option>
                         <option value="institution">Institution</option>
                         <option value="event">Veranstaltung</option>
@@ -258,19 +430,43 @@
                     <label class="text-xs font-bold text-gray-500 uppercase">E-Mail</label>
                     <input type="text" name="email" id="editEmail" class="w-full border dark:border-gray-600 rounded-lg px-3 py-2 mt-1 bg-white dark:bg-gray-700 dark:text-white">
                 </div>
-                <div class="grid grid-cols-2 gap-3">
-                    <div>
-                        <label class="text-xs font-bold text-gray-500 uppercase">Datum</label>
-                        <input type="date" name="date" id="editDate" class="w-full border dark:border-gray-600 rounded-lg px-3 py-2 mt-1 bg-white dark:bg-gray-700 dark:text-white">
+                <div id="editEventFields" class="hidden bg-red-50 dark:bg-red-900/20 p-3 rounded mb-4 border border-red-100 dark:border-red-900">
+                    <div class="grid grid-cols-2 gap-3 mb-3">
+                        <div>
+                            <label class="text-xs font-bold text-gray-500 uppercase">Datum</label>
+                            <input type="date" name="date" id="editDate" class="w-full border dark:border-gray-600 rounded-lg px-3 py-2 mt-1 bg-white dark:bg-gray-700 dark:text-white">
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-gray-500 uppercase">Zeit</label>
+                            <input type="time" name="time" id="editTime" class="w-full border dark:border-gray-600 rounded-lg px-3 py-2 mt-1 bg-white dark:bg-gray-700 dark:text-white">
+                        </div>
                     </div>
                     <div>
-                        <label class="text-xs font-bold text-gray-500 uppercase">Zeit</label>
-                        <input type="time" name="time" id="editTime" class="w-full border dark:border-gray-600 rounded-lg px-3 py-2 mt-1 bg-white dark:bg-gray-700 dark:text-white">
+                        <label class="text-xs font-bold text-gray-500 uppercase">Wiederholung</label>
+                        <select id="editRegSelect" class="pill w-full border rounded px-3 py-2 mt-1 text-sm dark:bg-gray-700 dark:text-white dark:border-gray-600" onchange="checkEditCustomReg()" style="min-height:2.4rem">
+                            <option value="once">Einmalig</option>
+                            <option value="daily">Täglich</option>
+                            <option value="weekly">Wöchentlich</option>
+                            <option value="biweekly">Alle 2 Wochen</option>
+                            <option value="monthly">Monatlich</option>
+                            <option value="custom">Andere...</option>
+                        </select>
+                        <div id="editRegCustomFields" class="hidden mt-1">
+                            <p class="text-xs font-bold dark:text-gray-300 mb-1">Wiederhole alle …</p>
+                            <div class="flex gap-2">
+                                <input type="number" id="editRegCustomN" min="1" value="1"
+                                    class="w-1/3 border dark:border-gray-600 rounded px-3 py-2 text-sm dark:bg-gray-700 dark:text-white" style="min-height:2.4rem">
+                                <select id="editRegCustomUnit"
+                                    class="w-2/3 border dark:border-gray-600 rounded px-3 py-2 text-sm dark:bg-gray-700 dark:text-white" style="min-height:2.4rem">
+                                    <option value="days">Tage</option>
+                                    <option value="weeks">Wochen</option>
+                                    <option value="months">Monate</option>
+                                    <option value="years">Jahre</option>
+                                </select>
+                            </div>
+                        </div>
+                        <input type="hidden" name="regularity" id="editReg">
                     </div>
-                </div>
-                <div>
-                    <label class="text-xs font-bold text-gray-500 uppercase">Wiederholung</label>
-                    <input type="text" name="regularity" id="editReg" placeholder="z.B. weekly, monthly, once" class="w-full border dark:border-gray-600 rounded-lg px-3 py-2 mt-1 bg-white dark:bg-gray-700 dark:text-white">
                 </div>
 
                 <div class="mb-4">
@@ -309,8 +505,10 @@
     const CAT_COLOR = { person: '#16a34a', institution: '#2563eb', event: '#dc2626' };
     const CAT_FA    = { person: 'fa-solid fa-user', institution: 'fa-solid fa-building', event: 'fa-solid fa-calendar-days' };
     const REG_LABELS = { once: 'Einmalig', weekly: 'Wöchentlich', biweekly: 'Alle 2 Wochen', monthly: 'Monatlich' };
+    const MONTH_NAMES = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember'];
 
     let adminMap = null, adminMarker = null;
+
 
 
     async function logOut() {
@@ -392,6 +590,7 @@
         // Adresse & Email
         document.getElementById('modalAddr').innerText  = pin.address || 'Keine Angabe';
         document.getElementById('modalEmail').innerText = pin.email || '–';
+        document.getElementById('modalSubmittedAt').innerText = pin.proposalTime ? formatDateTime(pin.proposalTime) : '–';
 
         // Buttons
         document.getElementById('btnApprove').href = '/admin/approve/' + pin.id;
@@ -412,6 +611,131 @@
         }, 200);
     }
 
+    function openDetailModal(element) {
+        const pin = JSON.parse(element.getAttribute('data-pin'));
+        const color = CAT_COLOR[pin.category] || '#6b7280';
+        const fa = CAT_FA[pin.category] || '';
+
+        const title = document.getElementById('detailTitle');
+        const label = document.getElementById('detailCatLabel');
+        title.innerText = pin.title;
+        label.innerText = pin.category === 'event' ? 'Veranstaltung' : pin.category === 'institution' ? 'Institution' : 'Person';
+        document.getElementById('detailDate').innerText = pin.date ? formatDate(pin.date) : '–';
+        document.getElementById('detailTime').innerText = pin.time ? pin.time + ' Uhr' : '–';
+        document.getElementById('detailReg').innerText = REG_LABELS[pin.regularity] || pin.regularity || '–';
+
+        const tagsEl = document.getElementById('detailTags');
+        const tagsRow = document.getElementById('detailTagsRow');
+        tagsEl.innerHTML = '';
+        if (pin.tags && pin.tags.length) {
+            tagsRow.classList.remove('hidden');
+            pin.tags.forEach(t => {
+                const s = document.createElement('span');
+                s.className = 'tag-chip';
+                s.textContent = t;
+                tagsEl.appendChild(s);
+            });
+        } else {
+            tagsRow.classList.add('hidden');
+        }
+
+        const selfDescRow = document.getElementById('detailSelfDescRow');
+        if (pin.selfDesc) {
+            selfDescRow.classList.remove('hidden');
+            document.getElementById('detailSelfDesc').innerText = pin.selfDesc;
+        } else {
+            selfDescRow.classList.add('hidden');
+        }
+
+        const linksEl = document.getElementById('detailLinks');
+        const linksRow = document.getElementById('detailLinksRow');
+        linksEl.innerHTML = '';
+        if (pin.links && pin.links.length) {
+            linksRow.classList.remove('hidden');
+            pin.links.forEach(l => {
+                if (!l.url) return;
+                const a = document.createElement('a');
+                a.href = l.url; a.target = '_blank';
+                a.className = 'text-blue-500 hover:underline text-sm flex items-center gap-1';
+                a.innerHTML = `<i class="fa-solid fa-globe text-xs"></i> ${l.title || l.url}`;
+                linksEl.appendChild(a);
+            });
+        } else {
+            linksRow.classList.add('hidden');
+        }
+
+        document.getElementById('detailAddr').innerText = pin.address || 'Keine Angabe';
+        document.getElementById('detailEmail').innerText = pin.email || '–';
+        document.getElementById('detailSubmittedAt').innerText = pin.proposalTime ? formatDateTime(pin.proposalTime) : '–';
+        document.getElementById('detailApprovedBy').innerText = pin.approvedBy || '–';
+        document.getElementById('detailApprovedAt').innerText = pin.approvedAt ? formatDateTime(pin.approvedAt) : '–';
+
+        document.getElementById('detailModal').classList.remove('hidden');
+    }
+
+    function setApprovedCategory(category) {
+        const categories = ['event', 'institution', 'person'];
+        categories.forEach(cat => {
+            const panel = document.getElementById('approvedPanel-' + cat);
+            const button = document.getElementById('categoryButton-' + cat);
+            if (!panel || !button) return;
+            const isActive = cat === category;
+            panel.classList.toggle('hidden', !isActive);
+
+            if (isActive) {
+                button.classList.remove('bg-white', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-200', 'border-gray-300');
+                button.classList.add('text-white');
+                button.style.backgroundColor = CAT_COLOR[cat];
+                button.style.borderColor = 'transparent';
+            } else {
+                button.classList.add('bg-white', 'dark:bg-gray-800', 'text-gray-700', 'dark:text-gray-200', 'border-gray-300');
+                button.classList.remove('text-white');
+                button.style.backgroundColor = '';
+                button.style.borderColor = '';
+            }
+        });
+        filterApprovedDatabase();
+    }
+
+    function filterApprovedDatabase() {
+        const query = document.getElementById('approvedSearch')?.value.trim().toLowerCase();
+        const panels = document.querySelectorAll('#approvedCategoryPanels > div');
+        const resultCountEl = document.getElementById('approvedSearchCount');
+        let totalVisible = 0;
+
+        if (!query) {
+            panels.forEach(panel => {
+                panel.querySelectorAll('.approved-item').forEach(item => item.classList.remove('hidden'));
+                const noSearch = panel.querySelector('.no-search-results');
+                if (noSearch) noSearch.classList.add('hidden');
+            });
+            if (resultCountEl) {
+                resultCountEl.classList.add('hidden');
+                resultCountEl.innerText = '';
+            }
+            return;
+        }
+
+        panels.forEach(panel => {
+            let visibleCount = 0;
+            panel.querySelectorAll('.approved-item').forEach(item => {
+                const pin = JSON.parse(item.getAttribute('data-pin') || '{}');
+                const text = [pin.title, pin.description, pin.address, (pin.tags || []).join(' ')]
+                    .filter(Boolean).join(' ').toLowerCase();
+                const matches = text.includes(query);
+                item.classList.toggle('hidden', !matches);
+                if (matches) visibleCount += 1;
+            });
+            totalVisible += visibleCount;
+            const noSearch = panel.querySelector('.no-search-results');
+            if (noSearch) noSearch.classList.toggle('hidden', visibleCount > 0);
+        });
+
+        if (resultCountEl) {
+            resultCountEl.classList.remove('hidden');
+            resultCountEl.innerText = totalVisible === 1 ? '1 Ergebnis gefunden' : `${totalVisible} Ergebnisse gefunden`;
+        }
+    }
 
 function buildTagCheckboxes(tags, pinTags) {
     const form = document.getElementById('tagCheckboxContainer');
@@ -450,21 +774,119 @@ function buildTagCheckboxes(tags, pinTags) {
         document.getElementById('editEmail').value    = pin.email      || '';
         document.getElementById('editDate').value     = pin.date       || '';
         document.getElementById('editTime').value     = pin.time       || '';
-        document.getElementById('editReg').value      = pin.regularity || '';
+        setEditRegularity(pin.regularity || '');
         
         buildTagCheckboxes(await fetchTags(), pin.tags || []);
+        updateEditEventFields();
 
-        
         document.getElementById('editModal').classList.remove('hidden');
     }
 
-    function formatDate(s) {
-        const p = s.split('-');
-        return p.length === 3 ? `${p[2]}.${p[1]}.${p[0]}` : s;
+    function updateEditEventFields() {
+        const isEvent = document.getElementById('editCat').value === 'event';
+        const eventsBlock = document.getElementById('editEventFields');
+        eventsBlock.classList.toggle('hidden', !isEvent);
+
+        const fields = eventsBlock.querySelectorAll('input, select');
+        fields.forEach(field => {
+            field.disabled = !isEvent;
+        });
+
+        if (!isEvent) {
+            document.getElementById('editRegCustomFields').classList.add('hidden');
+        }
     }
 
+    function checkEditCustomReg() {
+        const isCustom = document.getElementById('editRegSelect').value === 'custom';
+        document.getElementById('editRegCustomFields').classList.toggle('hidden', !isCustom);
+    }
 
-    
+    function setEditRegularity(value) {
+        const select = document.getElementById('editRegSelect');
+        const customFields = document.getElementById('editRegCustomFields');
+        const customN = document.getElementById('editRegCustomN');
+        const customUnit = document.getElementById('editRegCustomUnit');
+
+        if (!value) {
+            select.value = 'once';
+            customFields.classList.add('hidden');
+        } else if (['once', 'daily', 'weekly', 'biweekly', 'monthly'].includes(value)) {
+            select.value = value;
+            customFields.classList.add('hidden');
+        } else {
+            const match = value.match(/^(\d+)(days?|weeks?|months?|years?)$/);
+            if (match) {
+                select.value = 'custom';
+                customFields.classList.remove('hidden');
+                customN.value = match[1];
+                customUnit.value = match[2];
+            } else {
+                select.value = 'once';
+                customFields.classList.add('hidden');
+            }
+        }
+
+        document.getElementById('editReg').value = value || 'once';
+    }
+
+    function prepareEditRegularity() {
+        let reg = document.getElementById('editRegSelect').value;
+        if (reg === 'custom') {
+            const n = parseInt(document.getElementById('editRegCustomN').value) || 1;
+            const unit = document.getElementById('editRegCustomUnit').value;
+            reg = `${n}${unit}`;
+        }
+        document.getElementById('editReg').value = reg;
+    }
+
+    function openAdminModal() {
+        document.getElementById('adminManagementModal').classList.remove('hidden');
+    }
+
+    function closeAdminModal() {
+
+        document.getElementById('adminManagementModal').classList.add('hidden');
+    }
+
+    function hideToast() {
+        const toast = document.getElementById('toast');
+        if (toast) {
+            toast.classList.add('opacity-0');
+        }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+        const toast = document.getElementById('toast');
+        if (toast) {
+            setTimeout(() => {
+                toast.classList.add('opacity-0');
+            }, 3800);
+        }
+        setApprovedCategory('event');
+    });
+
+    function formatDate(s) {
+        if (!s) return '–';
+        const parts = s.split('-');
+        if (parts.length !== 3) return s;
+        const [year, month, day] = parts;
+        const monthName = MONTH_NAMES[Number(month) - 1] || month;
+        return `${Number(day)}. ${monthName} ${year}`;
+    }
+
+    function formatDateTime(value) {
+        if (!value) return '–';
+        const [datePart, timePart] = value.split('T');
+        const dateString = formatDate(datePart || value);
+        if (!timePart) return dateString;
+        const timeParts = timePart.split(':');
+        if (timeParts.length < 2) return dateString;
+        const hour = timeParts[0];
+        const minute = timeParts[1];
+        return `${dateString} um ${hour}:${minute} Uhr`;
+    }
+
 </script>
 </body>
 </html>

@@ -305,6 +305,7 @@ button {
     .buttonLabel { display: none; }
     .logo_corner { display: none; }
     .logo_corner_mobile { display: block; }
+    #helpBtn { display: none; }
 }
 
 @media (min-width: 769px) {

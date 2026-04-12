@@ -1,9 +1,9 @@
 import argon2
-from flask import Flask, render_template, request, jsonify, session, redirect
+from flask import Flask, render_template, request, jsonify, session, redirect, make_response
 import json
 import os
 import uuid
-from datetime import datetime
+from datetime import datetime, date
 import glob
 import database
 from argon2 import PasswordHasher
@@ -11,6 +11,22 @@ from argon2 import PasswordHasher
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config['JSON_AS_ASCII'] = False
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'pIt%V-@#s9!zX7$L')
+
+
+def format_datetime(value):
+    if not value:
+        return ''
+    months = ['Januar', 'Februar', 'März', 'April', 'Mai', 'Juni', 'Juli', 'August', 'September', 'Oktober', 'November', 'Dezember']
+    try:
+        if 'T' in value:
+            dt = datetime.fromisoformat(value)
+            return f"{dt.day}. {months[dt.month-1]} {dt.year} um {dt.hour:02d}:{dt.minute:02d} Uhr"
+        d = date.fromisoformat(value)
+        return f"{d.day}. {months[d.month-1]} {d.year}"
+    except Exception:
+        return value
+
+app.jinja_env.filters['format_datetime'] = format_datetime
 
 DATA_DIR = 'data'
 APPROVED_FILE = os.path.join(DATA_DIR, 'approved_pins.json')
@@ -173,8 +189,12 @@ def admin_dashboard():
     
     pending = database.load_admin_pins(0)
     approved = database.load_admin_pins(1)
-        
-    return render_template('admin.html', logged_in=True, pending=pending, approved=approved)
+    approved.sort(key=lambda p: p.get('approvedAt') or '', reverse=True)
+    approved.sort(key=lambda p: p.get('category') or '')
+    admins = database.get_admins()
+
+    toast_message = session.pop('toast_message', None)
+    return render_template('admin.html', logged_in=True, pending=pending, approved=approved, admins=admins, toast_message=toast_message)
 
 
 # Management von Admin-Aktivitäten (Login, Genehmigen, Ablehnen, Löschen, Aktualisieren)
@@ -206,13 +226,53 @@ def register():
     user_name = request.form.get('username') or ""
     password = request.form.get('password') or ""
     database.register(user_name, ph.hash(password))
+    session['toast_message'] = 'Admin erfolgreich hinzugefügt.'
     return redirect('/admin')
 
+@app.route('/admin/export_csv')
+def export_csv():
+    if 'user' not in session: return redirect('/admin')
+    pins = database.get_all_pins_for_export()
+
+    from io import StringIO
+    import csv
+
+    output = StringIO()
+    writer = csv.writer(output, delimiter=';', quoting=csv.QUOTE_MINIMAL)
+    writer.writerow([
+        'id', 'title', 'category', 'address', 'description', 'selfDescription', 'email',
+        'lat', 'lng', 'date', 'time', 'regularity', 'approved', 'approvedBy', 'approvedAt',
+        'proposalTime', 'verified', 'tags', 'links'
+    ])
+
+    for p in pins:
+        tags = ';'.join(p.get('tags', []))
+        links = ';'.join([f"{l.get('title','').replace(';','')}: {l.get('url','').replace(';','')}" for l in p.get('links', [])])
+        writer.writerow([
+            p.get('id', ''), p.get('title', ''), p.get('category', ''), p.get('address', ''), p.get('description', ''),
+            p.get('selfDescription', ''), p.get('email', ''), p.get('lat', ''), p.get('lng', ''), p.get('date', ''),
+            p.get('time', ''), p.get('regularity', ''), p.get('approved', ''), p.get('approvedBy', ''), p.get('approvedAt', ''),
+            p.get('proposalTime', ''), p.get('verified', ''), tags, links
+        ])
+
+    response = make_response(output.getvalue())
+    response.headers['Content-Disposition'] = 'attachment; filename=pins_export.csv'
+    response.headers['Content-Type'] = 'text/csv; charset=utf-8'
+    return response
+
+@app.route('/admin/delete_user', methods=['POST'])
+def delete_user():
+    if 'user' not in session: return redirect('/admin')
+    username = request.form.get('username') or ""
+    if username:
+        database.delete_admin(username)
+        session['toast_message'] = 'Admin erfolgreich gelöscht.'
+    return redirect('/admin')
 
 @app.route('/admin/approve/<pin_id>')
 def approve(pin_id):
     if 'user' not in session: return redirect('/admin')
-    database.approve(pin_id)
+    database.approve(pin_id, session['user'])
     return redirect('/admin')
 
 @app.route('/admin/reject/<pin_id>')
