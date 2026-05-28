@@ -10,7 +10,10 @@ from argon2 import PasswordHasher
 
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config['JSON_AS_ASCII'] = False
-app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'pIt%V-@#s9!zX7$L')
+app.config['SECRET_KEY'] = os.environ['SECRET_KEY']
+app.config['SESSION_COOKIE_SECURE'] = True 
+app.config['SESSION_COOKIE_HTTPONLY'] = True  
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
 
 
 def format_datetime(value):
@@ -269,19 +272,19 @@ def delete_user():
         session['toast_message'] = 'Admin erfolgreich gelöscht.'
     return redirect('/admin')
 
-@app.route('/admin/approve/<pin_id>')
+@app.route('/admin/approve/<pin_id>', methods=['POST'])
 def approve(pin_id):
     if 'user' not in session: return redirect('/admin')
     database.approve(pin_id, session['user'])
     return redirect('/admin')
 
-@app.route('/admin/reject/<pin_id>')
+@app.route('/admin/reject/<pin_id>', methods=['POST'])
 def reject(pin_id):
     if 'user' not in session: return redirect('/admin')
     database.delete(pin_id)
     return redirect('/admin')
 
-@app.route('/admin/delete_approved/<pin_id>')
+@app.route('/admin/delete_approved/<pin_id>', methods=['POST'])
 def delete_approved(pin_id):
     if 'user' not in session: return redirect('/admin')
     database.delete(pin_id)
@@ -313,4 +316,4 @@ def pin_icons(category):
 if __name__ == '__main__':
     # hier später durch Bucket bzw. Datenbank ersetzen
     os.makedirs(DATA_DIR, exist_ok=True)
-    app.run(host='0.0.0.0', port=int(os.getenv("PORT", 5050)), debug=True, threaded=False)
+    app.run(host='0.0.0.0', port=int(os.getenv("PORT", 5050)), debug=False, threaded=False)

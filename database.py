@@ -288,8 +288,8 @@ def delete(pinID):
     db.commit()
 
 def update(pin):
-    id = pin.get('id')
-    title = pin.get('title')
+    date = pin.get('date') or None
+    time = pin.get('time') or None
     description = pin.get('description')
     email = pin.get('email')
     address = pin.get('address')
