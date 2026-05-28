@@ -8,6 +8,8 @@ import glob
 import database
 from argon2 import PasswordHasher
 
+from dotenv import load_dotenv
+load_dotenv()
 app = Flask(__name__, template_folder='templates', static_folder='static')
 app.config['JSON_AS_ASCII'] = False
 secret_key = os.environ.get('SECRET_KEY')
