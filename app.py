@@ -7,10 +7,26 @@ from datetime import datetime, date
 import glob
 import database
 from argon2 import PasswordHasher
+from werkzeug.middleware.proxy_fix import ProxyFix
+from flask_limiter import Limiter
+from flask_limiter.util import get_remote_address
+
+
 
 from dotenv import load_dotenv
 load_dotenv()
+
 app = Flask(__name__, template_folder='templates', static_folder='static')
+
+app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1)
+
+limiter = Limiter(
+    get_remote_address,
+    app=app,
+    default_limits=["200 per day", "50 per hour"],
+    storage_uri="memory://"
+)
+
 app.config['JSON_AS_ASCII'] = False
 secret_key = os.environ.get('SECRET_KEY')
 if not secret_key:
@@ -149,6 +165,7 @@ def get_pins():
 
 
 @app.route('/api/suggest', methods=['POST'])
+@limiter.limit("20 per minute")
 def suggest_pin():
     data = request.json
     data['id'] = str(uuid.uuid4())
@@ -183,6 +200,7 @@ def get_tags():
 
 
 @app.route('/api/contact_info/<pin_id>')
+@limiter.limit("5 per minute")
 def contact_info(pin_id):
     email = database.get_contact_info(pin_id)
     return jsonify({"email": email})

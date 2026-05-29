@@ -128,6 +128,20 @@ function shortenUrl(url) {
     return clean.length > 22 ? clean.substring(0, 22) + '…' : clean;
 }
 
+function escapeHTML(str) {
+    if (!str) return '';
+    return String(str).replace(/[&<>"']/g, function(m) {
+        switch (m) {
+            case '&': return '&amp;';
+            case '<': return '&lt;';
+            case '>': return '&gt;';
+            case '"': return '&quot;';
+            case "'": return '&#039;';
+            default: return m;
+        }
+    });
+}
+
 function formatRegularity(reg) {
     if (!reg) return '';
     if (REG_LABELS[reg]) return REG_LABELS[reg];
@@ -634,37 +648,43 @@ function updateMapMarkers() {
         const markerIcon = createPinIcon(p.category, p.pinIcon ?? null, delay);
         const m = L.marker([p.lat, p.lng], { icon: markerIcon });
         const color = CAT_COLOR[p.category] || '#6b7280';
-        const fa    = CAT_FA[p.category]    || '';
-        const short = (p.description || '').length > 90
-            ? p.description.substring(0, 90) + '…'
+        const fa = CAT_FA[p.category] || '';
+        
+        // 1. Hier holen wir die Beschreibung und kürzen sie falls nötig
+        const rawShort = (p.description || '').length > 90 
+            ? p.description.substring(0, 90) + '…' 
             : (p.description || '');
+
+        // 2. ABSICHERUNG: Alle vom Nutzer manipulierbaren Daten maskieren!
+        const safeTitle = escapeHTML(p.title);
+        const safeShort = escapeHTML(rawShort);
+        const safeTime  = escapeHTML(p.time);
 
         let eventLine = '';
         if (p.category === 'event' && p.date) {
             eventLine = `<div style="color:#f87171;font-size:11px;margin:3px 0 0">
-                <i class="fa-regular fa-calendar" style="margin-right:4px"></i>${formatDate(p.date)}${p.time ? ' &middot; ' + p.time : ''}
-            </div>`;
+                    <i class="fa-regular fa-calendar" style="margin-right:4px"></i>${formatDate(p.date)}${safeTime ? ' &middot; ' + safeTime : ''}
+                </div>`;
         }
 
+        // 3. Im HTML-String werden jetzt nur noch die abgesicherten safe-Variablen genutzt
         const html = `
-<div style="position:relative;width:200px">
-  <div style="display:flex;align-items:flex-start;gap:8px;padding-right:28px;margin-bottom:6px">
-    <i class="${fa}" style="color:${color};font-size:15px;margin-top:2px;flex-shrink:0"></i>
-    <div style="flex:1;min-width:0">
-      <div style="hyphens:auto;color:white;font-weight:700;font-size:14px;line-height:1.3;word-break:break-word">${p.title}</div>
-      ${eventLine}
-    </div>
-  </div>
-  <hr style="margin-top: 10px; margin-bottom: 6px; border-color: rgba(255, 255, 255, 0.2);">
-  ${short ? `<p style="color:#ffffff;font-size:12px;line-height:1.5;margin:0 0 8px">${short}</p>` : ''}
-  <button onclick="openDetails('${p.id}')"
-    style="width:100%;background:${color};color:white;border:none;padding:7px 0;border-radius:25px;font-size:14px;cursor:pointer;font-weight:600">
-    Details
-  </button>
-  <button onclick="window._cmap.closePopup()"
-    style="position:absolute;top:-4px;right:-4px;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.15);border:none;color:rgba(255,255,255,0.8);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1">&times;</button>
-</div>`;
-
+            <div style="position:relative;width:200px">
+                <div style="display:flex;align-items:flex-start;gap:8px;padding-right:28px;margin-bottom:6px">
+                    <i class="${fa}" style="color:${color};font-size:15px;margin-top:2px;flex-shrink:0"></i>
+                    <div style="flex:1;min-width:0">
+                        <div style="hyphens:auto;color:white;font-weight:700;font-size:14px;line-height:1.3;word-break:break-word">${safeTitle}</div>
+                        ${eventLine}
+                    </div>
+                </div>
+                <hr style="margin-top: 10px; margin-bottom: 6px; border-color: rgba(255, 255, 255, 0.2);">
+                ${safeShort ? `<p style="color:#ffffff;font-size:12px;line-height:1.5;margin:0 0 8px">${safeShort}</p>` : ''}
+                <button onclick="openDetails('${p.id}')" style="width:100%;background:${color};color:white;border:none;padding:7px 0;border-radius:25px;font-size:14px;cursor:pointer;font-weight:600">
+                    Details
+                </button>
+                <button onclick="window._cmap.closePopup()" style="position:absolute;top:-4px;right:-4px;width:26px;height:26px;border-radius:50%;background:rgba(255,255,255,0.15);border:none;color:rgba(255,255,255,0.8);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1">&times;</button>
+            </div>`;
+            
         m.bindPopup(html, { width: 180, closeButton: false, className: `popup-${p.category}` });
         markers.push(m);
         clusterGroup.addLayer(m);
