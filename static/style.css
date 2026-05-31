@@ -92,6 +92,7 @@ input[type=range]::-moz-range-thumb { height: 18px; width: 18px; border: none; b
     margin-bottom: 10px;
 }
 
+
 /* Tag chips in popups/details */
 .tag-chip {
     display: inline-flex; align-items: center; font-size: 10px;
@@ -283,6 +284,45 @@ button {
 .pill {
     border-radius: 20px!important;
 }
+
+.prose-block { text-align: justify; hyphens: auto; font-size: 0.95rem; line-height: 1.8; }
+.card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 1rem;
+    padding: 1.5rem;
+}
+.step-num {
+    width: 2.2rem; height: 2.2rem;
+    background: #2563eb;
+    color: white; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 800; font-size: 0.9rem; flex-shrink: 0;
+}
+details summary::-webkit-details-marker { display: none; }
+details[open] .chevron { transform: rotate(180deg); }
+.chevron { transition: transform 0.2s ease; }
+.section-title {
+    font-size: 1.25rem; font-weight: 800; color: white;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding-bottom: 0.6rem; margin-bottom: 1.25rem;
+}
+.img-placeholder {
+    border-radius: 0.75rem; height: 10rem;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    border: 2px dashed rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.02); margin-top: 0.75rem;
+}
+.desktop-word { display: inline; }
+.mobile-word { display: none; }
+@media (max-width: 767px) {
+    .desktop-word { display: none; }
+    .mobile-word { display: inline; }
+}
+
+
+
 
 @keyframes pinPopIn {
     0%   { transform: scale(0) translateY(20px); opacity: 0;}

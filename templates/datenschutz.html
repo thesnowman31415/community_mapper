@@ -25,15 +25,28 @@
             font-size: 1rem; font-weight: 700; color: white;
             margin-bottom: 0.75rem;
         }
+        .privacy-nav { position: relative; padding-top: 2rem; padding-bottom: 2rem; min-height: 7.6rem; }
+        .privacy-nav .logo-center { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: flex; align-items: center; justify-content: center; }
+        .privacy-nav .logo-center img { max-height: 115px; width: auto; }
+        .privacy-nav .logo-center .logo_corner_mobile { max-height: 128px; }
+        .privacy-nav .logo-center .logo_corner { display: none; }
+        @media (min-width: 768px) {
+            .privacy-nav { padding-top: 2rem; padding-bottom: 2rem; }
+            .privacy-nav .logo-center .logo_corner_mobile { display: none; }
+            .privacy-nav .logo-center .logo_corner { display: block; }
+        }
     </style>
 </head>
 <body class="bg-gray-900 text-gray-300 min-h-screen">
 
-    <nav class="bg-gray-800 border-b border-white/10 px-4 py-3 md:px-6 md:py-4 flex items-center gap-4 sticky top-0 z-30">
-        <a href="/" class="flex items-center gap-2 text-red-400 hover:text-red-300 text-sm font-bold transition-colors">
+    <nav class="privacy-nav bg-gray-800 border-b border-white/10 px-4 py-3 md:px-6 md:py-4 flex items-center gap-4 sticky top-0 z-30">
+        <a href="/" class="flex items-center gap-2 text-red-400 hover:text-red-300 text-sm font-bold transition-colors z-10">
             <i class="fa-solid fa-arrow-left"></i> Zurück zur Karte
         </a>
-        <img class="ml-auto" src="/static/logo_white.png" alt="Community Music Netzwerk Atlas Logo" style="width: 150px; margin-bottom: -30px;">
+        <div class="logo-center z-0">
+            <img class="logo_corner" src="/static/logo_white.png" alt="Community Music Netzwerk Atlas Logo">
+            <img class="logo_corner_mobile" src="/static/icon.png" alt="Community Music Netzwerk Atlas Logo">
+        </div>
     </nav>
 
     <div class="max-w-5xl mx-auto px-4 py-10 space-y-10">

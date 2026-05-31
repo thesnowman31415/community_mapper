@@ -6,3 +6,4 @@ pypdf
 reportlab
 argon2-cffi
 python-dotenv
+gunicorn

@@ -16,6 +16,14 @@
     <link rel="icon" type="image/png" sizes="16x16" href="static/favicon-16x16.png">
     <link rel="manifest" href="static/site.webmanifest">
     <style id="thumbStyle"></style>
+    <style>
+        .desktop-word { display: inline; }
+        .mobile-word { display: none; }
+        @media (max-width: 767px) {
+            .desktop-word { display: none; }
+            .mobile-word { display: inline; }
+        }
+    </style>
 </head>
 <body class="h-screen w-screen flex flex-col bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 overflow-hidden font">
 
@@ -23,7 +31,7 @@
     <nav class="bg-white dark:bg-gray-800 shadow-md px-4 py-3 md:px-6 md:py-4 flex justify-between items-center z-30 relative shrink-0 gap-2 navbar">
         <div class="flex items-center gap-2">
             <img class="logo_corner" src="/static/logo_white.png" alt="Logo Community Music Netzwerk Atlas">
-            <img class="logo_corner_mobile" src="/static/icon_typography.png" alt="Logo Community Music Netzwerk Atlas">
+            <img class="logo_corner_mobile" src="/static/icon.png" alt="Logo Community Music Netzwerk Atlas">
         </div>
         <div class="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2">
         <div class="view-switcher bg-gray-700 rounded-full p-1 flex text-sm font-bold shadow-inner" style="position:relative">
@@ -121,7 +129,7 @@
 
     <!-- Platzierungsinfobanner -->
     <div id="addModeBanner" style="z-index: -1;" class="hidden bg-red-900 text-white p-2 text-center text-sm z-20 shadow-md cursor-pointer" onclick="toggleAddMode()">
-        <span class="animate-pulse">Klicke auf die Karte zum Platzieren deines Pins oder suche erst eine Adresse.</span>
+        <span class="animate-pulse"><span class="desktop-word">Klicke</span><span class="mobile-word">Tippe</span> auf die Karte zum Platzieren deines Pins oder suche erst eine Adresse.</span>
     </div>
 
     <!-- Main content -->
