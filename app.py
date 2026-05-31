@@ -170,6 +170,7 @@ def suggest_pin():
     data['id'] = str(uuid.uuid4())
     data['status'] = 'pending'
     if not data.get('address'): data['address'] = "Keine Adresse angegeben"
+    data['selfDescription'] = data.get('selfDescription') or data.get('selfDesc') or ''
 
     # Verifikation prüfen via Link zum cmn-Netzwerk
     if data.get('category') == 'person':

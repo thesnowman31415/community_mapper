@@ -143,10 +143,11 @@ def get_pins(today):
 
 
 def suggest_pin(p):
+    self_description = p.get("selfDescription") or p.get("selfDesc") or ''
     (db, cursor) = get_db_connection()
     cursor.execute("""
         INSERT OR REPLACE INTO pins VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-        (p.get("title"), 0, p.get("category"), p.get("date"), p.get("time"), p.get("regularity"), p.get("description"), p.get("selfDescription"), p.get("address"), p.get("lng"), p.get("lat"), p.get("email"), p.get("pinIcon"), p.get("proposalTime"), None, None, p.get("id"), p.get("verified"))
+        (p.get("title"), 0, p.get("category"), p.get("date"), p.get("time"), p.get("regularity"), p.get("description"), self_description, p.get("address"), p.get("lng"), p.get("lat"), p.get("email"), p.get("pinIcon"), p.get("proposalTime"), None, None, p.get("id"), p.get("verified"))
     )
     
     for link in p.get("links"):
@@ -274,7 +275,7 @@ def update(pin):
     address     = pin.get('address')
     category    = pin.get('category')
     regularity  = pin.get('regularity') or None
-    selfDescription = pin.get('selfDesc')
+    selfDescription = pin.get('selfDescription') or pin.get('selfDesc')
 
     tags = []
     for key, val in pin.items():
