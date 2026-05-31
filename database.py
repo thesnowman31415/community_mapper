@@ -284,56 +284,74 @@ def approve(pinID, approved_by=None):
 
 def delete(pinID):
     (db, cursor) = get_db_connection()
-    cursor.execute("DELETE FROM pins WHERE id = ?", (pinID, ))
+    cursor.execute("DELETE FROM pinHasTag WHERE pinId = ?", (pinID,))
+    cursor.execute("DELETE FROM pinHasLink WHERE pinId = ?", (pinID,))
+    cursor.execute("DELETE FROM pins WHERE id = ?", (pinID,))
     db.commit()
+    db.close()
 
 def update(pin):
-    date = pin.get('date') or None
-    time = pin.get('time') or None
+    pin_id      = pin.get('id')
+    title       = pin.get('title')
+    date        = pin.get('date') or None
+    time        = pin.get('time') or None
     description = pin.get('description')
-    email = pin.get('email')
-    address = pin.get('address')
-    category = pin.get('category')
-    regularity = pin.get('regularity')
-    links = []
+    email       = pin.get('email')
+    address     = pin.get('address')
+    category    = pin.get('category')
+    regularity  = pin.get('regularity') or None
+    selfDescription = pin.get('selfDesc')
+
     tags = []
-    
-    if pin.get('date'): date = pin.get('date')
-    if pin.get('time'): time = pin.get('time')
+    for key, val in pin.items():
+        if key.startswith("tags-"):
+            tags.append(val)
 
-    tagList = pin.items()
-    for tag_raw in tagList:
-        if (tag_raw[0].startswith("tags")):
-            tags.append(tag_raw[1])
+    link1_title = pin.get('link1_title', '').strip()
+    link1_url   = pin.get('link1_url', '').strip()
+    link2_title = pin.get('link2_title', '').strip()
+    link2_url   = pin.get('link2_url', '').strip()
 
-    links_raw = pin.get('links', '')
-    if links_raw is not None:
-        links = [t.strip() for t in links_raw.split(',') if t.strip()]
-        print(tags)
+    links = []
+    if link1_url:
+        links.append({'title': link1_title, 'url': link1_url})
+    if link2_url:
+        links.append({'title': link2_title, 'url': link2_url})
 
     (db, cursor) = get_db_connection()
-    cursor.execute("""UPDATE pins 
+    cursor.execute("""UPDATE pins
                     SET title = ?,
                         category = ?,
                         date = ?,
                         time = ?,
                         regularity = ?,
                         description = ?,
+                        selfDescription = ?,
                         address = ?,
                         email = ?
                     WHERE id = ?
-                   """, (title, category, date, time, regularity, description, address, email, id))
+                   """, (title, category, date, time, regularity, description, selfDescription, address, email, pin_id))
 
-    cursor.execute("DELETE FROM pinHasLink WHERE pinId = ?", (id, ))
+    cursor.execute("DELETE FROM pinHasLink WHERE pinId = ?", (pin_id,))
     for link in links:
-        cursor.execute("INSERT INTO pinHasLink VALUES(?,?)", (id, link))
+        existing = cursor.execute(
+            "SELECT id FROM links WHERE url = ? AND title = ?",
+            (link['url'], link['title'])
+        ).fetchone()
+        if existing:
+            link_id = existing[0]
+        else:
+            link_id = str(uuid.uuid4())
+            cursor.execute("INSERT INTO links VALUES(?, ?, ?)", (link_id, link['title'], link['url']))
+        cursor.execute("INSERT INTO pinHasLink VALUES(?, ?)", (pin_id, link_id))
 
-    cursor.execute("DELETE FROM pinHasTag WHERE pinId = ?", (id, ))
+    cursor.execute("DELETE FROM pinHasTag WHERE pinId = ?", (pin_id,))
     for tag in tags:
-        cursor.execute("INSERT INTO pinHasTag VALUES(?,?)", (id, tag))
-
+        cursor.execute("INSERT OR REPLACE INTO tags VALUES(?)", (tag,))
+        cursor.execute("INSERT INTO pinHasTag VALUES(?, ?)", (pin_id, tag))
 
     db.commit()
+    db.close()
 
 
 def get_password_hash(user_name):
