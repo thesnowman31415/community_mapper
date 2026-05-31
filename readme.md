@@ -15,7 +15,7 @@ Hier eine vollständige Übersicht über den Funktionsumfang:
 - Pin-Eintrittsanimation mit Bounce-Effekt und zufälligem Delay für jeden Pin beim Laden
 - Cluster-Pins mit Zähleranzeige
 - Cluster-Radius dynamisch nach Zoom und Geografie (5 km Luftlinie als Basis, Min. 40 px / Max. 100 px)
-- Spiderfy bei MaxZoom (Zoom ≥ 16): Überlappende Pins werden aufgefächert, sodass man sie auch alle einzeln anklicken kann. 
+- Spiderfy bei MaxZoom (Zoom >= 16): Überlappende Pins werden aufgefächert, sodass man sie auch alle einzeln anklicken kann. 
 
 ### Popups auf der Karte
 - Klick auf Pin öffnet kleines Popup: Kategorie-Icon, Titel, Datum/Uhrzeit (bei Events), Kurzbeschreibung (max. 90 Zeichen mit automatischer Ellipse)
