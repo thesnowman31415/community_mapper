@@ -171,6 +171,8 @@ def suggest_pin():
     data['status'] = 'pending'
     if not data.get('address'): data['address'] = "Keine Adresse angegeben"
     data['selfDescription'] = data.get('selfDescription') or data.get('selfDesc') or ''
+    # set proposal time server-side so admin sees "Eingereicht am"
+    data['proposalTime'] = datetime.now().isoformat()
 
     # Verifikation prüfen via Link zum cmn-Netzwerk
     if data.get('category') == 'person':

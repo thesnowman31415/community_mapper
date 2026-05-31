@@ -16,6 +16,18 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <style>
         .tag-chip { display:inline-block; font-size:11px; padding:2px 10px; border-radius:9999px; background:#374151; color:#d1d5db; border:1px solid #4b5563; margin:2px; }
+        @media (max-width: 640px) {
+            table.min-w-full thead { display: none; }
+            table.min-w-full tbody { display: block; }
+            table.min-w-full tbody tr { display: block; margin-bottom: 0.6rem; border-radius: 0.75rem; overflow: hidden; }
+            table.min-w-full tbody tr td { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0.75rem; }
+            table.min-w-full tbody tr td .flex { gap: 0.5rem; }
+            table.min-w-full tbody tr td .bg-blue-500, table.min-w-full tbody tr td .bg-gray-500 {
+                width: 100%;
+                text-align: center;
+                box-sizing: border-box;
+            }
+        }
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen">
@@ -774,6 +786,14 @@ function buildTagCheckboxes(tags, pinTags) {
         document.getElementById('editDesc').value     = pin.description || '';
         document.getElementById('editSelfDesc').value = pin.selfDesc || pin.selfDescription || '';
         document.getElementById('editEmail').value    = pin.email      || '';
+        // Links (edit modal expects two link fields)
+        const l1 = (pin.links && pin.links.length > 0) ? pin.links[0] : null;
+        const l2 = (pin.links && pin.links.length > 1) ? pin.links[1] : null;
+        const setIfExists = (id, val) => { const el = document.getElementById(id); if (el) el.value = val || ''; };
+        setIfExists('link1_title', l1 ? l1.title : '');
+        setIfExists('link1_url',   l1 ? l1.url   : '');
+        setIfExists('link2_title', l2 ? l2.title : '');
+        setIfExists('link2_url',   l2 ? l2.url   : '');
         document.getElementById('editDate').value     = pin.date       || '';
         document.getElementById('editTime').value     = pin.time       || '';
         setEditRegularity(pin.regularity || '');
