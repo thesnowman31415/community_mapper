@@ -68,6 +68,15 @@ def create_table():
         """
     )
     db.commit()
+
+    default_tags = [
+        'Singen', 'Percussion / Trommeln', 'Improvisation', 'Instrumentalmusik',
+        'Gesundheit & Wohlbefinden', 'Für Kinder', 'Für Erwachsene', 'Songwriting',
+        'Weiterbildung', 'Bewegung / Tanz', 'Vernetzungstreffen', 'Sonstiges'
+    ]
+    cursor.executemany("INSERT OR IGNORE INTO tags VALUES(?)", [(t,) for t in default_tags])
+    db.commit()
+
 create_table()
 
 
@@ -85,41 +94,6 @@ def load_json(filepath):
 
 
 APPROVED_FILE = "data/approved_pins.json"
-
-
-def migrate_from_json():
-
-    (db, cursor) = get_db_connection(False)
-    pins = load_json(APPROVED_FILE)
-    for p in pins:
-        # tags
-        
-        # links
-        links = p.get("links")
-        for link in links:
-            linkID = str(uuid.uuid4())
-            linkIDArray = cursor.execute("SELECT id FROM links WHERE url = ? AND title = ?", (link.get("url"), link.get("title"),)).fetchall()
-            
-            if (len(linkIDArray) > 0 ):
-                linkID = linkIDArray[0][0]
-
-            cursor.execute("INSERT OR REPLACE INTO links VALUES(?, ?, ?)", (linkID, link.get("title"), link.get("url"),))
-            cursor.execute("""INSERT OR REPLACE INTO pinHasLink VALUES(?, ?)""", (p.get("id"), linkID),)
-
-        # pins
-        cursor.execute("""
-            INSERT OR REPLACE INTO pins VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-              (p.get("title"), 1, p.get("category"), p.get("date"), p.get("time"), p.get("regularity"), p.get("description"), p.get("selfDescription"), p.get("address"), p.get("lng"), p.get("lat"), p.get("email"), p.get("pinIcon"), p.get("proposalTime"), None, None, p.get("id"), p.get("verified"))
-        )
-
-        tags = p.get("tags")
-        for tag in tags:
-            cursor.execute("INSERT OR REPLACE INTO tags VALUES(?)", (tag,))
-            cursor.execute("""INSERT OR REPLACE INTO pinHasTag VALUES(?, ?)""", (p.get("id"), tag))
-
-        db.commit()
-
-#migrate_from_json()
 
 def get_pins(today):
     db, cursor = get_db_connection()
