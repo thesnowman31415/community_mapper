@@ -424,7 +424,7 @@
                 </div>
                 <div>
                     <label class="text-xs font-bold text-gray-500 uppercase">Selbstverortung</label>
-                    <textarea name="selfDesc" id="editSelfDesc" rows="2" class="w-full border dark:border-gray-600 rounded-lg px-3 py-2 mt-1 bg-white dark:bg-gray-700 dark:text-white"></textarea>
+                    <textarea name="selfDesc" id="editSelfDesc" rows="2" readonly class="w-full border dark:border-gray-600 rounded-lg px-3 py-2 mt-1 bg-white dark:bg-gray-700 dark:text-gray-200"></textarea>
                 </div>
                 <div>
                     <label class="text-xs font-bold text-gray-500 uppercase">E-Mail</label>
@@ -565,10 +565,11 @@
         document.getElementById('modalDesc').innerText = pin.description || '';
 
         // Selbstverortung
+        const modalSelfDesc = pin.selfDesc || pin.selfDescription || '';
         const sdRow = document.getElementById('modalSelfDescRow');
-        if (pin.selfDesc) {
+        if (modalSelfDesc) {
             sdRow.classList.remove('hidden');
-            document.getElementById('modalSelfDesc').innerText = pin.selfDesc;
+            document.getElementById('modalSelfDesc').innerText = modalSelfDesc;
         } else { sdRow.classList.add('hidden'); }
 
         // Links
@@ -639,10 +640,11 @@
             tagsRow.classList.add('hidden');
         }
 
+        const detailSelfDesc = pin.selfDesc || pin.selfDescription || '';
         const selfDescRow = document.getElementById('detailSelfDescRow');
-        if (pin.selfDesc) {
+        if (detailSelfDesc) {
             selfDescRow.classList.remove('hidden');
-            document.getElementById('detailSelfDesc').innerText = pin.selfDesc;
+            document.getElementById('detailSelfDesc').innerText = detailSelfDesc;
         } else {
             selfDescRow.classList.add('hidden');
         }
@@ -770,7 +772,7 @@ function buildTagCheckboxes(tags, pinTags) {
         document.getElementById('editCat').value      = pin.category;
         document.getElementById('editAddr').value     = pin.address    || '';
         document.getElementById('editDesc').value     = pin.description || '';
-        document.getElementById('editSelfDesc').value = pin.selfDesc   || '';
+        document.getElementById('editSelfDesc').value = pin.selfDesc || pin.selfDescription || '';
         document.getElementById('editEmail').value    = pin.email      || '';
         document.getElementById('editDate').value     = pin.date       || '';
         document.getElementById('editTime').value     = pin.time       || '';
