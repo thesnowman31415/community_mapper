@@ -54,8 +54,6 @@ def format_datetime(value):
 app.jinja_env.filters['format_datetime'] = format_datetime
 
 DATA_DIR = 'data'
-APPROVED_FILE = os.path.join(DATA_DIR, 'approved_pins.json')
-PENDING_FILE = os.path.join(DATA_DIR, 'pending_pins.json')
 
 ph = PasswordHasher()
 
@@ -296,19 +294,19 @@ def delete_user():
         session['toast_message'] = 'Admin erfolgreich gelöscht.'
     return redirect('/admin')
 
-@app.route('/admin/approve/<pin_id>', methods=['POST'])
+@app.route('/admin/approve/<pin_id>', methods=['GET', 'POST'])
 def approve(pin_id):
     if 'user' not in session: return redirect('/admin')
     database.approve(pin_id, session['user'])
     return redirect('/admin')
 
-@app.route('/admin/reject/<pin_id>', methods=['POST'])
+@app.route('/admin/reject/<pin_id>', methods=['GET', 'POST'])
 def reject(pin_id):
     if 'user' not in session: return redirect('/admin')
     database.delete(pin_id)
     return redirect('/admin')
 
-@app.route('/admin/delete_approved/<pin_id>', methods=['POST'])
+@app.route('/admin/delete_approved/<pin_id>', methods=['GET', 'POST'])
 def delete_approved(pin_id):
     if 'user' not in session: return redirect('/admin')
     database.delete(pin_id)
