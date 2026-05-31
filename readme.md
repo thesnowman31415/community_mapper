@@ -312,6 +312,7 @@ Hier eine vollständige Übersicht über den Funktionsumfang:
 ## 14. DESIGN & VISUELLE DETAILS
  
 - Durchgängig Dark Mode, weil es einfach viiiiiel besser aussieht
+- Vollständige Responsiveness, Seite sowohl auf Desktop, als auch Tablet und Mobile optimiert
 - Tailwind CSS + Custom CSS (`style.css`)
 - Schriftart: Roboto (Google Fonts CDN)
 - Farbsystem: rot (#dc2626) = Events, blau (#2563eb) = Institutionen, grün (#16a34a) = Personen
