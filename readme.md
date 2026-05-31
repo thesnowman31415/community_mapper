@@ -132,7 +132,7 @@ Hier eine vollständige Übersicht über den Funktionsumfang:
 - Antwort-Toast: grün bei Erfolg, rot bei Fehler
 - Modal schließt sich nach erfolgreichem Submit, Platzierungsmodus deaktiviert sich
 ### Verifikationsmechanismus
-- Wenn Kategorie „Person" + Link enthält `https://forum.communitymusicnetzwerk.de/user/`, wird dieser User mit einem Badge verifiziert und angezeigt
+- Wenn Kategorie „Person" + Link zu einer Communitymusicnetzwerk-Profilseite, wird dieser User mit einem Badge verifiziert und angezeigt
 - Verifizierungs-Badge zusätzlich im Detail-Modal sichtbar (grüner Schriftzug „Verifiziertes Mitglied")
 ---
  
