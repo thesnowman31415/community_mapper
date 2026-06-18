@@ -341,4 +341,4 @@ def pin_icons(category):
 if __name__ == '__main__':
     # hier später durch Bucket bzw. Datenbank ersetzen
     os.makedirs(DATA_DIR, exist_ok=True)
-    app.run(host='0.0.0.0', port=int(os.getenv("PORT", 5050)), debug=False, threaded=False)
+    app.run(host='0.0.0.0', port=int(os.getenv("PORT", 8000)), debug=False, threaded=False)
